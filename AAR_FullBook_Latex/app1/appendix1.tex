@@ -1,0 +1,618 @@
+
+\chapter{Proofs, Examples and Design}
+
+\section{System Information about the Receiver Model}
+
+\label{Appendix A}
+
+The aerodynamic forces of the receiver along the $x$-axis, the $y$-axis, and
+the $z$-axis are $\bar{X}$, $\bar{Y}$, $\bar{Z}$, which can be expressed as%
+\begin{eqnarray*}
+	\bar{X} &=&\bar{q}SC_{X_{T}}\left( \alpha ,\beta ,p,q,r,\mathbf{u}_{\text{r}%
+	}\right)  \\
+	\bar{Y} &=&\bar{q}SC_{Y_{T}}\left( \alpha ,\beta ,p,q,r,\mathbf{u}_{\text{r}%
+	}\right)  \\
+	\bar{Z} &=&\bar{q}SC_{Z_{T}}\left( \alpha ,\beta ,p,q,r,\mathbf{u}_{\text{r}%
+	}\right)
+\end{eqnarray*}%
+where $\bar{q}$ is dynamic pressure, $S$ is wing area, $\alpha $ is the
+angle of attack, $\beta $ is the sideslip angle, aerodynamic parameters $%
+C_{X_{T}}$, $C_{Y_{T}}$, $C_{Z_{T}}$ can be obtained from wind tunnel tests
+or flight data. The aerodynamic moments of force of the receiver along the $x
+$-axis, the $y$-axis, and the $z$-axis are $\bar{L}$, $\bar{M}$, $\bar{N}$,
+which can be expressed as%
+\begin{eqnarray*}
+	\bar{L} &=&\bar{q}SbC_{l_{T}}\left( \alpha ,\beta ,p,q,r,\mathbf{u}_{\text{r}%
+	}\right)  \\
+	\bar{M} &=&\bar{q}S\bar{c}C_{m_{T}}\left( \alpha ,\beta ,p,q,r,\mathbf{u}_{%
+		\text{r}}\right)  \\
+	\bar{N} &=&\bar{q}SbC_{n_{T}}\left( \alpha ,\beta ,p,q,r,\mathbf{u}_{\text{r}%
+	}\right)
+\end{eqnarray*}%
+where $b$ is the wing span, $\bar{c}$ is the wing mean geometric chord, aerodynamic parameters $C_{l_{T}}$, $C_{m_{T}}$, $%
+C_{n_{T}}$ can be obtained from wind tunnel tests or flight data. Suppose
+that engine thrust $F_{\text{T}}$ and its moment of momentum $h_{\text{E}}$
+are along the $x$-axis. Other parameters, which are related to the inertia
+moment and the change of the inertia moment, in Eq.~(\ref{Eq_RDE}) are%
+\begin{eqnarray*}
+	c_{1} &=&\frac{\left( J_{y}-J_{z}\right) J_{z}-J_{xz}^{2}}{\sum },c_{2}=%
+	\frac{\left( J_{x}-J_{y}+J_{z}\right) J_{xz}}{\sum }, \\
+	c_{3} &=&\frac{J_{z}}{\sum },c_{4}=\frac{J_{xz}}{\sum },c_{5}=,c_{6}=\frac{%
+		J_{xz}}{J_{y}} \\
+	c_{7} &=&\frac{1}{J_{y}},c_{8}=\frac{J_{x}\left( J_{x}-J_{y}\right)
+		+J_{xz}^{2}}{\sum },c_{9}=\frac{J_{x}}{\sum } \\
+	\kappa _{1} &=&\frac{\dot{J}_{xz1}J_{xz}-\dot{J}_{x1}J_{z}}{\sum },\kappa
+	_{2}=\frac{\dot{J}_{xz1}J_{z}-\dot{J}_{z1}J_{xz}}{\sum },\kappa _{3}=\frac{%
+		\dot{J}_{y1}}{J_{y}} \\
+	\kappa _{4} &=&\frac{\dot{J}_{x1}J_{xz}-\dot{J}_{x}J_{zx1}}{\sum },\kappa
+	_{5}=\frac{\dot{J}_{x1}J_{z}-\dot{J}_{xz1}J_{xz}}{\sum },\sum
+	=J_{x}J_{z}-J_{xz}^{2}
+\end{eqnarray*}%
+with the solid part of the receiver has the inertia moment $\mathbf{J}_{0}$,
+and fuel tanks have the inertia moment $\mathbf{J}_{f}$. Then, the total
+inertia moment of the receiver is $\mathbf{J=J}_{0}+\mathbf{J}_{f}$ as
+follows
+\begin{equation*}
+\mathbf{J}_{0}=\left[
+\begin{array}{ccc}
+J_{x0} & 0 & J_{xz0} \\
+0 & J_{y0} & 0 \\
+-J_{xz0} & 0 & J_{z0}%
+\end{array}%
+\right] ,\mathbf{J}_{f}=\left[
+\begin{array}{ccc}
+J_{x1} & 0 & J_{xz1} \\
+0 & J_{y1} & 0 \\
+-J_{xz1} & 0 & J_{z1}%
+\end{array}%
+\right] ,\mathbf{J}=\left[
+\begin{array}{ccc}
+J_{x} & 0 & J_{xz} \\
+0 & J_{y} & 0 \\
+-J_{xz} & 0 & J_{z}%
+\end{array}%
+\right] .
+\end{equation*}
+
+\section{Proof of Theorem 9.1}
+
+\label{App-1}First, define the $\mathbf{p}{_{\text{pr}}^{\left(k\right)}}\left(T^{\left(k\right)}\right)$
+as the probe terminal position in the $k^{\text{th}}$ docking attempt.
+Then, according to Eq.~(\ref{Eq-rec5}), one has
+\begin{equation}
+\mathbf{p}{_{\text{pr}}^{\left(k\right)}}\left(T^{\left(k\right)}\right)=\mathbf{\hat{u}}_{\text{pr}}^{\left(k\right)}-\mathbf{v}_{\text{pr}}^{\left(k\right)}\label{Eq-convAna1}
+\end{equation}
+where, $\mathbf{\hat{u}}_{\text{pr}}^{\left(k\right)}$ can be further
+expressed by Eq.~(\ref{Eq-Stg1-0}), which yields 
+\begin{equation}
+{\mathbf{p}}_{\text{dr}}^{\text{e0,}\left(k\right)}+\mathbf{u}_{\text{de,dr}}^{\left(k\right)}-\mathbf{p}{_{\text{pr}}^{\left(k\right)}}\left(T^{\left(k\right)}\right)=\mathbf{v}_{\text{pr}}^{\left(k\right)}-\mathbf{u}_{\text{e,pr}}^{\left(k\right)}.\label{Eq-convAna2}
+\end{equation}
+Meanwhile, according to the definition of $\mathbf{e}_{\text{pr}}^{(k)}$
+in Eq.~(\ref{Eq-Stg2-4}), one has
+\begin{equation}
+\mathbf{e}_{\text{pr}}^{(k)}=\mathbf{v}_{\text{pr}}^{\left(k\right)}-\mathbf{u}_{\text{e,pr}}^{\left(k\right)}.\label{Eq-convAna3}
+\end{equation}
+Thus, substituting Eq.\ (\ref{Eq-Stg2-3}) into Eq.~(\ref{Eq-convAna3})
+gives
+\begin{equation}
+\mathbf{e}_{\text{pr}}^{(k)}=\left(\mathbf{I}-\mathbf{K}_{p}\right)\cdot\mathbf{e}_{\text{pr}}^{(k-1)}+\mathbf{\tilde{v}}_{\text{pr}}^{\left(k-1\right)}\label{Eq-convAna6}
+\end{equation}
+where
+\begin{equation}
+\mathbf{\tilde{v}}_{\text{pr}}^{\left(k-1\right)}\triangleq\mathbf{v}_{\text{pr}}^{\left(k\right)}-\mathbf{v}_{\text{pr}}^{\left(k-1\right)}.\label{eq:Vpr}
+\end{equation}
+
+Second, according to Eq.~(\ref{Eq-wbow0}), the drogue terminal position
+$\mathbf{p}{_{\text{dr}}^{(k)}}\left(T^{\left(k\right)}\right)$ in
+the $k^{\text{th}}$ docking attempt is given by
+\begin{equation}
+\mathbf{p}{_{\text{dr}}^{(k)}}\left(T^{\left(k\right)}\right)={\mathbf{p}}_{\text{dr}}^{\text{e0,}\left(k\right)}+\Delta{\mathbf{p}}_{\text{dr}}^{\text{e,}\left(k\right)}\label{Eq-convAna8}
+\end{equation}
+where ${\mathbf{p}}_{\text{dr}}^{\text{e0,}\left(k\right)}$ is the
+drogue original equilibrium position, and $\Delta{\mathbf{p}}_{\text{dr}}^{\text{e,}\left(k\right)}$
+is the terminal position offset. According to Eq.~(\ref{Eq_hoseDrDyn2-3}),
+$\Delta{\mathbf{p}}_{\text{dr}}^{\text{e,}\left(k\right)}$ comes
+from the bow wave effect and can be expressed
+
+\begin{equation}
+\Delta{\mathbf{p}}_{\text{dr}}^{\text{e,}\left(k\right)}=\mathbf{m}_{0}+\mathbf{M}_{1}\cdot\Delta{\mathbf{p}}_{\text{dr/pr}}^{\left(k\right)}\left(T^{\left(k\right)}\right)+\mathbf{v}_{\text{dr}}^{\left(k\right)}.\label{Eq-convAna7-1}
+\end{equation}
+Thus, the docking error along the iteration axis is given by
+\begin{equation}
+\Delta{\mathbf{p}}_{\text{dr/pr}}^{\left(k\right)}\left(T^{\left(k\right)}\right)=\mathbf{p}{_{\text{dr}}^{\left(k\right)}}\left(T^{\left(k\right)}\right)-\mathbf{p}{_{\text{pr}}^{\left(k\right)}}\left(T^{\left(k\right)}\right).\label{Eq-convAna9}
+\end{equation}
+Substituting Eqs.~(\ref{Eq-convAna8})(\ref{Eq-convAna7-1})(\ref{Eq-convAna9})
+into Eqs.~(\ref{Eq-Stg2-0})(\ref{Eq-Stg2-1}) gives
+\begin{equation}
+\Delta{\mathbf{p}}_{\text{dr/pr}}^{\left(k\right)}\left(T^{\left(k\right)}\right)=\mathbf{A}_{1}\cdot\Delta{\mathbf{p}}_{\text{dr/pr}}^{\left(k-1\right)}\left(T^{\left(k-1\right)}\right)+\mathbf{A}_{2}\cdot\mathbf{e}_{\text{pr}}^{(k-1)}+\mathbf{\tilde{v}}_{\text{dr}}^{\left(k-1\right)}\label{Eq-convAna10}
+\end{equation}
+where
+\begin{eqnarray}
+\mathbf{A}_{1} & \triangleq & \left(\mathbf{M}_{1}-\mathbf{I}\right)^{-1}\left(\mathbf{M}_{1}-\mathbf{K}_{\alpha}\right)=\mathbf{I-}\left(\mathbf{I-M}_{1}\right)^{-1}\left(\mathbf{I}-\mathbf{K}_{\alpha}\right)\label{Eq-convAna11-1}\\
+\mathbf{A}_{2} & \triangleq & \left(\mathbf{M}_{1}-\mathbf{I}\right)^{-1}\left(\mathbf{K}_{p}+\mathbf{K}_{\alpha}-\mathbf{I}\right)\label{Eq-convAna11-2}\\
+\mathbf{\tilde{v}}_{\text{dr}}^{\left(k-1\right)} & \triangleq & \left(\mathbf{M}_{1}-\mathbf{I}\right)^{-1}\left(\mathbf{v}_{\text{dr}}^{\left(k-1\right)}-\mathbf{v}_{\text{dr}}^{\left(k\right)}\right).\label{Eq-convAna11-3}
+\end{eqnarray}
+For simplicity, an augmented system is defined as
+\begin{equation}
+\mathbf{X}^{\left(k\right)}=\mathbf{A\cdot X}^{\left(k-1\right)}+\mathbf{v}^{\left(k-1\right)}\label{Eq-convAna13}
+\end{equation}
+where
+
+\begin{eqnarray}
+\mathbf{X}^{\left(k\right)} & \triangleq & \left[\begin{array}{c}
+\Delta{\mathbf{p}}_{\text{dr/pr}}^{\left(k\right)}\left(T^{\left(k\right)}\right)\\
+\mathbf{e}_{\text{pr}}^{(k)}
+\end{array}\right],\mathbf{v}^{\left(k\right)}\triangleq\left[\begin{array}{c}
+\mathbf{\tilde{v}}_{\text{dr}}^{\left(k\right)}\\
+\mathbf{\tilde{v}}_{\text{pr}}^{\left(k\right)}
+\end{array}\right]\label{Eq-convAna12-0}\\
+\mathbf{A} & \triangleq & \left[\begin{array}{cc}
+\mathbf{A}_{1} & \mathbf{A}_{2}\\
+\mathbf{0}_{3\times3} & \mathbf{A}_{3}
+\end{array}\right],\;\mathbf{A}_{3}\triangleq\mathbf{I}-\mathbf{K}_{p}.\label{Eq-convAna12}
+\end{eqnarray}
+Furthermore, Eq.\ (\ref{Eq-convAna12-0}) can be written into the
+following form
+\begin{equation}
+\mathbf{X}^{\left(k\right)}=\mathbf{A}^{k}\cdot\mathbf{X}^{\left(0\right)}+\sum_{i=0}^{k-1}\mathbf{A}^{i}\mathbf{v}^{\left(k-i\right)}.\label{eq:xkak}
+\end{equation}
+
+Since $\mathbf{M}_{1}$ is a negative definite matrix, according to
+Eqs.\ (\ref{Eq-convAna11-1})(\ref{Eq-convAna11-1})(\ref{Eq-convAna12-0}),
+it is easy to verify that the spectral radius of $\mathbf{A}$ is
+smaller than 1 ($\rho\left(\mathbf{A}\right)<1$) when the following
+constraint is satisfied
+\begin{equation}
+0\leq k_{\alpha_{i}}<1,\text{ }0<k_{p_{i}}\leq1\text{, }i=1,2,3.\label{Eq-convAna17-2}
+\end{equation}
+Moreover, since the disturbances $\mathbf{v}_{\text{pr}}^{\left(k\right)}$
+and $\mathbf{v}_{\text{dr}}^{\left(k\right)}$ are both bounded with
+$\left\Vert \mathbf{v}_{\text{pr}}^{\left(k\right)}\right\Vert \leq B_{\text{pr}}$
+and $\left\Vert \mathbf{v}_{\text{dr}}^{\left(k\right)}\right\Vert \leq B_{\text{dr}}$,
+it is easy to obtain from Eqs.\ (\ref{eq:Vpr})(\ref{Eq-convAna11-1})(\ref{Eq-convAna12-0})
+that $\mathbf{v}^{\left(k\right)}$ is also bounded with
+\begin{equation}
+\left\Vert \mathbf{v}^{\left(k\right)}\right\Vert \leq2\sqrt{B_{\text{pr}}^{2}+B_{\text{dr}}^{2}}.\label{eq:vBr}
+\end{equation}
+Then, substituting Eq.\ (\ref{eq:vBr}) into Eq.\ (\ref{eq:xkak})
+gives
+\begin{equation}
+\begin{array}{ll}
+\left\Vert \mathbf{X}^{\left(k\right)}\right\Vert  & \leq\left\Vert \mathbf{A}\right\Vert ^{k}\left\Vert \mathbf{X}^{\left(0\right)}\right\Vert +\sum_{i=0}^{k-1}\left\Vert \mathbf{A}\right\Vert ^{i}\left\Vert \mathbf{v}^{\left(k-i\right)}\right\Vert \\
+& \leq\left\Vert \mathbf{A}\right\Vert ^{k}\left\Vert \mathbf{X}^{\left(0\right)}\right\Vert +2\sqrt{B_{\text{pr}}^{2}+B_{\text{dr}}^{2}}\sum_{i=0}^{k-1}\left\Vert \mathbf{A}\right\Vert ^{i}\\
+& =\left\Vert \mathbf{A}\right\Vert ^{k}\left\Vert \mathbf{X}^{\left(0\right)}\right\Vert +2\sqrt{B_{\text{pr}}^{2}+B_{\text{dr}}^{2}}\left(1-\left\Vert \mathbf{A}\right\Vert ^{k}\right).
+\end{array}\label{eq:xka}
+\end{equation}
+When the constraint in Eq.\ (\ref{Eq-convAna17-2}) is satisfied,
+one has
+\begin{equation}
+\rho\left(\mathbf{A}\right)<1\Rightarrow\lim_{k\rightarrow\infty}\left\Vert \mathbf{A}\right\Vert ^{k}=0
+\end{equation}
+which yields from Eq.\ (\ref{eq:xka}) that
+\begin{equation}
+\lim_{k\rightarrow\infty}\left\Vert \mathbf{X}^{\left(k\right)}\right\Vert \leq2\sqrt{B_{\text{pr}}^{2}+B_{\text{dr}}^{2}}.\label{eq:xk46}
+\end{equation}
+
+According to the definition of $\mathbf{X}^{\left(k\right)}$ in Eq.\ (\ref{Eq-convAna12-0}),
+one has
+\begin{equation}
+\left\Vert \Delta{\mathbf{p}}_{\text{dr/pr}}^{\left(k\right)}\left(T^{\left(k\right)}\right)\right\Vert \leq\left\Vert \mathbf{X}^{\left(k\right)}\right\Vert .\label{eq:xk47}
+\end{equation}
+Combining Eq.\ (\ref{eq:xk46}) and (\ref{eq:xk47}) gives
+\begin{equation}
+\lim_{k\rightarrow\infty}\left\Vert \Delta{\mathbf{p}}_{\text{dr/pr}}^{\left(k\right)}\left(T^{\left(k\right)}\right)\right\Vert \leq2\sqrt{B_{\text{pr}}^{2}+B_{\text{dr}}^{2}}=B_{\text{dr/pr}}.\label{eq:kwuqiong}
+\end{equation}
+Thus, the docking error $\Delta{\mathbf{p}}_{\text{dr/pr}}^{\left(k\right)}\left(T^{\left(k\right)}\right)$
+will converge to a bound $B_{\text{dr/pr}}$ as $k\rightarrow\infty$.
+In particular, by substituting $B_{\text{dr}}=0\text{, }B_{\text{pr}}=0$
+into Eq.\ (\ref{eq:kwuqiong}), one has $\lim_{k\rightarrow\infty}\left\Vert \Delta{\mathbf{p}}_{\text{dr/pr}}^{\left(k\right)}\left(T^{\left(k\right)}\right)\right\Vert =0$. 
+
+\subsection{Proof of Theorem 10.1}
+
+\label{Proof1}
+
+First, define variables $\mathbf{\tilde{x}}_{k}\left(  t\right)
+\triangleq \mathbf{x}_{k}\left(  t\right)  -\mathbf{x}_{k-1}\left(  t\right)
+$, $\mathbf{\tilde{u}}_{k}\left(  t\right)  \triangleq \mathbf{u}_{k}\left(
+t\right)  -\mathbf{u}_{k-1}\left(  t\right)  $, $\mathbf{\tilde{q}}%
+_{k}\triangleq \mathbf{q}_{k}-\mathbf{q}_{k-1}$, $\boldsymbol{\tilde{\eta}}%
+_{k}=\boldsymbol{\eta}_{k}-\boldsymbol{\eta}_{k-1}.$ Starting from
+$\mathbf{e}_{k}\left(  T\right)  $, one has
+\begin{equation}
+\mathbf{e}_{k}\left(  T\right)  =\mathbf{e}_{k-1}\left(  T\right)
+-\mathbf{\bar{C}\tilde{x}}_{k}\left(  T\right)  .\label{E_ek_T0_C3}%
+\end{equation}
+The next step is to calculate $\mathbf{\tilde{x}}_{k}\left(  t\right)  $.
+Integrating both sides of equation $\mathbf{\dot{x}}_{k}\left(  t\right)
+=\mathbf{Ax}_{k}\left(  t\right)  +\mathbf{Bu}_{k}\left(  t\right)
++\boldsymbol{\phi}\left(  \mathbf{\bar{y}}_{k}\left(  t\right)  \right)
++\boldsymbol{\varphi}_{k}$ gives
+\begin{equation}%
+\begin{array}
+[c]{c}%
+\mathbf{x}_{k}\left(  t\right)  =\mathbf{x}_{0,k}+%
+%TCIMACRO{\dint \nolimits_{0}^{t}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{t}}
+%EndExpansion
+\left(  \mathbf{Ax}_{k}\left(  \tau \right)  +\mathbf{Bu}_{k}\left(
+\tau \right)  +\boldsymbol{\phi}\left(  \mathbf{\bar{y}}_{k}\left(
+\tau \right)  \right)  +\boldsymbol{\varphi}_{k}\right)  \text{d}\tau.
+\end{array}
+\end{equation}
+Then,
+\begin{equation}
+\mathbf{\tilde{x}}_{k}\left(  t\right)  =\mathbf{M}_{2}\boldsymbol{\tilde
+	{\eta}}_{k}+%
+%TCIMACRO{\dint \nolimits_{0}^{t}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{t}}
+%EndExpansion
+\left(  \mathbf{A\tilde{x}}_{k}\left(  \tau \right)  +\mathbf{B\tilde{u}}%
+_{k}\left(  \tau \right)  +\boldsymbol{\phi}\left(  \mathbf{\bar{y}}_{k}\left(
+\tau \right)  \right)  -\boldsymbol{\phi}\left(  \mathbf{\bar{y}}_{k-1}\left(
+\tau \right)  \right)  +\boldsymbol{\varphi}_{k}-\boldsymbol{\varphi}%
+_{k-1}\right)  \text{d}\tau.\label{E_x_wan_t_C3}%
+\end{equation}
+According to the learning control law (\ref{E_ControlLaw_C3}) and the learning
+update law (\ref{E_LearningLaw_C3}), one has $\mathbf{\tilde{u}}_{k}\left(
+t\right)  =\mathbf{U}_{\text{b}}\left(  t\right)  \mathbf{\tilde{q}}%
+_{k}=\mathbf{U}_{\text{b}}\left(  t\right)  \mathbf{L}_{1}\mathbf{e}%
+_{k-1}\left(  T\right)  \ $ and $\boldsymbol{\tilde{\eta}}_{k}=\mathbf{L}%
+_{2}\mathbf{e}_{k-1}\left(  T\right)  .$ Then, Eq.~(\ref{E_x_wan_t_C3})
+becomes
+\begin{equation}
+\mathbf{\tilde{x}}_{k}\left(  t\right)  =\mathbf{M}_{2}\mathbf{L}%
+_{2}\mathbf{e}_{k-1}\left(  T\right)  +%
+%TCIMACRO{\dint \nolimits_{0}^{t}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{t}}
+%EndExpansion
+\left(  \mathbf{A\tilde{x}}_{k}\left(  \tau \right)  +\mathbf{BU}_{\text{b}%
+}\left(  \tau \right)  \mathbf{L}_{1}\mathbf{e}_{k-1}\left(  T\right)
++\boldsymbol{\phi}\left(  \mathbf{\bar{y}}_{k}\left(  \tau \right)  \right)
+-\boldsymbol{\phi}\left(  \mathbf{\bar{y}}_{k-1}\left(  \tau \right)  \right)
++\boldsymbol{\varphi}_{k}-\boldsymbol{\varphi}_{k-1}\right)  \text{d}%
+\tau.\label{E_x_wan_t1_C3}%
+\end{equation}
+Substituting $\mathbf{\tilde{x}}_{k}\left(  T\right)  $ into (\ref{E_ek_T0_C3}%
+) gives
+\begin{equation}
+\mathbf{e}_{k}\left(  T\right)  =\left(  \mathbf{I}_{3}-\mathbf{\bar{C}M}%
+_{2}\mathbf{L}_{2}-%
+%TCIMACRO{\dint \nolimits_{0}^{T}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{T}}
+%EndExpansion
+\mathbf{\bar{C}BU}_{\text{b}}\left(  \tau \right)  \mathbf{L}_{1}\text{d}%
+\tau \right)  \mathbf{e}_{k-1}\left(  T\right)  -\mathbf{\bar{C}}%
+%TCIMACRO{\dint \nolimits_{0}^{T}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{T}}
+%EndExpansion
+\left(  \mathbf{A\tilde{x}}_{k}\left(  \tau \right)  +\boldsymbol{\phi}\left(
+\mathbf{\bar{y}}_{k}\left(  \tau \right)  \right)  -\boldsymbol{\phi}\left(
+\mathbf{\bar{y}}_{k-1}\left(  \tau \right)  \right)  +\boldsymbol{\varphi}%
+_{k}-\boldsymbol{\varphi}_{k-1}\right)  \text{d}\tau,\label{E_ek_T2_C3}%
+\end{equation}
+where $\mathbf{I}_{3}\in%
+%TCIMACRO{\U{211d} }%
+%BeginExpansion
+\mathbb{R}
+%EndExpansion
+^{3\times3}$ is an identity matrix. According to \textit{Assumptions 2-3,
+}taking the norm on both sides of Eq.~(\ref{E_ek_T2_C3}) results in
+\begin{equation}
+\left \Vert \mathbf{e}_{k}\left(  T\right)  \right \Vert \leq \alpha \left \Vert
+\mathbf{e}_{k-1}\left(  T\right)  \right \Vert +%
+%TCIMACRO{\dint \nolimits_{0}^{T}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{T}}
+%EndExpansion
+\left(  \left \Vert \mathbf{\bar{C}A}\right \Vert +l_{\boldsymbol{\phi}%
+}\left \Vert \mathbf{\bar{C}}\right \Vert ^{2}\right)  \left \Vert \mathbf{\tilde
+	{x}}_{k}\left(  \tau \right)  \right \Vert \text{d}\tau+DT\left \Vert
+\mathbf{\bar{C}}\right \Vert ,\label{E_ek_T_norm0_C3}%
+\end{equation}
+where $\alpha=\left \Vert \mathbf{I}_{3}-\mathbf{\bar{C}M}_{2}\mathbf{L}_{2}-%
+%TCIMACRO{\dint \nolimits_{0}^{T}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{T}}
+%EndExpansion
+\mathbf{\bar{C}BU}_{\text{b}}\left(  \tau \right)  \mathbf{L}_{1}\text{d}%
+\tau \right \Vert .$ The next step is to calculate $\left \Vert \mathbf{\tilde
+	{x}}_{k}\left(  t\right)  \right \Vert .$ Taking norm on both sides of
+Eq.~(\ref{E_x_wan_t1_C3}) yields
+\begin{equation}
+\left \Vert \mathbf{\tilde{x}}_{k}\left(  t\right)  \right \Vert \leq \left \Vert
+\mathbf{M}_{2}\mathbf{L}_{2}\mathbf{e}_{k-1}\left(  T\right)  \right \Vert +%
+%TCIMACRO{\dint \nolimits_{0}^{t}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{t}}
+%EndExpansion
+\left(  \left(  \left \Vert \mathbf{A}\right \Vert +l_{\boldsymbol{\phi}%
+}\left \Vert \mathbf{\bar{C}}\right \Vert \right)  \left \Vert \mathbf{\tilde{x}%
+}_{k}\left(  \tau \right)  \right \Vert +\left \Vert \mathbf{BU}_{\text{b}%
+}\left(  \tau \right)  \mathbf{L}_{1}\right \Vert \left \Vert \mathbf{e}%
+_{k-1}\left(  T\right)  \right \Vert \right)  \text{d}\tau
++DT.\label{E_x_wan_t_norm0_C3}%
+\end{equation}
+Applying the Gronwall-Bellman inequality \cite{Chen2012Iterative} to
+Eq.~(\ref{E_x_wan_t_norm0_C3}) results in
+\begin{equation}%
+\begin{array}
+[c]{lll}%
+\left \Vert \mathbf{\tilde{x}}_{k}\left(  t\right)  \right \Vert  & \leq &
+\left(  \left \Vert \mathbf{M}_{2}\mathbf{L}_{2}\mathbf{e}_{k-1}\left(
+T\right)  \right \Vert +DT\right)  e^{\left(  \left \Vert \mathbf{A}\right \Vert
+	+l_{\boldsymbol{\phi}}\left \Vert \mathbf{\bar{C}}\right \Vert \right)  t}+%
+%TCIMACRO{\dint \nolimits_{0}^{t}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{t}}
+%EndExpansion
+e^{\left(  \left \Vert \mathbf{A}\right \Vert +l_{\boldsymbol{\phi}}\left \Vert
+	\mathbf{\bar{C}}\right \Vert \right)  \left(  t-\tau \right)  }\left \Vert
+\mathbf{BU}_{\text{b}}\left(  \tau \right)  \mathbf{L}_{1}\right \Vert
+\left \Vert \mathbf{e}_{k-1}\left(  T\right)  \right \Vert \text{d}\tau \\
+& \leq & \beta \left(  t\right)  \left \Vert \mathbf{e}_{k-1}\left(  T\right)
+\right \Vert +DTe^{\left(  \left \Vert \mathbf{A}\right \Vert
+	+l_{\boldsymbol{\phi}}\left \Vert \mathbf{\bar{C}}\right \Vert \right)  t},
+\end{array}
+\label{E_x_wan_t_norm1_C3}%
+\end{equation}
+where $\beta \left(  t\right)  =\left \Vert \mathbf{M}_{2}\mathbf{L}%
+_{2}\right \Vert e^{\left(  \left \Vert \mathbf{A}\right \Vert
+	+l_{\boldsymbol{\phi}}\left \Vert \mathbf{\bar{C}}\right \Vert \right)  t}+%
+%TCIMACRO{\dint \nolimits_{0}^{t}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{t}}
+%EndExpansion
+e^{\left(  \left \Vert \mathbf{A}\right \Vert +l_{\boldsymbol{\phi}}\left \Vert
+	\mathbf{\bar{C}}\right \Vert \right)  \left(  t-\tau \right)  }\left \Vert
+\mathbf{BU}_{\text{b}}\left(  \tau \right)  \mathbf{L}_{1}\right \Vert $d$\tau.$
+Substituting (\ref{E_x_wan_t_norm1_C3}) into (\ref{E_ek_T_norm0_C3}) gives
+\begin{equation}
+\left \Vert \mathbf{e}_{k}\left(  T\right)  \right \Vert \leq \left(
+\alpha+\gamma \right)  \left \Vert \mathbf{e}_{k-1}\left(  T\right)  \right \Vert
++\varepsilon,\label{E_ek_T_norm1_C3}%
+\end{equation}
+where $\gamma=%
+%TCIMACRO{\dint \nolimits_{0}^{T}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{T}}
+%EndExpansion
+\left(  \left \Vert \mathbf{\bar{C}A}\right \Vert +l_{\boldsymbol{\phi}%
+}\left \Vert \mathbf{\bar{C}}\right \Vert ^{2}\right)  \beta \left(  \tau \right)
+$d$\tau$, $\varepsilon=DT\left \Vert \mathbf{\bar{C}}\right \Vert +%
+%TCIMACRO{\dint \nolimits_{0}^{T}}%
+%BeginExpansion
+{\displaystyle \int \nolimits_{0}^{T}}
+%EndExpansion
+\left(  \left \Vert \mathbf{\bar{C}A}\right \Vert +l_{\boldsymbol{\phi}%
+}\left \Vert \mathbf{\bar{C}}\right \Vert ^{2}\right)  DTe^{\left(  \left \Vert
+	\mathbf{A}\right \Vert +l_{\boldsymbol{\phi}}\left \Vert \mathbf{\bar{C}%
+	}\right \Vert \right)  \tau}$d$\tau.$ When $\alpha+\gamma<1$, compressed
+mapping holds for inequality (\ref{E_ek_T_norm1_C3}), so $\left \Vert
+\mathbf{e}_{k}\left(  T\right)  \right \Vert \rightarrow \frac{\varepsilon
+}{1-\alpha-\gamma}$ as $k\rightarrow \infty$.
+
+
+
+\section{LQR controller design}
+%%第12章附录
+
+The LQR controller is used to drive the state of each grid into the target
+set $\mathcal{D}_{x_\text{r}}$. The design process is summarized as follows.
+First, introduce an integral term $\Delta \mathbf{x}_\text{r}^{\prime}=-\int
+\mathbf{C}^{T}\Delta \mathbf{x}_\text{r},$ where
+\begin{equation*}
+\mathbf{C=}\left[
+\begin{array}{cccc}
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1%
+\end{array}
+\right] .
+\end{equation*}
+Let $\Delta \mathbf{x}_\text{r}^{a}=[\Delta \mathbf{x}_\text{r}^{T}$ $\Delta \mathbf{x}%
+_\text{r}^{\prime T}]^{T}.$ Then
+\begin{equation}
+\Delta \mathbf{\dot{x}}_\text{r}^{a}=\mathbf{A}\Delta \mathbf{x}_\text{r}^{a}+\mathbf{%
+	Bu}  \label{augmentsys}
+\end{equation}
+where
+\begin{equation*}
+\mathbf{A=}\left[
+\begin{array}{cc}
+\mathbf{A}_{r} & \mathbf{0}_{4\times2} \\
+-\mathbf{C} & \mathbf{0}_{2\times2}%
+\end{array}
+\right] ,\mathbf{B=}\left[
+\begin{array}{c}
+\mathbf{B}_\text{r} \\
+\mathbf{0}_{2\times2}%
+\end{array}
+\right] .
+\end{equation*}
+The LQR controller is designed based on Eq.(\ref{augmentsys}), where the
+matrixes $\mathbf{Q}$ and $\mathbf{R}$ are given in three cases: (i) $%
+\mathbf{Q}=$diag(10,10,10,10,10,10), $\mathbf{R}=$diag(1,1); (ii) $\mathbf{Q}%
+=$diag(100,10,10,10,10,10), $\mathbf{R}=$diag(10,1); (iii) $\mathbf{Q}$%
+=diag(100,10,10,10,100,10), $\mathbf{R}$=diag(10,1).
+
+
+\section{Proof of **** }
+%%第13章附录
+
+\textbf{ } Since $ z\left( t \right) =\mathbf  B\left( {{\mathbf  x_\text{r}},t} \right) -\mathbf  B\left( {{\mathbf  x_\text{t}},t} \right) $, one has
+\begin{equation}
+\begin{aligned}
+\begin{array}{l}
+E\left[ {\left( {\mathbf z\left( {{t_2}} \right) - \mathbf z\left( {{t_1}} \right)} \right){{\left( {\mathbf z\left( {{t_2}} \right) - \mathbf z\left( {{t_1}} \right)} \right)}^\text T}} \right]\\
+= E\left[ \begin{array}{l}
+\left( {\mathbf B\left( {{\mathbf x_\text{r}},{t_2}} \right) - \mathbf B\left( {{\mathbf x_\text{t}},{t_2}} \right) - \mathbf B\left( {{\mathbf x_\text{r}},{t_1}} \right) + \mathbf B\left( {{\mathbf x_\text{t}},{t_1}} \right)} \right)\\
+{\left( {\mathbf B\left( {{\mathbf x_\text{r}},{t_2}} \right) - \mathbf B\left( {{\mathbf x_\text{t}},{t_2}} \right) - \mathbf B\left( {{\mathbf x_\text{r}},{t_1}} \right) + \mathbf B\left( {{\mathbf x_\text{t}},{t_1}} \right)} \right)^\text T}
+\end{array} \right]\\
+= E\left[ \begin{array}{l}
+\left( {\left( {\mathbf B\left( {{\mathbf x_\text{r}},{t_2}} \right) -\mathbf B\left( {{\mathbf x_\text{r}},{t_1}} \right)} \right) - \left( {\mathbf B\left( {{\mathbf x_\text{t}},{t_2}} \right) - \mathbf B\left( {{\mathbf x_\text{t}},{t_1}} \right)} \right)} \right)\\
+{\kern 1pt} \left( {\left( {\mathbf B({\mathbf x_\text{r}},{t_2}) - \mathbf B({\mathbf x_\text{r}},{t_1})} \right) - \left( {\mathbf B({\mathbf x_\text{t}},{t_2}) - \mathbf B({\mathbf x_\text{t}},{t_1})} \right)} \right){\kern 1pt} {{\kern 1pt} ^\text T}
+\end{array} \right]
+\end{array}
+\label{a1}
+\end{aligned}
+\end{equation}
+Expanding the above equation results in
+\begin{equation}
+\begin{aligned}
+\begin{array}{c}
+{\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} E\left[ \begin{array}{l}
+\left( {\left( {\mathbf B\left( {{\mathbf x_\text{r}},{t_2}} \right) -\mathbf  B\left( {{\mathbf x_\text{r}},{t_1}} \right)} \right) - \left( {\mathbf B\left( {{\mathbf x_\text{t}},{t_2}} \right) - \mathbf B\left( {{\mathbf x_\text{t}},{t_1}} \right)} \right)} \right)\\
+{\kern 1pt} \left( {\left( {\mathbf B({\mathbf x_\text{r}},{t_2}) - \mathbf B({\mathbf x_\text{r}},{t_1})} \right) - \left( {\mathbf B({\mathbf x_\text{t}},{t_2}) - \mathbf B({\mathbf x_\text{t}},{t_1})} \right)} \right){{\kern 1pt} ^\text T}
+\end{array} \right]\\
+= E\left[ {\left( {\mathbf B({\mathbf x_\text{r}},{t_2}) -\mathbf  B({\mathbf x_\text{r}},{t_1})} \right){{\left( {\mathbf B({\mathbf x_\text{r}},{t_2}) - \mathbf B({\mathbf x_\text{r}},{t_1})} \right)}^\text T}} \right]{\kern 1pt}  - E\left[ {\left( {\mathbf B({\mathbf x_\text{t}},{t_2}) - \mathbf B({\mathbf x_\text{t}},{t_1})} \right){{\left( {\mathbf B({\mathbf x_\text{r}},{t_2}) - \mathbf B({\mathbf x_\text{r}},{t_1})} \right)}^\text T}} \right]\\
+- E\left[ {\left( {\mathbf B({\mathbf x_\text{r}},{t_2}) -\mathbf  B({\mathbf x_\text{r}},{t_1})} \right){{\left( {\mathbf B({\mathbf x_\text{t}},{t_2}) - \mathbf B({\mathbf x_\text{t}},{t_1})} \right)}^\text T}} \right] + E\left[ {\left( {\mathbf B({\mathbf x_\text{t}},{t_2}) - \mathbf B({\mathbf x_\text{t}},{t_1})} \right){{\left( {\mathbf B({\mathbf x_\text{t}},{t_2}) - \mathbf B({\mathbf x_\text{t}},{t_1})} \right)}^\text T}} \right]
+\end{array}
+\end{aligned}\label{a2}
+\end{equation}
+
+Combined with Eq. (\ref{eq3}), the equation (\ref{a2}) can be rewritten as
+
+\begin{equation}
+\begin{aligned}
+\begin{array}{l}
+E\left[ \begin{array}{l}
+\left( {\left( {\mathbf B\left( {{\mathbf x_\text{r}},{t_2}} \right) - \mathbf B\left( {{\mathbf x_\text{r}},{t_1}} \right)} \right) - \left( {\mathbf B\left( {{\mathbf x_\text{t}},{t_2}} \right) -\mathbf  B\left( {{\mathbf x_\text{t}},{t_1}} \right)} \right)} \right)\\
+{\kern 1pt} \left( {\left( {\mathbf B({\mathbf x_\text{r}},{t_2}) -\mathbf  B({\mathbf x_\text{r}},{t_1})} \right) - \left( {\mathbf B({\mathbf x_\text{t}},{t_2}) - \mathbf B({\mathbf x_\text{t}},{t_1})} \right)} \right){\kern 1pt} {{\kern 1pt} ^\text T}
+\end{array} \right]{\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} \\
+= \rho \left( {{\mathbf x_\text{r}} - {\mathbf x_\text{r}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3} - \rho \left( {{\mathbf x_\text{t}} - {\mathbf x_\text{r}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3} - \rho \left( {{\mathbf x_\text{r}} - {\mathbf x_\text{t}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3} + \rho \left( {{\mathbf x_\text{t}} - {\mathbf x_\text{t}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3}\\
+= \rho \left( 0 \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3} - \rho \left( {{\mathbf x_\text{t}} - {\mathbf x_\text{r}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3}{\kern 1pt}  - \rho \left( {{\mathbf x_\text{r}} - {\mathbf x_\text{t}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf  I^3} + \rho \left( 0 \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3}\\
+= 2\rho \left( 0 \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3} - \rho \left( {{\mathbf x_\text{t}} - {\mathbf x_\text{r}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf  I^3}{\kern 1pt}  - \rho \left( {{\mathbf x_\text{r}} - {\mathbf x_\text{t}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3}
+\end{array}
+\end{aligned}\label{a3}
+\end{equation}
+Substituting  $ \rho \left( 0 \right) = 1 $, $ 
+{\tilde {\mathbf x}_\text{r/t}} = {\mathbf x_\text{r}} - {\mathbf x_\text{t}} $ and  $ \rho \left( {{\mathbf x_\text{r}} - {\mathbf x_\text{t}}} \right) = \rho \left( {{\mathbf x_\text{t}} - {\mathbf x_\text{r}}} \right) $, equation \ref{a3} reads
+\begin{equation}
+\begin{aligned}
+\begin{array}{l}
+E\left[ \begin{array}{l}
+\left( {\left( {\mathbf B\left( {{\mathbf x_\text{r}},{t_2}} \right) - \mathbf B\left( {{\mathbf x_\text{r}},{t_1}} \right)} \right) - \left( {\mathbf B\left( {{\mathbf x_\text{t}},{t_2}} \right) - \mathbf B\left( {{\mathbf x_\text{t}},{t_1}} \right)} \right)} \right)\\
+{\kern 1pt} \left( {\left( {\mathbf B({\mathbf x_\text{r}},{t_2}) - \mathbf B({\mathbf x_\text{r}},{t_1})} \right) - \left( {\mathbf B({\mathbf{x}_\text{t}},{t_2}) - \mathbf B({\mathbf x_\text{t}},{t_1})} \right)} \right){{\kern 1pt} ^\text T}
+\end{array} \right]{\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} \\
+= 2\rho \left( 0 \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3} - \rho \left( {{\mathbf x_\text{t}} - {\mathbf x_\text{r}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3}{\kern 1pt}  - \rho \left( {{\mathbf x_\text{r}} - {\mathbf x_\text{t}}} \right)\left( {{ t_2} - {t_1}} \right){\mathbf I^3}\\
+= 2\left( {{t_2} - {t_1}} \right){\mathbf I^3} - 2\rho \left( {{\mathbf x_\text{r}} - {\mathbf x_\text{t}}} \right)\left( {{t_2} - {t_1}} \right){\mathbf I^3}\\
+= 2\left[ {1 - \rho \left( {{\mathbf x_\text{r}} - {\mathbf x_\text{t}}} \right)} \right]\left( {{t_2} - {t_1}} \right){\mathbf I^3}\\
+= 2\left[ {1 - \rho \left( {{\mathbf {\tilde x}_\text{r/t}}} \right)} \right]\left( {{t_2} - {t_1}} \right){\mathbf I_3}{\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {t_1} < {\kern 1pt} {t_2}
+\end{array}
+\end{aligned}\label{a4}
+\end{equation}
+According to \ref{a1}, one gets
+\begin{equation}
+\begin{aligned}
+\begin{array}{l}
+{\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} E\left[ {\mathbf z({t_2}) - \mathbf z({t_1})} \right]{\left[ {\mathbf z({t_2}) - \mathbf z({t_1})} \right]^\text T}\\
+= 2\left[ {1 - \rho \left( {{\mathbf {\tilde x}_\text{r/t}}} \right)} \right]\left( {{t_2} - {t_1}} \right){\mathbf I_3}{\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} {t_1} < {\kern 1pt} {t_2}
+\end{array}
+\end{aligned}\label{a5}
+\end{equation}
+The proof is concluded. 
+
+
+\section{Event Definitions}
+%第14章附录
+\label{app:event}
+\noindent
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+This appendix presents the complete definitions of MIEs, ATEs and SFEs in Table \ref{tab:MIE}$ \sim $\ref{tab:SFE}. The definitions of MCEs have already been given in Table \ref{tab:MCE}.
+
+
+
+\begin{table}
+	\caption{Mode Input Event Definitions}
+	\label{tab:MIE}
+	\begin{tabular}{cp{15cm}}
+		\hline \hline
+		Name & Description \\
+		\hline \hline
+		MIE01 & Require the receiver to return to STANDBY MODE as soon as possible \\ 
+		MIE02 & Require the receiver to return to RTL MODE as soon as possible \\ 
+		MIE03 & Require the receiver to return to EL MODE as soon as possible \\
+		MIE04 & Activate MCE09 \\ 
+		MIE05 & Activate MCE11 \\
+		\hline \hline 
+	\end{tabular}
+\end{table}	
+
+~\\[3cm]
+
+\begin{table}
+	\caption{Automatic Triggered Event Definitions}
+	\label{tab:ATE}
+	\begin{threeparttable}
+		\begin{tabular}{cp{15cm}}
+			\hline \hline
+			Name & Description \\
+			\hline \hline 
+			ATE01 & The event MCE04 fails, i.e., the receiver does not arrive at point B\tnote{1}. \\ 
+			ATE02 & The event MCE04 succeeds, i.e., the receiver has arrived at point B. \\ 
+			ATE03 & The receiver is not cleared for connection \\ 
+			ATE04 & The receiver has been cleared for the connection \\ 
+			ATE05 & The waiting time at the observation does not exceed the specified threshold \\ 
+			ATE06 & The waiting time at the observation area exceeds the specified threshold \\ 
+			ATE07 & The event MCE06 fails, i.e., the receiver has not arrived at point C. \\ 
+			ATE08 & The event MCE06 succeeds, i.e., the receiver has arrived at point C. \\ 
+			ATE09 & The event MCE08 fails, i.e., the receiver fails to connect its probe with the tanker?s drogue \\ 
+			ATE10 & The event MCE08 succeeds, i.e., the receiver successfully connects its probe with the tanker?s drogue \\ 
+			ATE11 & The event MCE10 fails, i.e., the tanker fails to transfer the fuel to the receiver. \\ 
+			ATE12 & The event MCE10 succeeds, i.e. the tanker successfully transfers the fuel to the receiver.\\ 
+			ATE13 & The receiver has not been cleared for disconnection \\ 
+			ATE14 & The receiver has been cleared for disconnection \\ 
+			ATE15 & The waiting time at the astern area does not exceed the specified threshold \\ 
+			ATE16 & The waiting time at the astern area exceeds the specified threshold \\ 
+			ATE17 &The event MCE13 fails, i.e., the receiver has not arrived at point D. \\ 
+			ATE18 & The event MCE13 succeeds, i.e., the receiver arrives at point D. \\ 
+			ATE19 & The event MCE14 fails, i.e., the receiver has not rejoined the receiver formation \\ 
+			ATE20 & The event MCE14 succeeds, i.e., the receiver has successfully rejoined the receiver formation \\ 
+			\hline \hline
+		\end{tabular}
+		\begin{tablenotes}\footnotesize
+			\item[1] "has",  "does", "has not", "does not" phases used here mean the estimated corresponding state is larger or smaller than a given threshold at the sample time of sensors. For example, ATE01 means that the estimated distance between the receiver and point \textit{B} is larger than a given threshold.
+		\end{tablenotes}
+	\end{threeparttable}
+\end{table}	
+
+
+
+\section{Testing Cases for the Simulation Platform}
+%第14章附录
+\label{app:test}
+
+\textbf{Case A: Transitions in withdrawal phase:}
+According to the FD1 and FD5 shown in Table \ref{tab:functiondemand}, the pilot can force the receiver to switch from the task phase to the withdrawal phase, and the receiver would choose the best mode according to its health conditions (related with SR1 and SR2 shown in Table \ref{tab:safetyreq}). When the autopilot is at JOINING-WAIT MODE, namely \textit{Joining05} state. When ``MIE03:EL" happens, according to FD5 (implemented in \textit{Spec-pilot} shown in Fig. \ref{fig:specpilot}), MCE05 is forbidden, and the \textit{Autopilot} has to choose one routine from MCE01$ \sim $MCE03. Since its health conditions satisfy SR1, MCE03 is enabled and the \textit{Autopilot} enters \textit{Standby} state. But then if the Control subsystem is in \textit{critical damage}, SR1 is not satisfied anymore. According to FD1 (implemented in \textit{Spec-Control}), MCE03 is forbidden and the \textit{Autopilot} executes the MCE02 instead.
+
+\textbf{Case B: Transitions in joining-refueling phases:} According to SR1, SR2 and SR6 shown in Table \ref{tab:safetyreq}, the transition to REFUELING-INIT MODE requires certain subsystems to be healthy. Otherwise, the receiver has to retreat to the joining phase or withdrawal phase. Say that the receiver is at \textit{Joining06} state and REFUELING-INIT MODE, and flies from point $ B $ to point $ C $ as shown in Fig. \ref{fig:topview}. Then the Navigation subsystem is in \textit{minor damage}, according to SR6, the receiver can still remain in REFUELING-INIT MODE. But then the Drogue\&probe subsystem is in \textit{minor damage}. According to SR6 the receiver has to retreat to JOINING-WAIT MODE. Otherwise, if the Navigation subsystem is in \textit{critical damage}, then according to SR1 and SR2, the receiver should change to EL MODE right away.
+
+\textbf{Case C: Transitions in refueling phase:} According to SR7 shown in Table \ref{tab:safetyreq} and FD6 in Table \ref{tab:functiondemand}, in the REFUELING-CAPTURE MODE, if certain subsystems are in \textit{minor damage},  the receiver abandons the current capture and retreats to the REFUELING-INIT MODE. But then the pilot can force the receiver to initiate the refueling capture even if the health conditions do not allow this decision. When the \textit{Autopilot} is at \textit{Refueling02} state and the Datalink subsystem is in \textit{minor damage}, then MCE08 is forbidden (implemented in \textit{Spec-Datalink}). Therefore, MCE07 is executed. Since the receiver does not satisfy SR7, it has to wait at the REFUELING-INIT MODE. But when ``MIE04:Force-Ref-Cap" is given, the MCE09 is enabled (implemented in \textit{Force} shown in Fig. \ref{fig:holonforce}). Thus the receiver is forced to initiate the refueling capture.  
+
+\vfill
+\setcounter{table}{2}
+\renewcommand{\thetable}{A\arabic{table}}
+
+\begin{table}
+	\caption{Failure Related Event Definitions}
+	\label{tab:SFE}
+	\centering
+	\begin{tabular}[c]{lp{9cm}}
+		\hline \hline
+		\begin{tabular}[c]{l}Name\end{tabular} & Description \\
+		\hline \hline 
+		\begin{tabular}[c]{l}SFE01: Navigation-suspension\\   SFE02: Navigation-recover\\   SFE03: Navigation-breakdown\end{tabular} & The failure related behaviors of Navigation subsystem \\ \hline
+		\begin{tabular}[c]{l}SFE04:Control-suspension\\   SFE05:Control-recover\\   SFE06:Control-breakdown\end{tabular} & The failure related behaviors of Control subsystem \\ \hline
+		\begin{tabular}[c]{l}SFE07:Fuel-suspension\\  SFE08: Fuel-breakdown\end{tabular} & The failure related behaviors of Fuel subsystem\\ \hline
+		\begin{tabular}[c]{l}SFE09:Engine-suspension\\   SFE10:Engine-recover\\   SFE11:Engine-breakdown\end{tabular} & The failure related behaviors of Engine subsystem \\ \hline
+		\begin{tabular}[c]{l}SFE12:dro-pro-suspension\\   SFE13:dro-pro-recover\\   SFE14:dro-pro-breakdown\end{tabular} & The failure related behaviors of Drogue\&probe subsystem \\ \hline
+		\begin{tabular}[c]{l}SFE15:Datalink-suspension\\   SFE16:Datalink-recover\\   SFE17:Datalink-breakdown\end{tabular} & The failure related behaviors of Datalink subsystem \\ \hline
+		\begin{tabular}[c]{l}SFE18: Tanker-suspension\\   SFE19: Tanker-recover\\   SFE20: Tanker-breakdown\end{tabular} & The failure related behaviors of Tankersafety subsystem \\ 
+		\hline \hline
+	\end{tabular}
+\end{table}   

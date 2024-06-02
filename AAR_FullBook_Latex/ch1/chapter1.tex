@@ -1,0 +1,1993 @@
+\chapter{Introduction}
+\label{chap1}
+This chapter is from our published survey paper \cite{jinrui2024progress}.
+By refueling aircraft while in flight, aerial refueling is an efficient technique to extend their endurance and range. Autonomous Aerial Refueling (AAR) is anticipated to be used to complete aerial refueling for unmanned aircraft. There are three aerial refueling methods: the probe-and-drogue method, the flying-boom method, and the boom-drogue-adapter method. The paper considers the Probe-and-Drogue Refueling (PDR) approach since its control task is the most challenging. PDR is divided into four phases, with the refueling phase being the most crucial: the rendezvous phase, joining phase, refueling phase, and reform phase. The controller design faces the most significant challenge during the docking control of the refueling phase since it calls for a high level of safety, precision, and efficiency. As a result, the modeling and control issues encountered during the refueling phase are typical and difficult. The fundamental idea of AAR is presented in the chapter initially, after which the characteristics and requirements of AAR are outlined. The development of modeling and control techniques for the AAR's refueling phase is then systematically reviewed. Besides, potential future work for high safety, precision, and efficiency requirements is examined and suggested. Finally, the objective, chapter introduction, and book structure are given. An excellent survey about modeling, sensors, control strategies, simulation, and testing can be found in \cite{AAR-2014}, which pays much attention to the practical side of AAR. In 2014, a Chinese survey \cite{quan2014survey} on PDR modeling and control was released. 
+
+\section{Basic concept and significance of AAR}
+
+In Aerial Refueling (AR), also known as air-to-air refueling, in-flight
+refueling, or simply air refueling, one air-craft, referred to as
+the tanker, refuels one or more other aircraft, referred to as the
+receivers, while they are in the air. AR is frequently employed in
+the military field to extend endurance, range, and resolve the conflict
+between payload and takeoff distance. AR is also used in the civil
+field to increase the effectiveness of long-haul flights and boost
+the civil aviation's emergency response capabilities. Unmanned aerial
+vehicles (UAVs) have difficulty performing AR, which is primarily
+carried out by the receiver pilot in manned aircraft. Realizing autonomous
+aerial refueling is important for both reducing the pilots' pressure
+of performing AR and achieving the AR of UAVs while maintaining a
+high enough level of safety, precision, and efficiency. 
+
+\subsection{Classification}
+
+Aerial refueling systems that are now in use include the flying-boom
+type (Figure \ref{Fig_1.1} (a)), the probe-and-drogue type (Figure
+\ref{Fig_1.1} (b)), and the boom-drogue-adapter type (Figure \ref{Fig_1.1}
+(c)). The three aerial refueling systems will be detailed in the following.
+
+A tanker with a flying boom is often modified by a civil aircraft
+or a large transport aircraft. The flying boom is supervised and controlled
+by a human operator from a station near the rear of the tanker aircraft.
+The flying boom is often equipped with a V-tail, which can be used
+to control it. The refueling process is controlled cooperatively by
+the receiver and the flying boom. The receiver first flies to the
+flying boom working area and then keeps relatively stationary with
+the tanker. Then, the operator in the station at the rear of the tanker
+controls the attitude of the flying boom, extends the flying boom
+to approach the receiver slowly and insert it into the fuel tank at
+the back of the receiver fuselage.
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 1}
+\par\end{centering}
+\caption{Three kinds of aerial refueling systems}
+
+\centering{}\label{Fig_1.1}
+\end{figure}
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.4\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 2}
+\par\end{centering}
+\caption{Probe-and-drogue aerial refueling apparatus}
+
+\centering{}\label{Fig_1.2}
+\end{figure}
+
+The probe-and-drogue refueling equipment (shown in Figure \ref{Fig_1.2})
+is simple and compact. A hose-drogue pod can be added to any aircraft
+with enough payload capacity, including fighters, large transport
+aircraft, and UAVs. The pod releases a hose with a drogue at the end,
+in which the hose length should match the tanker length for safety
+considerations. For manned aircraft, the probe is typically placed
+to the side of the cockpit for clear pilots' visibility, but for unmanned
+aerial vehicles, it is generally placed in front of the receiver nose.
+The tanker frequently maintains level flight while moving forward
+during the preparation phase of refueling and releases a hose in the
+refueling region. The receiver then moves towards the tanker and places
+its probe into the drogue. The aerial docking operation is finished
+once the mechanical self-locking mechanism on the drogue locks the
+drogue and the probe together. The receiver must then maintain its
+position in relation to the tanker until refueling is complete.
+
+The boom-drogue-adapter aerial refueling uses a hose installed at
+the end of a flying boom. On the one hand, it is designed to keep
+the flexible connection between the receiver and the tanker after
+docking in order to improve the safety in the fuel transferring process.
+On the other hand, it is designed to solve the shortcoming that the
+rigid flying boom cannot refuel helicopters. Since the end of the
+adapter is a hose, the refueling process is similar to that of the
+probe-and-drogue aerial refueling. 
+
+\begin{table}
+\caption{Performance of three types of aerial refueling systems}
+
+\begin{centering}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+Refueling type & Tanker  modification & Oil rate & Safety & Influence by disturbances & Docking difficulty\tabularnewline
+\hline 
+Flying-boom & ++ & ++ & + & + & +\tabularnewline
+\hline 
+Probe-and-drogue & + & + & +++ & +++ & +++\tabularnewline
+\hline 
+Boom-drogue-adapter & ++ & + & ++ & ++ & ++\tabularnewline
+\hline 
+\end{tabular}
+\par\end{centering}
+\centering{}\label{Tab_1.1}
+\end{table}
+
+The three different types of aerial refueling systems' primary performance
+is displayed in Table \ref{Tab_1.1}. It can be seen from Table \ref{Tab_1.1}
+that the boom-drogue-adapter type has most of the features of the
+flying-boom refueling and is slightly compromised towards the probe-and-drogue
+type. Because of its flexible connection and lightweight equipment,
+the PDR has a wide range of applications despite its challenging docking.
+By mounting multiple refueling pods on a receiver, PDR enables multi-point
+refueling, namely simultaneous refueling of multiple aircraft. PDR
+can also support aerial refueling for helicopters. The United States
+Navy and the air forces of many countries favor the probe-and-drogue
+refueling method due to its adaptability to various aircraft and refueling
+rates. In contrast, airborne early warning aircraft and some fighters
+use the flying-boom refueling method. When refueling numerous aircraft,
+PDR is favored if small aircraft predominate in the refueling process
+because small aircraft have lower oil transfer rate requirements,
+and PDR can accomplish multi-point refueling. If large aircraft outnumber
+small aircraft, flying-boom refueling may be chosen instead. As a
+result, from the implementation perspective, one refueling method
+cannot replace another. The PDR is primarily considered in this book.
+
+\subsection{Aerial refueling phase}
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 3}
+\par\end{centering}
+\caption{Aerial refueling phase}
+
+\centering{}\label{Fig_1.3}
+\end{figure}
+
+Aerial refueling consists of four phases: rendezvous phase, joining
+phase, refueling phase and reform phase. The details are as follows:
+
+(i) Rendezvous phase (to $A$ shown in Figure.\ref{Fig_1.3}): The
+process of the rendezvous between the tanker and the receiver flying
+from different directions to the designated area. For a single receiver,
+it waits at point $A$ (as shown in Figure. \ref{Fig_1.3}) for the
+next instruction. 
+
+(ii) Joining phase ($A$-\textgreater$B$ -\textgreater$B^{\prime}${}
+shown in Figure.\ref{Fig_1.3}): The process of the receiver entering
+the observation area, completing the formation with the tanker and
+other receivers. As shown in Figure.\ref{Fig_1.3}, for multiple receivers,
+they will be in a staggered queue in the observation area and move
+from $B$ to $B^{\prime}$ one by one. 
+
+(iii) Refueling phase ($B^{\prime}$ -\textgreater$C$ -\textgreater{}
+$C^{\prime}$ shown in Figure.\ref{Fig_1.3}): The process of the
+receiver from the observation area to the astern area. After a successful
+capture, the receiver and the tanker keep relatively stationary to
+transfer the fuel. There are two main subphases, namely docking subphase
+and fuel transferring subphase, where the former is especially important
+and challenging. 
+
+(iv) Reform phase ($C^{\prime}$ -\textgreater$D${} shown in Figure.\ref{Fig_1.3}):
+After completing the fuel transferring, the probe in the receiver
+and the drogue are separated, and then the receiver leaves the astern
+area and enters the reform area. 
+
+\subsection{AAR}
+
+With the development of aerial refueling technology and the increasing
+requirements of aerial refueling from modern flight missions, aerial
+refueling urgently needs to be autonomous to expand its scope of application
+and meanwhile be implemented with high precision, high safety, and
+high efficiency. The importance and difficulties of AAR were comprehensively
+discussed in \cite{Nalepka-2005-1}. AAR refers to automating
+manned or unmanned aerial refueling. Under a specific autonomous authority,
+the receiver automatically processes sensor data and creates relevant
+trajectory commands for its guidance and control system to implement
+AAR. 
+
+On April 22, 2015, Northrop Grumman Corporation and the U.S. Navy
+successfully demonstrated full probe-and-drogue AAR with an X-47B
+UAV for the first time in history that a UAV has been refueled in-flight
+(as shown in Figure.\ref{Fig_1.4} (a)). Before it, two small UAVs
+flying in leader-follower formation performed airborne docking by
+the University of Sydney. A complete navigation, guidance and control
+solution was given in \cite{wilson2015guidance}. On May 09, 2017,
+Airbus Defense and Space successfully demonstrated AAR contacts between
+a fighter aircraft and a tanker\textquoteright s flying boom for the
+first time in the world (as shown in Figure.\ref{Fig_1.4} (b)). Airbus
+has disclosed that the testing for a new function that would enable
+the A330-200 Multi Role Tanker Transport (MRTT) to achieve AAR for
+UAVs will begin in 2023.
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.8\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 4}
+\par\end{centering}
+\caption{AAR for the first time}
+
+\centering{}\label{Fig_1.4}
+\end{figure}
+
+
+\subsection{The significance of AAR}
+
+Aerial refueling is widely used in the military field, such as the
+endurance of fighters and the take-off with a heavy load of carrier-based
+aircraft. Besides, the technology is being actively promoted to the
+civil field to reduce fuel load and improve the economy of civil aviation
+\cite{bennington2005aerial}. 
+
+For military fields, the meaning of aerial refueling is significant. 
+
+(i) Increasing the range. The operational radius is one of the most
+important indicators to measure the combat capability of the fighter
+and even the air force. After a single aerial refueling, the bomber's
+operational radius can be increased by 25\%-30\%, the fighter's operational
+radius can be increased by 30\%-40\%, and the range of the transport
+aircraft can be doubled. 
+
+(ii) Prolonging the endurance. Patrol aircraft, early warning aircraft,
+reconnaissance aircraft, and other special duty aircraft often need
+to stay in the air for a long time. The use of aerial refueling can
+prolong the endurance and avoid the delay and inconvenience caused
+by the landing for the refueling. 
+
+(iii) Solving the contradiction between payload and take-off distance.
+The short-distance runway, such as that for an aircraft carrier and
+a plateau airport, may not meet the requirement of full-payload takeoff.
+Therefore, the aircraft can take off with a part of the fuel and then
+be refueled by a tanker in the air. 
+
+For civilian areas, the benefits of aerial refueling are in the following. 
+
+(i) Making long-distance flights more efficient. Avoid landing and
+taking off at midway airports for fuel supply and make long-distance
+flights more efficient. 
+
+(ii) Improving the emergency response capability of civil aviation.
+Refuel civil aviation in case of emergency and increase endurance. 
+
+The main purpose of AAR is to extend the aerial refueling technology
+to the UAV field, and it can also be used to assist docking operation
+to reduce the burden of pilots. The docking phase of aerial refueling
+is a high-precision and high-risk maneuvering flight phase. The improper
+operation will not only lead to the docking failure, but also even
+lead to serious flight accidents caused by the damage to the trailing
+hose and drogue. Therefore, it is necessary to standardize the automatic
+operation procedure to ensure the safe and efficient operation of
+aerial refueling. For UAVs, payload and endurance are important problems
+for UAV development. In the \textquotedblleft Unmanned Aircraft Systems
+Roadmap 2005-2030\textquotedbl{} published by the US Air Force in
+2005 \cite{cambone2005unmanned}, AAR is regarded as an important
+way to solve these problems, and the technology was expected to be
+realized for UAVs in 2015-2020. 
+
+\subsection{The significance of docking phase of probe-and-drogue AAR }
+
+AAR mainly emphasizes the autonomy of the receiver, namely getting
+rid of or minimizing human participation of the whole process from
+the rendezvous phase to the reform phase. From this point of view,
+it is more general to study the autonomous docking. First of all,
+the docking control problem of the probe-and-drogue refueling is more
+representative. The flying boom is rigid, which is hardly disturbed
+by the airflow. By contrast, the hose with a drogue is flexible, which
+is easy to be disturbed by the airflow. Thus, probe-and-drogue AAR
+faces more difficult docking problems. Secondly, although the flying-boom
+refueling requires less on receivers and is easier to achieve aerial
+refueling for manned aerial vehicles, the advantages of the flying-boom
+refueling are not obvious for the development of the UAV-to-UAV aerial
+refueling. Probe-and-drogue AAR only needs to control the receiver
+to achieve the UAV-to-UAV aerial refueling, while the flying-boom
+refueling needs the tanker to cooperate, i.e., it also needs to design
+the autonomous control for the flying boom to achieve the UAV-to-UAV
+aerial refueling. 
+
+Among the four phases of aerial refueling, the refueling phase, especially
+the docking subphase, is the most difficult phase, which is representative
+and challenging. It requires the highest accuracy, safety, and efficiency,
+and the key to the success of aerial refueling is to solve the control
+problem of this phase. In addition, the control problem of the refueling
+phase covers position keeping and trajectory tracking, which is also
+a problem that needs to be solved in all phases. 
+
+\section{Characteristics and problems of the docking control of probe-and-drogue
+AAR \label{sec:Characteristics-and-problems}}
+
+Before introducing modeling and control, it is necessary to understand
+the characteristics and requirements of the docking control of probe-and-drogue
+AAR, which will help to understand the current modeling and control
+methods better. 
+
+\subsection{Characteristic analysis of probe-and-drogue AAR }
+
+\subsubsection{Uncertainty }
+
+(i) The uncertainty of the motion of the receiver caused by the tanker
+vortex and wind turbulence. Aerial refueling is a close formation
+flying mission. The tanker in front generates a vortex, which affects
+the flight performance of the receiver behind. The vortex of the tanker
+can be divided into three types: the wake vortex (also known as the
+wingtip vortex), the engine jet and the turbulent flow in the boundary
+layer, wherein the wake vortex has the greatest influence on the receiver.
+The wake vortex is formed by the airflow from the bottom of the tanker
+wingtip. Before forming, the vortex is similar to downwash flow, and
+after forming, it becomes two downward and backward spiral flows pulled
+by the wingtip. Besides the tanker vortex, the receiver will also
+be affected by atmospheric turbulence and wind gust. 
+
+(ii) The uncertainty of the drogue motion. Wind gust and tanker wake
+vortex may cause the drogue to drift, which makes docking position
+very uncertain. Another important influence is brought by the receiver.
+In high-speed flight, the drogue is affected by the airflow change
+near the receiver nose, which is called the bow wave effect \cite{Dogan-2013-7},
+\cite{bhandari2013bow} or forebody (aerodynamic) effect \cite{Dibley-2007-2},
+\cite{ro2011dynamics}. When approaching the receiver nose, the drogue
+will be pushed away from the original position. This disturbance is
+evident when the probe is on the side of the receiver\textquoteright s
+central symmetrical plane, which is a widely-used configuration as
+shown in Figure \ref{Fig_1.5} (a). At present, some reported UAVs
+with aerial refueling capability adopt the \textquotedblleft on the
+nose\textquotedbl{} configuration as shown in Figure \ref{Fig_1.5}
+(b). When the probe is \textquotedblleft on the side\textquotedblright ,
+the drogue will pass the nose, so the bow wave effect is very serious.
+In contrast, the effect of the bow wave effect of the receiver with
+the probe \textquotedblleft on the nose\textquotedbl{} configuration
+is not as obvious as that of the probe on the side. This is because
+the drogue will not pass the nose for docking. 
+
+(iii) The uncertainty in the dynamic model of the receiver. As for
+the accurate docking requirements, the flight control model of the
+receiver with parameters generated by the wind tunnel has some uncertainties
+which cannot be ignored. In the process of refueling, the mass of
+the receiver will increase with the increase of the amount of fuel.
+Meanwhile, the mass of the tanker will decrease. What is more, for
+both the tanker and the receiver, their positions of the center of
+mass will change during refueling. It should be noticed that a larger
+mass proportion will increase for the receiver because it is often
+lighter than the tanker. As a result, uncertainty in the dynamic model
+of the receiver will be correspondingly greater. In addition, because
+of the highly accurate docking requirement, some uncertainties on
+the control actuator cannot be ignored as well, such as throttle thrust
+accuracy. All of these will lead to uncertainty in the dynamic model
+of the receiver. 
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 5}
+\par\end{centering}
+\caption{Probe positions}
+
+\centering{}\label{Fig_1.5}
+\end{figure}
+
+(iv) The uncertainty of initial states. Before docking, the receiver
+has to complete the formation with the tanker. They both keep a constant
+speed and fixed altitude. The receiver at a position close to the
+tanker keeps relatively stationary with the tanker. Then, the receiver
+will take this position as the initial position to start the docking
+task. However, due to various uncertain factors, the receiver itself
+cannot accurately stay at this position but floats in a small range.
+
+\subsubsection{Slower dynamic}
+
+During the docking process, the flow filed of the receiver may push
+the drogue away as the receiver approaches the tanker. Because the
+mass and the volume of the drogue are smaller than that of the receiver,
+it is easy to be disturbed by disturbances and then swings fast. The
+swing frequency is so high that the dynamic response of the receiver
+is hard to track. Not only that, but the receiver also needs to change
+attitude indirectly to change the direction of velocity. These lead
+the receiver has a slower dynamic. In the experimental paper \cite{Dibley-2007-2}
+provided by the National Aeronautics and Space Administration (NASA),
+the author explained that in the actual aerial refueling experiments,
+the velocity changes of the receiver\textquoteright s probe in the
+vertical direction and lateral direction obviously lagged behind the
+drogue. This problem makes it difficult for receivers to capture a
+fast-moving drogue by only using conventional feedback methods. In
+order to solve this problem, some studies focused on increasing the
+damping of drogue motion to slow down the drogue dynamic, such as
+adding an active stability control device \cite{Ro-2010-5}.
+
+\subsubsection{Nonminimum Phase \cite{hoagg2007nonminimum}}
+
+For a fixed-wing aircraft with the conventional configuration, the
+aerodynamic focus is designed behind the center of gravity in order
+to make the aircraft have good static stability. If the aircraft wants
+to move in one direction, it must be put a force in the opposite direction
+to adjust its attitude, so its flight trajectory will move in the
+opposite direction for a short period before starting to move in the
+desired direction. This causes the nonminimum phase system to adjust
+for a long time, making it unable to track changing trajectories rapidly.
+Thus, trajectory tracking becomes more difficult due to the nonminimum
+phase property of the receiver. Mathematically, the nonminimum phase
+property for linear systems means that the transfer function has unstable
+zeroes, i.e., zeroes with positive real parts, which means that the
+inverse transfer function are unstable. Moreover, a given non-minimum
+phase system will have a greater phase contribution than the minimum
+phase system with the equivalent magnitude response. For an aircraft
+with the configuration shown in \cite{benvenuti1994approximate},
+since the positive real part of the zero of the longitudinal channel
+transfer function is very large, the unstable zero can be ignored
+in most cases. However, it cannot be ignored in the docking control
+as the requirement of the control accuracy is very high. 
+
+\subsection{Requirements in the docking process }
+
+In the refueling phase, the docking procedure is difficult and demands
+a high level of safety, precision, and efficiency. Table \ref{Tab_1.3}
+lists the three requirements along with the justifications for the
+requirements' necessity. 
+\begin{table}
+\caption{Requirements in the docking process}
+
+\begin{centering}
+\begin{tabular}{|c|>{\centering}p{2.5cm}|>{\centering}p{5cm}|>{\centering}p{5cm}|}
+\hline 
+\textbf{Requirements} & High Safety & High Precision 
+
+(Position error $\leq$0.2/0.25/0.3m; 
+
+Velocity error: 1\textendash 1.5m/s)  & High Efficiency\tabularnewline
+\hline 
+\textbf{Justifications} & Receiver flies close to the tanker; 
+
+Probe collides with the drogue  & Drogue radius is 0.305m; 
+
+Too low relative speed cannot hit the valve open; 
+
+Too high relative speed will damage the drogue.  & Receiver becomes vulnerable to attacks and anti-reconnaissance capability
+decreases during AR;
+
+To save time for the primary mission \tabularnewline
+\hline 
+\end{tabular}
+\par\end{centering}
+\centering{}\label{Tab_1.3}
+\end{table}
+
+
+\subsubsection{High Safety}
+
+In an actual aerial refueling process, the most important thing is
+to reduce the risk and ensure flight safety, after which the success
+of docking can be considered. With the traditional flight knowledge,
+it is dangerous for aircraft to collide with an object, e.g. a bird,
+in the air. When refueling in the air, the receiver pilot needs to
+control the aircraft to make the receiver\textquoteright s probe collide
+with the drogue within the prescribed range of relative velocity for
+docking. In this process, risk detection and risk control are needed
+to reduce risk consequences and the frequency of their occurrence.
+To be specific, the receiver should first avoid colliding with the
+tanker in the air. Furthermore, the apparatus (hose, drogue, probe
+or other refueling equipment) damage should be avoided, which requires
+that the capture speed control should be reasonable in the docking
+process, and the offset distance of the drogue should be strictly
+controlled in the docking process. Once the relative velocity and
+the docking error between the drogue and the probe exceed reasonable
+thresholds (specified safety range requirements), the receiver is
+required to return to a safe place to adjust and evaluate whether
+to continue docking or not to ensure the safety of the docking.
+
+\subsubsection{High Accuracy}
+
+The docking control accuracy of probe-and-drogue aerial refueling
+methods needs to be within the centimeter level \cite{doebbler2007boom},
+which is a quite high accuracy requirement for actual aircraft control
+system due to aircraft maneuverability limitation and atmospheric
+disturbances. This requires that the navigation and control accuracy
+reaches the centimeter level or higher. Moreover, the drogue-and-probe
+refueling also needs to limit the capture speed within a very small
+range, such as 1\textendash 1.5m/s \cite{AAR-2014}. This kind of
+speed can cause the probe to hit the fuel transferring valve in the
+drogue open. Too small speed cannot hit the valve open, and too high
+speed will damage the drogue.
+
+\subsubsection{High Efficiency}
+
+In the aerial refueling process, especially in the docking and fuel
+transferring phase, the receiver\textquoteright s concealment and
+anti-reconnaissance capability will decrease greatly. Once be discovered,
+it will become the enemy's key target, so the aerial refueling must
+be completed within a short time. This is particularly necessary in
+the enemy-occupied airspace. In addition, for both military and civilian
+fields, aerial refueling as an auxiliary mission aims to achieve the
+main task better, so it also needs a more efficient implementation
+on the basis of safety. 
+
+\section{Progress in Modeling of PDR}
+
+There are two purposes of mathematical modeling for the PDR system:
+one is for high-fidelity analysis of the aerial refueling system through
+virtual flight simulations with computers, and the other is for the
+controller design. Generally, the former tends to establish a very
+elaborate model to include all the kinematics and dynamics of the
+PDR system, while the latter is based on a simplified model, which
+is often obtained by simplifying the former model to some degree.
+The modeling of PDR systems consists of mathematical descriptions
+of the kinematics and dynamics of aircraft, refueling equipment (hose,
+drogue, probe), and wind disturbances.
+
+\subsection{Aircraft modeling}
+
+Tanker modeling and receiver modeling are both a part of aircraft
+modeling. In the PDR, the receiver moves to carry out a refueling
+procedure while the tanker simply flies level and forward. As a result,
+studies are mainly concentrated on receiver modeling. 
+
+In most studies, the tanker model is frequently regarded as a mass
+point model \cite{fezans2018towards}. In addition, a rigid model
+with six degrees of freedom (DOF) is created in order to build a controller
+for the tanker. A strict-feedback version of a non-affine nonlinear
+tanker model was taken into consideration in Ref. \cite{su2016robust}. 
+
+Linear models with small-angle perturbations are typically used for
+receiver modeling\cite{brian2003aircraft}. High model precision is
+necessary for aerial refueling, and it is also necessary to characterize
+the model's dynamic properties under the wake vortex. The receiver
+model in Ref.\cite{bloy2001modeling} was modified for this reason.
+The docking model of a tailless UAV was put forth in Ref.\cite{barfield2005equivalent}.
+The receiver modeling with varying mass was examined in Refs.\cite{guo2011modeling}
+\cite{an2018relative}. Ref.\cite{wu2021dynamic} took into account
+the modeling of the time-varying uncertain inertia. For the ease of
+the latter nonlinear controller design, nonlinear receiver models
+were also taken into consideration in the previous couple of years
+and frequently converted to an affine nonlinear form\textbf{ }\cite{su2018exact}. 
+
+\subsection{Refueling apparatus modeling}
+
+The primary components of PDR equipment are a hose, a drogue, and
+a Hose-Drum Unit (HDU). The flexible hose causes the drogue not to
+be fixed in the position under the tanker coordinate system. Studying
+the basic dynamics of the drogue is helpful to do the simulation and
+design the docking control law.
+
+The cornerstone of PDR equipment modeling is hose modeling. Since
+the hose is flexible, the lumped parameter technique and the finite-segment
+strategy are frequently used to create a link-connected model\cite{bloy2002modelling}
+\cite{zibo2012research}. Figure \ref{Fig_1.6} illustrates the breakdown
+of a hose into a number of lumped-mass, rigid cylindrical links joined
+by frictionless ball-and-socket joints. Each link is subject to aerodynamic
+and gravitational loads brought by the tanker wake, disturbances in
+the atmosphere, etc. The link masses and all external forces are lumped
+at the connecting joints. The coordinate system in Figure \ref{Fig_1.6}
+is anchored to the tanker. In Ref.\cite{hose-link-model}, simulations
+demonstrated a reasonable agreement between the model's features and
+the published flight test data. A basic pendulum-based hose model
+was also researched in Refs. \cite{pud-drogue,dai2018iterative}.
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 6}
+\par\end{centering}
+\caption{Link-connected hose model ($l_{*}$ indicates the link length, $p_{*}$
+indicates the position of each joint).}
+
+\centering{}\label{Fig_1.6}
+\end{figure}
+
+Ref.\cite{vassberg2002dynamic} performed a dynamic study of the KC-10
+tanker's hose but neglected to account for two important elements:
+restoring force between two rigid links and variable length. Ref.\cite{yin2022hose}
+investigated the attitude model of the hose-drogue system while taking
+into account restoring force by combining CFD and multi-rigid body
+dynamics. After that, the hose-drogue system's movement rule was examined.
+This force was added to the hose model in Ref.\cite{HoseLink-2007}.
+To prevent harm to the equipment, the model can be used to evaluate
+the Hose Whip Phenomenon (HWP) \cite{ro2011dynamics}. By adjusting
+the hose length to keep the hose tension, the HDU hose reel control
+device can prevent HWP. In Ref.\cite{vassberg2003numerical}, a modeling
+approach for the variable-length hose was proposed. In Ref. \cite{wang2014dynamic},
+a dynamic variable-length hose-drogue model with the restoring force
+resulting from bending was examined. An integrated drogue model was
+suggested in Ref. \cite{dai2019hose} to explain the drogue behavior
+under wind disturbances while taking the impact of the HDU controller
+into consideration. Additionally, system identification was used to
+create a reduced lower-order drogue dynamic model that aided in constructing
+the docking controller. 
+
+The core of the lumped-mass finite-segment technique is rigid link
+kinematics, which did not take into account the hose's elasticity
+and damping. The elastodynamic hose model was created using the finite
+element method (FEM) \cite{zhu2006elastodynamic}, which is based
+on the mechanics of materials. A three-node, nonlinear curved beam
+element was used to model the hose in the Lagrangian framework \cite{zhu2007modeling},
+and the dynamic analysis of the established model regarding cable
+tension, tow point disturbance, and vortex wake was also investigated. 
+
+The hose was discretized in the study mentioned above to model the
+hose-drogue assembly. As shown in Figure \ref{Fig_1.7}, some research,
+in contrast, established continuum models based on the analysis of
+infinitesimals . The hose is considered as an infinite dimensional
+distributed parameter system, and the dynamic equation is built using
+partial differential equations. Ref. \cite{paniagua2021aeroelastic}
+suggested a precise hose-drogue model that took into account the hose
+bending effect, the downwash angle, and the phase lag between the
+hose motion and its unsteady aerodynamic forces in order to study
+the flutter-type aeroelastic instability of the hose-drogue system.
+Ref. \cite{liu2020vibration} used partial differential equations
+to model the flexible hose as an infinite dimensional distributed
+parameter system to prevent spillover effects caused by truncated
+hose models. 
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 7}
+\par\end{centering}
+\caption{Continuum model established on the analysis of \cite{paniagua2021aeroelastic}
+( $T$ is the hose tension, $p$ and $q$ are the hose drag and lift
+per unit length, $\rho_{H}$ is the hose mass per unit length).}
+
+\centering{}\label{Fig_1.7}
+\end{figure}
+
+A full hose-drogue assembly model is produced after the hose model
+is established and the aerodynamic model of the drogue is combined.
+Ref. \cite{wei2016drogue} extracted a second-order transfer function
+model to characterize drogue dynamics under the bow wave effect by
+parameter identification of the higher-order link-connected system
+in order to create a lower-order dynamic model suitable to the latter
+docking controller design.
+
+\subsection{Wind disturbance modeling}
+
+During the refueling process, the trailing hose-drogue and the receiver
+are subject to various disturbances caused by the airflow, thus increasing
+the difficulty of control. The main wind disturbances can be classified
+into three categories: (i)the bow wave effect from the receiver, (ii)
+the turbulence and wind gust in the atmosphere, and (iii) the wake
+vortex caused by the tanker. The receiver is affected by the last
+two disturbances, while the hose-drogue system is affected by three
+disturbances.
+
+\subsubsection{Bow wave effect. }
+
+One of the greatest issues for PDR is the disturbance of the drogue
+brought on by the bow wave of the receiver, which has received a lot
+of focus in the past ten years\cite{dai2018terminal}. The bow wave
+effect or forebody (aerodynamic) effect as shown in Figure \ref{Fig_1.8-7}
+occurs during aerial refueling because the aircraft frequently travel
+at high speed, creating a powerful airflow at the receiver nose\textbf{
+}\cite{ro2011dynamics,Dibley-2007-2}. As the receiver reaches the
+tanker, the airflow will disturb the drogue's motion. This kind of
+disturbance is more obvious when the probe is side-mounted on the
+aircraft forebody, which is widely used in manned aircraft for pilots
+to better observe the relative position of the probe and the drogue,
+but it still exists for the probe \textquotedblleft on the nose\textquotedblright{}
+although it has less influence. In reality, a docking failure is frequently
+caused by this disturbance. According to NASA experimental data from
+2004\cite{vachon2004calculated}, \cite{Hansen-2004-4}, as the receiver
+gets closer to the drogue, it typically produces a location offset
+of 30.5\textendash 36.6 centimeters from the desired position. Because
+of the light weight of the drogue, it moved very fast in the docking
+process, caused overshooting, and then swang back. If the receiver
+was forced to connect with the drogue, then the receiver may have
+a significant overshoot and cause the probe to break \cite{ro2011dynamics}.
+Therefore, in order to finish docking, it is essential to anticipate
+the drogue offset. Based on their previous experience, pilots frequently
+predict the drogue offset. Similarly, it is expected that the receiver
+autopilot will anticipate the drogue offset to finish AAR. In other
+words, it is important to examine the relationship between the force
+acting on the drogue and its relative location and speed with respect
+to the receiver nose. 
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.6\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 8\lyxdot 1}
+\par\end{centering}
+\caption{Bow wave effect\textbf{ }\cite{bhandari2013bow}}
+
+\centering{}\label{Fig_1.8-7}
+\end{figure}
+
+Since the bow wave is very complicated, it is challenging to develop
+an extremely precise dynamic model. A lot of computer simulation data
+and flight experiment data are needed, which will use up a lot of
+material and human resources. It is also essential to think about
+what kind of model to construct. The current modeling techniques are
+split into offline and online methods depending on whether real-time
+data processing is used. The acquired models are divided into dynamic
+and static models depending on whether the model is dynamic. 
+
+\textbf{i) Offline dynamic model.} If the probe of the receiver is
+on the side of the nose, it is necessary to consider the influence
+of the nose on the drogue in the modeling and establish the dynamic
+model. In Ref. \cite{Dogan-2013-7}, Cart3D analyses were used to
+study the bow wave of a C-141 receiver behind a KC-135 tanker, and
+an analytical approach based on stream functions was suggested. The
+resulting nonuniform flow field was then roughly modeled using components
+of uniform velocity components. Based on the stream function technique,
+Ref.\cite{dai2016modeling} developed an analytical bow wave model
+for PDR that took the receiver nose and cockpit into account. The
+analytical model is applicable to the latter controller design and
+real-time simulations. Ref. \cite{wei2016drogue} used training data
+from CFD models to create a nonlinear bow wave model for PDR using
+nonlinear regression. 
+
+\textbf{ii) Offline static model.} Current modeling techniques typically
+focus on the entire dynamic AAR process. However, for docking control,
+the trajectory of the drogue to the steady-state value is less important
+than the ultimate steady-state drift value of the drogue produced
+by the bow wave. In this way, a simple static model can be built,
+and the parameter identification becomes much simpler. As a consequence,
+a straightforward static model can be created, such as lookup tables
+based on CFD analysis or qualitative static findings from trials.
+According to the aerial refueling experiments conducted by NASA using
+F/A-18 fighter aircraft, two conclusions can be drawn. First, the
+steady position of drogue has a functional relationship with the tanker\textquoteright s
+altitude and velocity; secondly, the drogue drift offset when it is
+disturbed by the receiver has some certain rules, where the drogue
+offset is that of the drogue from its steady-state position. That
+is to say, although the airflow environment is complex, the steady
+law of drogue motion can still be described by modeling. Further,
+NASA conducted research on the correlation between the drogue offset
+under disturbances and the receiver location. The receiver shifted
+in the perpendicular plane during NASA's trial\cite{Hansen-2004-4}.
+The drogue's greatest steady-state deviation while being affected
+by the bow wave was approximately 0.368m. Reference \cite{Ro-2010-5}
+gave similar conclusions by modeling and simulation. The basic drogue
+dynamic was given in \cite{zibo2012research}.
+
+\textbf{iii) Online model.} In practice, the pilot's operation follows
+``aligning $\rightarrow$ docking $\rightarrow$ gaining experience
+$\rightarrow$ returning to the initial docking position $\rightarrow$
+realigning...\textquotedblright . The iterative process is carried
+out in the aerial docking. In actual flight, online identification
+corresponding to \textquotedblleft gain experience\textquotedbl{}
+can also be considered for autonomous docking in the air. The online
+identification mentioned here is performed after one docking trial,
+which can use all the data from the last docking trial. The resulting
+model can be used for the next trial. Compared with real-time identification
+at each sensor sampling period, the identification here can use more
+sampling data and has sufficient calculation time. There aren't many
+findings for the online bow wave model. In order to provide online
+static models, some learning-based strategies have been attempted.
+To guarantee the precision of the docking control, Ref. \cite{liu2018deep}
+proposed the deep learning technique to model the bow wave and predict
+the location of the drogue in real-time. Additionally, the drogue
+offset was predicted online in Refs.\cite{dai2018iterative,dai2018terminal}. 
+
+\subsubsection{Atmospheric turbulence and wind gust}
+
+Nearly all aircraft must contend with atmospheric turbulence and wind
+gusts, and related models are very rich. Corresponding models are
+very rich. At present, the Dryden turbulence model proposed by NASA
+is widely used in the study of the aerial refueling \cite{burns2005automated}.
+The realization is that the band-limited white noise passes through
+specific forming filters to obtain the longitudinal, lateral and vertical
+velocities of the atmospheric turbulence flow field and their angular
+velocities. There are two widely accepted models: the model with MIL-HDBK-1797
+standard \cite{specification1997flying} and the model with MIL-F-8785C
+standard \cite{specification1980flying}. 
+
+\subsubsection{Wake vortex caused by the tanker}
+
+The wake vortex caused by the tanker received the most attention by
+researchers among the three kinds of disturbances. When the relative
+distance is short, large aircraft create a powerful wake vortex at
+the wingtips that progressively diffuses backward and leaves a strong
+aerodynamic interference to the aircraft behind, as shown in Figure
+\ref{Fig_1.8} . Due to the closer relative distance between a tanker
+and a receiver during aerial refueling compared with typical formation
+flight, the wake vortex's impact is more severe\cite{venkataramanan2003vortex}.
+In 2004, the computer result was contrasted with the wind tunnel experimental
+result in order to assess the viability of wake vortex modeling\cite{blake2004uav}.
+Although there was a good agreement between the two findings, drag
+and peak lift were not well congruent. As a result, from 2004 to 2008,
+the modeling of wake vortices was thoroughly studied\cite{dogan2008wakeA}
+\cite{dogan2008wakeB} and represented by a more cohesive mathematical
+model that divided the wake vortex's action into equivalent wind components
+and wind gradient components along three-axis directions. The wake
+vortex velocity was determined by the combination of the two components.
+Rankine Vortex, Lamb-Oseen Vortex, and Hallock-Burnham Vortex are
+the three most frequently used vortex models at present\cite{gerz2002commercial},
+with Hallock-Burnham Vortex being used in aerial refueling the most.
+
+A horseshoe vortex model was established in Ref.\cite{Vortex-1} using
+the lifting line theory. Ref.\cite{zhang2020tanker} investigated
+tanker wake effects through ANSYS. It was observed that wingtip vortices
+of the tanker wing and horizontal tail dominate the tanker wake effects
+on the receiver. Ref.\cite{cavallo2019low} developed a lower-order
+analytic response surface model based on three-dimensional tricubic
+interpolation to incorporate an aerodynamic interference module into
+the simulation of an aircraft. In this model, the complex wake effects
+were described by an increase in the aerodynamic coefficient. Additionally,
+actual flight data was used to verify the model. Based on the CFD
+technique\cite{yue2016numerical}, a numerical study of the flow field
+of an embarked aircraft being refueled by a buddy aircraft was produced.
+In order to simulate the aerodynamic interplay from the tanker to
+the receiver, the hose, and the drogue, Reynolds-Averaged Navier Stokes
+CFD calculations were carried out in Ref.\cite{fezans2018towards}.
+Ref.\cite{katz2017aerodynamic} established an inviscid-flow-based
+model to estimate the aerodynamic interaction between a tanker and
+a much smaller receiver.
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 8}
+\par\end{centering}
+\caption{Wake-vortex effect \cite{Vortex-1}}
+
+\centering{}\label{Fig_1.8}
+\end{figure}
+
+
+\subsection{Modeling and validation methods}
+
+There are generally four kinds of modeling methods: first principles
+modeling methods (mechanism modelling method), computational fluid
+dynamics (CFD) modeling methods, wind tunnel modeling methods, and
+real experimental modeling methods. The first principles modeling
+method can give a unified model well, but model parameters are uncertain
+or too many, which need to be determined by identification or measurement.
+The CFD method is commonly used in aerodynamics modeling and simulation,
+although the amount of calculation is huge. It is economical to conduct
+numerical experiments on the fluid dynamic problems of the aerial
+refueling docking phase to get data. Through the data, the parameters
+in the model established by the first principles can be corrected
+or be fitted. For example, the CFD method is used in the analysis
+of bow wave models in \cite{Dogan-2013-7}. Compared with the former
+two methods, the wind tunnel modeling method has a higher authenticity
+but a higher cost, which can be further used to improve the existing
+models. Due to the limitation of experimental conditions, the wind
+tunnel experiments in the present study only aim at some special parts
+of aerial refuelings, such as the aerodynamic characteristics of the
+drogue \cite{ro2006aerodynamic}. The modeling methods above can be
+used for the modeling of the receiver, the modeling of the trailing
+hose and drogue, and the modeling of the bow wave effect on the drogue.
+As for the docking process of aerial refueling, existing real experimental
+modelings from the open research and academic publications were generally
+used to verify or carry out some simple model modeling, such as the
+wake vortex model and the maximum drogue offset under the bow wave.
+
+\section{Progress in Control of PDR}
+
+The primary control challenge during the refueling phase is docking
+the probe into the drogue and maintaining the relative position. The
+goal of docking control is to effectively guide the probe to successfully
+catch the drogue by having the receiver approach the drogue along
+a specific trajectory. Figure \ref{Fig_1.8-2} illustrates how docking
+controllers are typically composed of three terms: the command generator
+term, the tracking control term, and the stabilizing control term.
+The purpose of the command generator is to ensure the smoothness of
+the tracking reference and further ensure the control performance.
+The purpose of the tracking control term is to design a feedforward
+to turn the tracking problem into a stabilizing control problem, thus
+solving the nonminimum phase problem. The purpose of stabilizing control
+is to suppress some uncertainties and disturbances. Additionally,
+the station-keeping control must be finished both before and after
+docking. It could be viewed as a special case of tracking control.
+Along with receiver control, anti-HWP control (HDU control) and drogue
+stabilization and control (control from the control surfaces of the
+drogue) are also attractive. Without taking into account the motion
+of the drogue, the control issue in the flying-boom aerial refueling
+can be basically viewed as a special case of the PDR control issue.
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.9\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 8\lyxdot 2}
+\par\end{centering}
+\caption{Overall structure of the AAR system}
+
+\centering{}\label{Fig_1.8-2}
+\end{figure}
+
+
+\subsection{Command generator}
+
+For the receiver to successfully complete the formation and refueling
+tasks in a secure manner, the command generator primarily plans a
+smooth and practical flight trajectory. There are two reasons for
+this.
+
+(i) Avoid overshooting. Fixed-wing aircraft often possess nonminimum
+phase characteristics. In the time domain, nonminimum phase characteristics
+may cause overshooting, and the amplitude of overshooting is related
+to the amplitude of the input signal. Therefore, if a far-reaching
+docking target is directly fed, then a large resulting signal change
+will cause a large overshooting. Smooth trajectories can weaken the
+effect of overshooting. In this way, the collision between the receiver
+and the drogue is avoided while docking in the air. Furthermore, the
+collision between the receiver and the tanker caused by overshooting
+can be avoided.
+
+(ii) Avoid induced oscillation. If a large relative position error
+is directly feedback into the position tracking controller, the controller
+may produce a large amount of control command, resulting in actuator
+saturation (the control input value exceeds the actuating capacity
+or limit of the actuator), which may induce oscillation. Even without
+induced oscillation, the trajectories may be too aggressive. Docking
+control in aerial refueling is a high-precision task, but many control
+methods depend on linear models near the equilibrium point. Large
+control signals may cause the system to move away from the equilibrium
+point into nonlinear regions, resulting in that the control accuracy
+reduces significantly. Therefore, reasonable trajectories must be
+generated to ensure that the controller command is within acceptable
+limits.
+
+In this manner, aerial docking is possible without the receiver and
+drogue/tanker colliding. Various strategies are used to accomplish
+these objectives, and they can be categorized into five groups.
+
+\textbf{Method 1: Low pass filter method.} A simple method is to make
+difference between the reference trajectory (the command signal generated
+by the desired position) and the measured receiver position, and then
+feed the error signal into a low-pass filter (LPF) \cite{valasek2002vision}
+\cite{kimmett2002vision}, \cite{kimmett2002autonomous}, \cite{wang2010verifiable},
+\cite{wang2008novel}, \cite{fravolini2003development}. For example,
+the low-pass filter used in references \cite{valasek2002vision} and
+\cite{kimmett2002autonomous} consists of a Proportional-Integral
+(PI) term and is incorporated directly into the design of the tracking
+controller. On this basis, in order to track the moving drogue, the
+reference trajectory becomes a time-varying signal. In this case,
+the tracking error needs to be smoothed through a low pass filter.
+
+\textbf{Method 2: Smooth polynomial method.} The reference trajectories
+are generated by simple and smooth polynomial functions to meet the
+requirement. Reference \cite{fravolini2004modeling} used three-order
+polynomials to generate trajectories, while\cite{tandale2006trajectory},
+\cite{valasek2017fault} used five-order polynomials. Higher-order
+polynomials can produce more complex trajectories, but an appropriate
+order is enough to meet the flight requirements. Reference \cite{liu2011flight}
+used two-phase polynomial functions to allow the receiver to catch
+up with the drogue more quickly in the vertical plane.
+
+\textbf{Method 3:} \textbf{Terminal guidance method.} The idea of
+this kind of method stems from the terminal guidance of missiles.
+The exact docking of the receiver and the drogue is similar to a missile
+hitting a moving target. Reference \cite{ochi2005flight} used Proportional
+Navigation Guidance (PNG) and Line-of-Sight (LOS) guidance methods,
+which are derived from missile terminal guidance and autonomous landing
+of aircraft respectively (It should be noted that reference \cite{ochi2005flight}
+mainly explained how to guide the tanker to the designated position
+in the tanker coordinate system. Although it was not docking, the
+guidance method could be applied to docking). This method calculated
+in real time how to adjust the attitude or position of the receiver
+in order to approach the desired position optimally. Reference \cite{wang2010verifiable}
+used the method of differential games, where the reachable region
+of the receiver and the target region determined by the motion of
+the drogue are first calculated. Then, the next step is given by calculating
+the distance between the two regions. Because the way of giving a
+command is similar to terminal guidance, it is also included in Method
+3. Additionally, rendezvous guidance laws for tankers and receivers
+can also potentially be used for docking \cite{luo2014guidance,tsukerman2018optimal}.
+This technique determined in real time how to modify the receiver's
+attitude or position in order to get closer to the intended position.
+
+\textbf{Method 4: Intelligent optimization method. }An optimum trajectory
+can be provided by intelligent trajectory optimization. In Ref.\cite{liu2020docking},
+the gradient of the docking success rate anticipated by a deep neural
+network was used to optimize the probe trajectory. Ref.\cite{liu2018deep}
+suggested an online trajectory optimization technique to solve the
+issue that the bow wave is frequently overlooked in the trajectory
+generator. The optimizer created an ideal docking trajectory by using
+the bow wave model and the drogue location at the next moment. 
+
+\textbf{Method 5: Preview method.} The preview technique \cite{su2017back,liu2019novel}
+is used to address the issue of a slower receiver tracking a faster
+drogue which can predict the drogue location to compensate for the
+tracking latency. The reference trajectory takes the predicted drogue
+motion into account. The preview time is a crucial parameter in deciding
+the duration of drogue motion prediction. A fuzzy logic controller
+was used in Ref.\cite{su2017back} to choose the preview time. The
+controller, however, primarily depends on human intuition, which might
+not be optimal. Ref.\cite{liu2019novel} suggested a learning method
+that combines deep learning and reinforcement learning to choose the
+optimal preview time. 
+
+\subsection{Tracking control}
+
+The main purpose of tracking control is to transform a tracking control
+problem into a stabilizing control problem so as to solve the instability
+of internal dynamics caused by non-minimum phase property. 
+
+First, the reference state and the reference input are extracted from
+the reference trajectory. In the process of converting a tracking
+problem into a stabilizing control problem, it is necessary to establish
+an state error dynamics first, which can be obtained by subtracting
+the reference dynamics from the original dynamics. However, it is
+not enough to use only the reference output. Thus, the reference state
+and the reference input have to be obtained first. The non-zero setpoint
+(NZSP) method proposed in references \cite{valasek2002vision} and
+\cite{kimmett2002autonomous} was to derive the reference state and
+the reference input based on the reference output and the receiver
+model. The NZSP method limits the reference state and the reference
+input to be constant, that is, the drogue is stationary relative to
+the tanker. In order to overcome this disadvantage, \cite{kimmett2002vision}
+improved the NZSP method, and further proposed command generator tracker
+(CGT), which could continuously obtain the reference state and input
+of the next sampling time with the movement of the drogue. In \cite{tandale2006trajectory}
+and \cite{liu2011flight}, Extended State Observers (ESOs) were used
+to observe the reference state. Reference \cite{liu2012research}
+elaborated on this method in more detail and completeness. The reference
+trajectory used in reference \cite{fravolini2004modeling} was a third-order
+polynomial of time, and the reference acceleration can be obtained
+by twice differential. In the linearized model based on small-angle
+approximation, the longitude and lateral acceleration are linearly
+related to the angle of attack and sideslip angle. Therefore, the
+reference angles of attack and sideslip angles can be obtained directly
+by taking the derivative of the trajectory. Then, the ideal system
+is established. Based on it, the original system can be converted
+into error dynamics by subtracting it. Then, the tracking goal can
+be accomplished by stabilizing control for the error dynamics.
+
+Some disturbance rejection terms are also included in tracking control.
+The integrator is frequently used to address the problem of tracking
+static error caused by atmospheric turbulence, measurement error,
+and other random disturbances to a certain extent \cite{valasek2002vision}\cite{kimmett2002vision}\cite{fravolini2004modeling}\cite{dogan2009effects}\cite{wang2008novel}.
+Furthermore, robust control in Refs. \cite{murillo2008comparison},\cite{fravolini2003development}
+can render the output insensitive to specific noises, primarily atmospheric
+turbulence, wind gusts, and sensor-induced noise. Another common method
+is to lump all the unknown disturbances, uncertainties, and some higher-order
+nonlinearity terms into one disturbance term. Then the lumped disturbance
+can be estimated and compensated by a disturbance observer\cite{su2018exact}.
+In Ref.\cite{duan2020bionic} a gain-adaptive equivalent sliding mode
+control scheme based on the ESO was suggested to attenuate the impact
+of wind disturbances and model uncertainties. In Ref.\cite{yu2018wake},
+the disturbance observer approach was used to estimate the lumped
+uncertainty containing the tanker wake vortex term, and the dynamic
+surface control method was chosen to build a position-tracking controller.
+
+AAR is safety-critical, so many scholars are starting to take the
+fault-tolerant control issue into account\cite{valasek2017fault,yu2018fault,sevil2015fault}.
+Ref.\cite{valasek2017fault} took control-effector failures into account,
+and a Structured Adaptive Model Inversion (SAMI) controller was created,
+which didn't rely on fault-detection data. In Ref.\cite{yu2018fault},
+actuator faults and wake vortices were taken into account as a lumped
+uncertainty and estimated by a disturbance observer in order to accomplish
+a secure formation flight. Backstepping control was used to accomplish
+fault-tolerant control based on the estimated uncertainty. Due to
+the near proximity of the tanker and receiver, the collision avoidance
+issue was also taken into account in Ref.\cite{chang2019robust},
+which transformed it into a state-dependent output-constrained control
+problem. Then, the backstepping technique and Barrier Lyapunov Function
+(BLF) were used to create a controller. 
+
+It is noteworthy that many studies explicitly design tracking controllers
+instead of converting the tracking control problem into a stabilizing
+control problem. This is because the non-minimum phase feature of
+the receiver is not considered or addressed by other methods. In Refs.\cite{su2018exact,su2018probe},
+the six DOF nonlinear receiver model was considered, and backstepping-based
+flight controllers were proposed to accomplish high-precision docking
+control for AAR in the presence of multiple flow disturbances and
+uncertainties. 
+
+The above docking control scheme follows the idea of real-time feedback:
+trajectory generating tracking control stabilizing control. Reference
+trajectory design and tracking controller design often rely on accurate
+models. However, actual models have many uncertainties, such as input
+delay and parameter uncertainty. In order to deal with uncertainties,
+the feedback control method with an integrator is often adopted. This
+method can compensate for uncertain parameters. However, the measurement
+delay, the input delay, and the phase lag caused by the integrator
+will affect the dynamic performance, control precision, and even stability.
+Furthermore, feedback control techniques could cause the receiver
+to chase the drogue. The drogue moves quickly in the docking process
+due to its light weight. The chasing action may lead to a significant
+overshoot and overcontrol for the receiver and may cause impact and
+damage to the refueling equipment\cite{ro2011dynamics}. When the
+effect does not significantly increase drogue displacement, a rapid
+approach technique can be used for docking, but this can easily result
+in HWP. According to NATO aerial refueling standards68, this approach
+strategy is risky and incorrect. On the other hand, if a sluggish
+approach strategy is used, the receiver's bow wave will significantly
+shift the drogue. 
+
+Inspired by the pilot training process for manned aircraft refueling,
+the docking control can be formulated as a terminal Iterative Learning
+Control (ILC) problem or a point-to-point ILC problem\cite{Lin1998Iterative}
+\cite{Sun1999Iterative}. The ILC approach is a model-free control
+technique that makes use of the repeatability of the considered system
+to enhance the system's control performance. If a PDR system's docking
+attempt is unsuccessful, the receiver will withdraw to the standby
+position in preparation for the next docking attempt, as shown in
+Figure \ref{Fig_1.8-3}. That implies that the docking procedure is
+repetitive. ILC is a viable option to address the docking control
+problem. The basic idea is to use the data from the most recent unsuccessful
+docking attempts to change the feedforward input of the docking control.
+By doing this, it is possible to compensate for the offset and reject
+the repetitive uncertainties. The problem of the slower dynamic receiver
+tracking the quicker dynamic drogue may be resolved by ILC. Another
+advantage of ILC is that it allows identification performed after
+one docking trial. Compared with real-time identification at each
+sensor sampling period, the identification here can use more sampling
+data and has sufficient calculation time. This can reduce the requirement
+of visual sensor and improve its feasibility. The ILC methods suitable
+for the probe-and-drogue AAR is different from the traditional ILC
+in that it cannot guarantee the actual initial position of the receiver
+is the same as the expected initial value. What is more, the task
+needs to make full use of model information to reduce the iterative
+number. The aerial refueling docking controllers in Refs.\cite{dai2018terminal,ren2019reliable,jinrui2020docking}
+were designed using iterative learning, which successfully averted
+the drawbacks of slower dynamics tracking faster dynamics and overcontrol
+in feedback control. These ILC techniques used an adjoint operator
+to solve the non-minimum phase problem. Iterative learning control
+can effectively handle repetitive disturbances but cannot suppress
+non-repetitive disturbances. The ability to suppress sudden gusts
+or random turbulences is poor during aerial refueling docking. 
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.6\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 8\lyxdot 3}
+\par\end{centering}
+\caption{ILC-based docking operation in AAR.\cite{jinrui2020docking}}
+
+\centering{}\label{Fig_1.8-3}
+\end{figure}
+
+
+\subsection{Stabilizing Control}
+
+To suppress uncertainties and disturbances and enable the error dynamics
+state to converge to zero, stabilizing control is used. According
+to the design methods of the traditional flight control system, classical
+state feedback and Proportional-Integral-Derivative (PID) method can
+be used to control the system. Reference \cite{ochi2005flight} applied
+state feedback to stabilize the system. Reference \cite{li2010uav}
+used PID method to design for each single-input-single-output channel
+for the inner and outer loops. Its outer loop PID coefficients are
+adjusted adaptively by particle swarm optimization. The modified PID
+method can restrain the vortex disturbance caused by the tanker wingtip.
+In contrast, most methods prefer the Linear Quadratic Regulation (LQR)
+method \cite{valasek2002vision} \cite{kimmett2002vision} \cite{tandale2006trajectory}
+\cite{fravolini2004modeling} \cite{rehan2012robust} \cite{wang2011precise}.
+Linear quadratic optimization is a convex optimization with a unique
+extremum, so this method is often used to design the optimal feedback
+gain matrix. Some other methods to suppress perturbation and nonlinearity
+also use quadratic optimization, such as the adaptive dynamic inverse
+method in \cite{gai2012trajectory} and the L1 adaptive method in
+\cite{wang2010verifiable}, \cite{wang2008novel}. Reference \cite{stepanyan2004aerial}
+used the adaptive control to stabilize the controller and track an
+adaptive signal. In reference \cite{kimmett2002autonomous}, Linear
+Quadratic Gaussian (LQG) regulator was used to reduce the effect of
+Gaussian white noise caused by measuring sensors in the system so
+as to improve the stabilization effect. Although the actual aircraft
+model is nonlinear, the stabilizing controller design is generally
+built on linear models. Consequently, when the disturbance is significant,
+the control performance may suffer. Reference \cite{elliott2010investigating}
+proposed feedback linearization to solve this problem. Few papers
+are based on the six degrees of freedom (DOF) nonlinear receiver model.
+For such a purpose, backstepping based flight controller was proposed
+to solve the AAR docking control problem with high precision in the
+presence of multiple flow disturbances and uncertainties \cite{su2018exact}\cite{su2018probe}. 
+
+\subsection{Station-keeping control}
+
+After a successful capture, the receiver and tanker must maintain
+relatively stationary during the refueling phase to transmit the fuel.
+In other words, the receiver must hold a specific location under the
+coordinate frame of the tanker without significantly deviating from
+it. For two main reasons, station-keeping control for AAR is a challenging
+task. The first reason is that the receiver is disturbed by atmospheric
+disturbances and the tanker's wake vortex. The second reason is that
+the receiver's mass, inertia, and center of mass will alter due to
+the fuel transfer during the refueling phase.
+
+In order to maintain the location, station-keeping control must first
+establish the reference state, which transforms the issue into a stabilizing
+control problem. Generally speaking, by fixing the reference frame
+on the tanker, reference state can be regarded as a constant value.
+The station-keeping control method is basically consistent with the
+stabilizing control mentioned above. For example, the LQR method was
+adopted in references \cite{dogan2009effects}, \cite{elliott2009improving}
+and \cite{lee2013estimation}, the L1 adaptive method was adopted
+in reference \cite{wang2010verifiable}, and the PID method was adopted
+in \cite{ross2006autonomous}. In view of the receiver mass change
+in the process of fuel transferring, the control method of adaptive
+gain (gain scheduling) was adopted in references \cite{wang2010verifiable},
+\cite{dogan2009effects}. These are based on rigorous and accurate
+modeling, such as the result in \cite{dogan2009effects}, which is
+based on the variable mass modeling of the receiver under wake vortex
+disturbance in \cite{Waishek2009Derivation}. Reference \cite{kriel2013receptacle}
+proposed that the controlled plant should be the position of the probe
+rather than the position of the center of gravity of the receiver.
+Therefore, the relative position of the center of gravity of the receiver
+and its probe was used to modify the original model, and the controller
+was then designed. In \cite{an2018relative}, double power reaching
+law based sliding mode controller was designed to control the receiver
+translational motion relative to the tanker aircraft in the outer
+loop while Active Disturbance Rejection Control (ADRC) technique was
+applied to the inner loop to stabilize the receiver. 
+
+Prior information about the refueling system or disturbances can also
+be used to solve some problems encountered in station keeping. Reference
+\cite{elliott2009improving} dealt with the problem of how to control
+a receiver when the flight condition of the tanker changes. This paper
+considered that the position and attitude information of the tanker
+could be obtained by communication as the feedforward, which was then
+incorporated into the LQR. The robust design method was consistent
+with the stabilizing control problem in solving this problem, i.e.,
+to minimize the gain of the disturbance or disturbance on the output
+as much as possible \cite{rehan2012robust}. Reference \cite{sun2013uav}
+adopted the ADRC design method to design the station-keeping controller.
+In \cite{pachter1997design}, Quantitative Feedback Theory (QFT) was
+used to design controllers to guide the receiver and tanker formation.
+This control method was also applied to station keeping \cite{guo2010design}.
+
+In the past ten years, station-keeping control has drawn some interest.
+Ref.\cite{an2018relative} examined the effects of fuel injection
+in terms of the receiver's mass change and center-of-gravity change.
+An inner and outer loop controller structure was considered. The sliding
+mode controller was developed in the outer loop to regulate the relative
+motion between the receiver and the tanker, and the ADRC method was
+used in the inner loop to stabilize the receiver. A station-keeping
+control based on additive-state-decomposition was suggested in Ref.\cite{ren2021additive}
+to take the receiver's nonlinearity into account. With the aid of
+the additive state decomposition, the effects of nonlinearity and
+uncertainties were decomposed, making the remaining control design
+simpler. The predefined-time, finite-time, and fixed-time attitude
+stabilization controls for receiver aircraft were investigated in
+Refs.\cite{wu2021dynamic,wu2021predefined,wu2022predefined} in order
+to maintain the intended attitude of the receiver for a long period
+of time to receive fuel while achieving a quicker convergence rate.
+In Ref.\cite{wu2021predefined} , a sliding manifold was created to
+enable the sliding mode phase achieved within the predetermined time,
+and after that, a robust stabilization controller was used to accomplish
+the predefined-time attitude stabilization. The benefit of the method
+is that the system settling time can be selected arbitrarily and independent
+of system states. A nonsingular sliding mode based adaptive controller
+was created in Ref.\cite{wu2021dynamic} to accomplish the faster
+finite-time stability of the closed-loop system while considering
+the receiver model's uncertain and time-varying inertia, wind disturbances,
+and change in center of mass. However, the receiver models used in
+Refs.\cite{wu2021dynamic,wu2021predefined,wu2022predefined} are merely
+six-degree-of-freedom models with the force and torque inputs, and
+the aerodynamic models of force and torque are not considered. Additionally,
+the chattering of the sliding mode control is still a problem.
+
+\subsection{Anti-HWP control}
+
+The refueling pod is frequently outfitted with a reel system, specifically
+an HDU\cite{vassberg2003numerical}, in order to maintain the hose
+tension steady and prevent the hose whipping phenomenon\cite{ro2011dynamics}.
+The hose whipping phenomenon brought on by the receiver's extreme
+closing speed needs to be repressed, so the HDU control by reeling
+in/out the hose is required for safety reasons. By adjusting the hose
+length, HDU can prevent the development of extra slack in the hose
+and maintain the internal hose tension. The conventional way to rewind
+the hose is to outfit the refueling pod with a tensator, a spring-loaded
+take-up mechanism. However, the approach is a passive method in nature,
+and it is challenging to reconstruct the tensator's mechanism. Additionally,
+because the reel take-up speed is slower than the closing speed, the
+hose whipping phenomenon is adversely affected. As a result, as seen
+in Figure \ref{Fig_1.8-4}, many scholars have begun to investigate
+using a Permanent Magnet Synchronous Motor (PMSM) to drive the HDU.
+Through a reducer, the PMSM directs the HDU to release and retrieve
+the hose. Ref.\cite{wang2014dynamic} converted the hose length control
+to the angular control of the PMSM, and then suggested an active control
+strategy based on an integral sliding mode backstepping controller
+design to prevent the hose whipping phenomenon. However, the suggested
+backstepping control's computation of higher-order command derivatives
+will result in a problem with an exponential explosion. A command-filtered
+backstepping sliding mode controller was suggested in Ref.\cite{he2017command}
+as a remedy for this problem. It was suggested in Ref.\cite{dai2019hose}
+to use two different kinds of HDU controllers to regulate the hose
+length to stabilize the drogue movement and prevent the hose whipping
+phenomenon.
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.6\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 8\lyxdot 4}
+\par\end{centering}
+\caption{Schematic of Hose-Drum Unit\cite{wang2014dynamic}}
+
+\centering{}\label{Fig_1.8-4}
+\end{figure}
+
+
+\subsection{Drogue stabilization and control}
+
+Some studies concentrated on boosting the damping of drogue motion
+to slow down the drogue dynamics in order to address the issue of
+a slower dynamic receiver tracking a fast-moving drogue. These studies
+included the addition of an active stability control device. The drogue
+motion can be indirectly controlled by the HDU, which is frequently
+regarded as a passive control technique. The main topic of this part
+is the active control using the drogue's built-in control surfaces.
+Ref.\cite{pud-drogue} tended to create a drogue with an active controller
+and self-stabilization. The design aimed to increase the stability
+of the drogue and make it difficult to be disturbed\cite{pud-drogue}
+\cite{kuk2013design}. The fundamental design of the autonomous drogue
+is the installation of four control surfaces at the point where the
+drogue connects to the hose so that the drogue can adjust its location.
+A self-stabilized drogue's design arrangement, as shown in Figure
+\ref{Fig_1.8-5}, was provided in Ref.\cite{kuk2013design}, and its
+performance was assessed in a wind tunnel. Ref.\cite{yuan2017study}
+also took into account a similar self-stabilized drogue arrangement.
+Ref.\cite{AAR-2014} lists some additional self-stabilized drogue
+designs. The dynamic response of the integrated system, which consists
+of the hose, the drogue, and the control surfaces, was examined in
+Ref.\cite{garcia2018dynamic} by considering the control surfaces
+placed in the drogue. A fractional-order controller was developed
+in Ref.\cite{sun2018fractional} to actively regulate the drogue in
+order to maintain its location within a range. An improved pigeon-inspired
+optimization technique was suggested in response to the challenge
+of selecting the controller parameter of the fractional-order controller.
+Ref.\cite{sun2022active} developed active disturbance rejection controllers
+to improve the drogue's anti-disturbance capabilities. 
+
+To increase the control precision during aerial refueling docking,
+many researchers have studied the vibration control of the hose and
+drogue assembly using the control surfaces installed on the drogue.
+By using the backstepping technique to reduce the elastic vibration
+of the flexible hose, Ref.\cite{liu2020vibration} developed boundary
+control. Ref.\cite{chang2019adaptive} developed a multi-objective
+adaptive controller to simultaneously address the input nonlinearities
+of dead-zone, input constraints, and partial state constraints. Additionally,
+the fault-tolerant control for the refueling hose and drogue assembly
+with regard to actuator failure was also researched\cite{liu2021adaptive,liu2022adaptive},
+similar to the fault-tolerant control for the receiver. For a refueling
+hose with variable length and constrained output, Ref.\cite{liu2021adaptive}
+evaluated the partial effectiveness loss of the actuator and suggested
+an adaptive barrier-based fault-tolerant control. A control strategy
+that combines adaptive methods and redundancy actuators was used in
+Ref.\cite{liu2022adaptive} to address the possibility of a partial
+or even complete loss of the actuator's effectiveness. 
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.6\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 8\lyxdot 5}
+\par\end{centering}
+\caption{Schematic of Hose-Drum Unit\cite{liu2022adaptive}}
+
+\centering{}\label{Fig_1.8-5}
+\end{figure}
+
+The active drogue control may offer a fresh approach to the docking
+control issue. In this situation, a novel control strategy that controls
+the drogue to connect with the probe could be suggested in place of
+controlling the probe to dock with the drogue. This method can solve
+the issue of a fast-moving drogue being tracked by a sluggish dynamic
+receiver. It is possible to reduce overcontrol and prevent chasing
+actions while increasing docking safety. There are still some issues,
+though: If the control surfaces are too big, the interference that
+they experience may result in significant drogue drift; if the control
+surfaces are too tiny, they lack sufficient controllability. Furthermore,
+a power supply for the self-stabilizing drogue is required because
+it is far from the tanker. Electricity leakage and fire safety must
+be considered if electronic control is used.
+
+The control for PDR has been examined up to this point, and Table
+\ref{Tab_1.2} displays the methods taken and the problems addressed
+in some research and scholarly papers. It is noteworthy that designs
+for both flying-boom aerial refueling and probe-and-drogue aerial
+refueling are included, with the former's introduction meant to provide
+some related techniques. Section \ref{sec:Characteristics-and-problems}
+provides a description of the docking characteristics and requirements
+in the table. Table \ref{Tab_1.2}'s symbol \textquotedblleft \Checkmark \textquotedblright{}
+denotes that the method took into account the corresponding requirements
+and characteristics, while the vacant space denotes the other way
+around. In Table \ref{Tab_1.2}, U1, U2, U3,U4 mean atmospheric disturbance,
+bow wave, time-varying mass and inertia, and tanker wake vortex, respectively;
+R1, R2, R3 denote high precision, high safety, and high efficiency,
+respectively.
+
+\begin{landscape} 
+
+\begin{longtable}[c]{c|>{\centering}m{0.025\columnwidth}|>{\centering}m{0.025\columnwidth}|>{\centering}m{0.025\columnwidth}|>{\centering}m{0.03\columnwidth}|>{\raggedright}p{0.025\columnwidth}|>{\raggedright}p{0.025\columnwidth}|>{\raggedright}p{0.025\columnwidth}|>{\centering}p{0.03\columnwidth}|>{\raggedright}p{0.025\columnwidth}|>{\centering}m{0.08\columnwidth}|>{\centering}m{0.08\columnwidth}|>{\centering}m{0.06\columnwidth}|>{\centering}p{0.08\columnwidth}|>{\centering}p{0.08\columnwidth}|>{\centering}p{0.08\columnwidth}}
+\caption{Summary of control problems and methods during autonomous aerial docking}
+ \tabularnewline
+\hline 
+\multirow{3}{*}{Reference} & \multicolumn{6}{c|}{Characteristic} & \multicolumn{3}{c|}{Requirement} & \multicolumn{6}{c}{Controller}\tabularnewline
+\cline{2-16} \cline{3-16} \cline{4-16} \cline{5-16} \cline{6-16} \cline{7-16} \cline{8-16} \cline{9-16} \cline{10-16} \cline{11-16} \cline{12-16} \cline{13-16} \cline{14-16} \cline{15-16} \cline{16-16} 
+ & \multicolumn{4}{c|}{Uncertainty} & \multirow{2}{0.025\columnwidth}{\centering{}Slow dyn.} & \multirow{2}{0.025\columnwidth}{\centering{}NMP} & \multirow{2}{0.025\columnwidth}{\centering{}R1} & \multirow{2}{0.03\columnwidth}{\centering{}R2} & \multirow{2}{0.025\columnwidth}{\centering{}R3} & \multicolumn{3}{c|}{Docking controller} & \multirow{2}{0.08\columnwidth}{Station-keeping controller} & \multirow{2}{0.08\columnwidth}{Anti-HWP control } & \multirow{2}{0.08\columnwidth}{Drogue stabilization and control }\tabularnewline
+\cline{2-5} \cline{3-5} \cline{4-5} \cline{5-5} \cline{11-13} \cline{12-13} \cline{13-13} 
+ & U1 & U2 & U3 & \centering{}U4 &  &  &  &  &  & Command 
+
+generator  & Tracking 
+
+controller  & Sta. 
+
+controller  &  &  & \tabularnewline
+\hline 
+\cite{Dibley-2007-2} & \Checkmark{} & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & \Checkmark{} & \Checkmark{} & \Checkmark{} &  &  &  &  &  &  & \tabularnewline
+\hline 
+\cite{valasek2002vision} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & Step Signal + PI & NZSP & LQR &  &  & \tabularnewline
+\hline 
+\cite{kimmett2002vision} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & Time-varying signal + PI & CGT & LQR &  &  & \tabularnewline
+\hline 
+\cite{kimmett2002autonomous} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & Step signal + PI & NZSP & LQG &  &  & \tabularnewline
+\hline 
+\cite{tandale2006trajectory} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & 5th-order polynomial & Extended state observer & LQR &  &  & \tabularnewline
+\hline 
+\cite{fravolini2004modeling} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & 3th-order polynomial & LQR + integrator & LQR &  &  & \tabularnewline
+\hline 
+\cite{stepanyan2004aerial} & \Checkmark{} & \Checkmark{} &  &  &  & \Checkmark{} & \Checkmark{} &  &  & Nonlinear reference model & Differential games & Adaptive control &  &  & \tabularnewline
+\hline 
+\cite{wang2010verifiable} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & Time-varying signal + LPF & LQR + Integrator & L1 Adaptive &  &  & \tabularnewline
+\hline 
+\cite{wang2009l1} & \Checkmark{} &  & \Checkmark{} &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} &  &  &  & Gain scheduling + L1 adaptive &  & \tabularnewline
+\hline 
+\cite{ross2006autonomous} &  &  &  &  &  & \Checkmark{} &  &  &  &  &  &  & Gain scheduling + PID &  & \tabularnewline
+\hline 
+\cite{ochi2005flight} &  &  &  &  &  & \Checkmark{} & \Checkmark{} &  &  & PNG + LOS & Integrator + State feedback & State feedback &  &  & \tabularnewline
+\hline 
+\cite{dogan2009effects} & \Checkmark{} &  & \Checkmark{} &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} &  &  &  & Gain scheduling + LQR &  & \tabularnewline
+\hline 
+\cite{pachter1997design} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  &  &  &  &  & QFT &  & \tabularnewline
+\hline 
+\cite{murillo2008comparison} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} &  & 1. Robust servomechanism design 2. Model following design 3. H$\infty$ & 1. LQR 2. LQR 3. H$\infty$ &  &  & \tabularnewline
+\hline 
+\cite{fravolini2003development} &  & \Checkmark{} &  &  &  & \Checkmark{} & \Checkmark{} &  &  & Tracking error + PI & H$\infty$ & H$\infty$ &  &  & \tabularnewline
+\hline 
+\cite{elliott2009improving} &  &  &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} &  &  &  & Feedforward + LQR &  & \tabularnewline
+\hline 
+\cite{rehan2012robust} & \Checkmark{} &  & \Checkmark{} &  &  & \Checkmark{} & \Checkmark{} &  &  &  &  &  & PID + H$\infty$ &  & \tabularnewline
+\hline 
+\cite{lee2013estimation} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} &  &  &  & LQR + Integrator &  & \tabularnewline
+\hline 
+\cite{sun2013uav} & \Checkmark{} &  & \Checkmark{} &  &  & \Checkmark{} & \Checkmark{} &  &  &  &  &  & ADRC &  & \tabularnewline
+\hline 
+\cite{liu2011flight} & \Checkmark{} & \Checkmark{} &  &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & Two-phase polynomials & Extended state observer & LQR &  &  & \tabularnewline
+\hline 
+\cite{li2010uav} & \Checkmark{} &  &  &  &  & \Checkmark{} & \Checkmark{} &  &  &  & PID & PID &  &  & \tabularnewline
+\hline 
+\cite{an2018relative} & \Checkmark{} &  & \Checkmark{} & \Checkmark{} &  &  &  &  &  &  &  &  & SMC+ ADRC  &  & \tabularnewline
+\hline 
+\cite{wu2021dynamic} & \Checkmark{} &  & \Checkmark{} & \Checkmark{} &  &  &  &  &  &  &  &  & Sliding mode-based adaptive control  &  & \tabularnewline
+\hline 
+\cite{su2018exact} & \Checkmark{} &  &  &  & \Checkmark{} &  & \Checkmark{} &  &  &  & Backstepping higher order SMC  &  &  &  & \tabularnewline
+\hline 
+\cite{liu2020vibration} &  &  &  &  &  &  &  & \Checkmark{} &  &  &  &  &  &  & Backstepping 
+
+control\tabularnewline
+\hline 
+\cite{liu2018deep} & \Checkmark{} & \Checkmark{} &  & \Checkmark{} &  &  &  &  &  & Deep learning + Reference observer &  &  &  &  & \tabularnewline
+\hline 
+\cite{valasek2017fault} &  &  &  &  &  &  &  & \Checkmark{} &  & Fifth-order polynomial & Fault-tolerant SAMI control &  &  &  & \tabularnewline
+\hline 
+\cite{liu2019novel} & \Checkmark{} &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} &  &  & Learning-based preview method & LQR+HOSM controller  &  &  &  & \tabularnewline
+\hline 
+\cite{ren2019reliable} & \Checkmark{} & \Checkmark{} &  &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} &  &  & TILC &  &  &  & \tabularnewline
+\hline 
+\cite{he2017command} & \Checkmark{} &  &  & \Checkmark{} &  &  &  & \Checkmark{} &  &  &  &  &  & Command filtered backstepping SMC & \tabularnewline
+\hline 
+\cite{sun2022active} & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & \Checkmark{} &  & \Checkmark{} & \Checkmark{} & \Checkmark{} &  &  &  &  &  & ADRC\tabularnewline
+\hline 
+\end{longtable}
+\begin{center}
+\label{Tab_1.2}
+\par\end{center}
+
+\end{landscape}
+
+\section{Progress in Safety of PDR}
+
+Docking safety is a crucial problem in the refueling phase of PDR.
+With the gradual maturity of the modeling and control technology of
+PDR, many researchers started to focus on the safety problem.
+
+\subsection{Safety Analysis}
+
+In practice, the docking safety analysis has important guiding significance
+for the docking maneuver decision of AAR. 
+
+\subsubsection{Docking success rate evaluation}
+
+Currently, most control techniques described in academic and research
+papers demonstrate accurate docking ability under specific circumstances.
+However, in the real world, it is extremely challenging to accomplish
+exact docking every time. In NASA's trial report \cite{Dibley-2007-2},
+only three of the six docking flight attempts were successful due
+to various disturbances. According to Ref.\cite{wang2017approach},
+the success rate for docking during manned aerial refueling is approximately
+35\%, while the success rate for docking during NASA's UAV aerial
+refueling is approximately 60\%. This suggests that the docking success
+rate will be reduced under challenging circumstances. The docking
+success rate under disturbances must therefore be taken into account.
+There is, however, little study on quantitative modeling and examination
+of the AAR docking success rate. Online and offline evaluations of
+the docking success rate are available. How to acquire a docking envelope
+is the subject of the offline assessment. The docking success probability
+can be predicted using the envelope obtained offline and the receiver's
+present location and velocity. The Monte Carlo method, a safety evaluation
+technique for uncertain systems, is a straightforward approach. However,
+performing numerous Monte Carlo simulations, which takes time, is
+necessary for a decent assessment outcome. A technique using the likelihood
+of the drogue center situated in the capture area was suggested to
+determine the online docking success probability by considering the
+drogue motions under atmospheric disturbances\cite{wang2017approach}.
+The reachability analysis technique, used by Ref.\cite{liu2021stochastic},
+is another theory approach. In Ref.\cite{liu2021stochastic}, the
+probability of the receiver joining the target set within a specified
+time period was calculated using the Markov chain stochastic approximation
+method, which required much less simulation time than the Monte Carlo
+method. However, the reachability analysis method's memory and computation
+needs increase rapidly with dimension. Online computation will be
+difficult if many parameters are considered or the relative motion
+model has a large dimension. Additionally, Ref.\cite{liu2020docking}
+suggested a real-time safety evaluation network, a neural network
+based on deep learning, to predict the docking success rate based
+on the current docking state, preventing the difficult reachability
+analysis. There was also established a safety margin between the probe
+and the drogue. But getting lots of training data is a challenge. 
+
+\subsubsection{Docking reachability calculation}
+
+The problem \textquotedbl Is there a controller that satisfies the
+docking criteria given the uncertainty model and the constraint on
+the docking success rate?\textquotedbl{} is the goal of this part.
+This problem pertains to the calculation of the docking reachable
+set A that correlates to the docking target set B, as shown in Figure
+\ref{Fig_1.8-6}, and can be seen as an inverse problem of the assessment
+of the docking success rate. The conventional controllability problem
+and this one are related. However, it does not examine whether the
+receiver state can be controlled to the origin, as is the case with
+conventional controllability, but rather whether the drogue can be
+caught to a set with the proper relative docking velocities, etc.
+Another distinction is that docking reachability is a form of probabilistic
+reachability due to random perturbations and uncertainties. Additionally,
+certain essential safety requirements will also limit the docking
+capability. Ref.\cite{wang2019towards} developed a docking reachability
+calculation algorithm based on the Hamilton-Jacobi equation and an
+algorithm for real-time docking success probability estimation regarding
+the relative distance between the drogue and the probe. However, the
+drogue position was only possible for a two-dimensional normal distribution
+in the study. On this basis, we should further define the degree of
+reachability, as shown in Figure \ref{Fig_1.9}. If there is no reachability,
+then we need to abandon the docking. What is more, the degree of reachability
+can, in turn, propose a demand for the atmospheric environment and
+the receiver. Aerial refueling docking may not be carried out under
+any receiver and any docking environment. Many factors may result
+in that no controller meets the docking requirements, such as the
+tanker size, atmospheric environment, algorithm processing time and
+effect, sensor dynamic response and accuracy, control surface dynamic
+response and accuracy. 
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.6\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 8\lyxdot 6}
+\par\end{centering}
+\caption{Airspace division for aerial refueling}
+
+\centering{}\label{Fig_1.8-6}
+\end{figure}
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 9}
+\par\end{centering}
+\caption{Degree of reachability}
+
+\centering{}\label{Fig_1.9}
+\end{figure}
+
+On the other hand, most research and academic publications consider
+the problem of aerial docking as an accurate tracking problem and
+rarely consider the damage of the drogue and the potential danger
+in the flight. In Figure \ref{Fig_1.10}, for example, when the probe
+passes through the drogue, the docking will be continued by following
+the idea of tracking control. However, to continue the mandatory docking
+at this point, a larger pitch command is required, which is prone
+to a heavy collision between the probe and the drogue. Even without
+collision, large commands can cause large overshooting and make the
+drogue damaged, as shown in the video \cite{Vedio1}. In order to
+ensure docking safety, it is necessary to set impassable or unsafe
+areas (as shown in Figure 13) and allow the receiver to abandon the
+docking attempt once entering these areas. As shown in Figure \ref{Fig_1.11},
+Ref. \cite{Dibley-2007-2} designated the \textquotedbl capture\textquotedbl{}
+area and the \textquotedbl miss\textquotedbl{} area (the docking
+task declared to failed when entering this area) by segmenting the
+area around the drogue into different areas. When the probe enters
+the \textquotedbl miss\textquotedbl{} area, the docking attempt will
+be immediately aborted. However, this study did not offer a theory
+or method for the area partition. In Ref.\cite{ding2012reachability},
+the authors divided the flight safety region for aerial refueling
+using the controllable region to constrain the flight trajectory.
+Reference \cite{Ro-2010-5} referred to the need for an appropriate
+capture speed to open the fuel valve without causing hose whip. According
+to some studies, the controller's command should fall within a reasonable
+range. The aerial refueling accident shown in the video \cite{Vedio2}
+is caused by unreasonable overshooting. However, the majority of these
+academic and research publications only provide ad-hoc guidelines
+based on experience, which calls for additional research.
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 10}
+\par\end{centering}
+\caption{A kind of unsafe relative position}
+
+\centering{}\label{Fig_1.10}
+\end{figure}
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 11}
+\par\end{centering}
+\caption{Docking area division \cite{Dibley-2007-2}}
+
+\centering{}\label{Fig_1.11}
+\end{figure}
+
+
+\subsubsection{Optimal flight condition determination}
+
+This part pays attention to \textquotedbl At what flight condition
+(altitude and cruise speed) the docking control has the highest success
+rate?\textquotedbl . Here, the term \textquotedbl optimal flight
+condition\textquotedbl{} refers to the altitude and cruise speed that
+will result in the greatest likelihood of docking success. Different
+docking altitudes and speeds will produce various receiver models
+at the equilibrium point, which will then result in various reachability
+probabilities. Therefore, better docking altitude and speed for the
+same controller can increase the docking success rate. The solution
+to the problem is of significance for aerial refueling docking. Ref.\cite{liu2021reachability}
+used the reachability analysis to create an optimization problem whose
+solution is the optimal trim state. The altitude and speed that correspond
+to the largest volume of the reachable set are the optimal trim state.
+
+\subsection{Safety-oriented decision}
+
+In terms of \textquotedbl How to design a safe flight decision for
+functional failures or mission failures?\textquotedbl , only limited
+studies can be found, or just very simple results are given on the
+safety-oriented decision-marking. In reality, various external factors,
+such as excessive turbulence that lasts too long to stabilize the
+aircraft in a particular position or a malfunctioning receiver's navigation
+system that prevents the drogue from being positioned, can cause the
+AAR mission to fail. Making safe and trustworthy decision under these
+unusual circumstances is necessary to guarantee a safe flight. It
+is necessary to think about how to combine the requirements into a
+final reliable flight decision-making scheme in addition to the proposed
+safety requirements. A straightforward safety-oriented docking strategy
+with six docking modes was proposed in \cite{liu2020docking} as a solution to this
+issue. It was based on the safety margin determined using the relative
+distance between the probe and the drogue and the docking success
+rate. In order to make decisions for AAR, Ref.\cite{dong2019failsafe}
+proposed a failsafe mechanism based on supervisory control of state
+tree structures. According to exterior directives and aircraft flight
+states, the complete failsafe system can direct the receiver's following
+actions.
+
+\section{Chapter Summary and possible future work}
+
+\subsection{Chapter Summary}
+
+Since the middle of the 20th century, scholars have been interested
+in PDR because of its huge military and civilian importance. The refueling
+phase is of particular concern. There are a lot of uncertainties during
+the PDR's refueling phase, which affect the receiver's motion, the
+drogue's movement, the receiver model, and the docking's initial state.
+The receiver also exhibits slower dynamic and non-minimum phase characteristics.
+High efficiency, high safety, and high precision technical requirements
+must be met during the refueling phase. 
+
+In the refueling phase of probe-and-drogue autonomous aerial refueling,
+the most recent advancements and fresh research findings in modeling,
+control, and safety are compiled in this chapter. The study on modeling,
+which includes modeling of aircraft, refueling equipment, and wind
+disturbances, is first given. Due to the hose's flexibility, it should
+be noted that modeling the refueling equipment is fairly difficult.
+Then, the control study is divided into six sections: command generator,
+tracking control, stabilizing control, station-keeping control, anti-HWP
+control, and drogue stabilization and control. Finally, safety-related
+technologies are presented, such as safety analysis and safety-focused
+decision-making, which merit further investigation. 
+
+\subsection{Possible Future Work }
+
+Despite all the advancements previously mentioned, numerous issues
+still need to be researched, and numerous technologies still have
+room for improvement. Future advancements and research generally tend
+to make refueling docking safer, more accurate, and more efficient
+in accordance with the requirements in the refueling phase listed
+in the Introduction.
+
+\subsubsection{Possible Future Work for high-safety requirement}
+
+For the high-safety requirement, further research could be done in
+the areas of intelligent autonomous mechanical design, safety assessment,
+modular controller design, dependable decision-making, and adaptive
+vision navigation.
+
+\textbf{(1) Intelligent autonomous mechanical design }
+
+The fact that the hose is flexible and the motion of the drogue is
+rapid and passive is the main cause of PDR's difficulty in docking.
+Thus, a better docking mechanism could be exploded. Currently, drogues
+with automated control surfaces installed are under consideration.
+The drogue's movement can be stabilized and controlled by the control
+surfaces. In this situation, a new control scheme can be suggested
+where the drogue is controlled to link up with the probe instead of
+controlling the probe to dock with the drogue. With this plan, the
+issue of a fast-moving drogue being tracked by a slower dynamic receiver
+can be solved. It is possible to avoid chasing action and overcontrol,
+and docking safety can be increased. 
+
+\textbf{(2) Safety assessment} 
+
+Safety assessment is a further topic that needs to be researched because
+high safety is the most important requirement for AAR. The safety
+analysis of PDR has been the subject of some studies thus far, but
+more consideration and work are still required. The docking success
+rate assessment, docking reachability calculation, division of safe
+and unsafe areas, determination of the optimal flight condition, robust
+margin analysis, etc., are all included in the safety assessment.
+Deep learning-based methods are a viable option for fitting complex
+unknown relationships and can be used in safety assessment. However,
+the mathematical basis for safety analysis must be uncovered because
+deep learning is somewhat unexplainable. The reachability analysis
+method is a preferred theoretical approach, in which probabilistic
+reachability aids in carrying out the safety analysis under stochastic
+disturbances. 
+
+\textbf{(3) Modular controller design }
+
+The modular controller architecture is advantageous for future controller
+updates and alterations. The control components are linked hierarchically
+and appropriately to form the overall controller. If the modular controller
+architecture is used, it will be possible to modify the guidance module
+while maintaining the low-level control module's original configuration
+for various tasks. This makes the transition to a new controller simpler.
+Reusability is essential for safety-critical applications like PDR
+because many actual flight tests have demonstrated the low-level control
+module's dependability. Additionally, it is not suggested to access
+the throttle, elevator, aileron, and rudder directly for safety reasons.
+It is also time and money efficient for control components to be reused
+in various applications. Additionally, more investigation into a low-level
+controller that uses velocity as the input merits attention. The receiver's
+position control is frequently the target of the velocity controller.
+But the velocity controller designed here is required to aim at the
+position control of the probe tip in relation to the receiver's attitude
+for docking. This presents many difficulties. 
+
+\textbf{(4) Dependable decision-making} 
+
+In order to control and manage aerial refueling, a reliable decision-making
+scheme must be developed. On the safety-oriented decision-marking,
+however, there are few studies available or the findings are very
+straightforward. The refueling operation can be affected by a variety
+of factors, such as when the turbulence is too intense for an extended
+period of time to stabilize the aircraft in a specific position, when
+the actuator malfunctions for unknown reasons and makes it difficult
+to control the attitude and position, when an enemy finds the aircraft
+while it is being refueled, and when the receiver's navigation system
+is malfunctioning and prevents the drogue from being positioned. Due
+to these various factors, the aircraft should be able to operate in
+numerous modes, and multi-mode decision-making is important for regulating
+the aircraft to ensure safety. One option is to use the Finite State
+Machine (FSM) technique, which calls for thorough requirements analysis,
+mode specification, and event definition. 
+
+\textbf{(5) Adaptive vision navigation }
+
+During the rendezvous and joining phases of AAR, global positioning
+and wireless communication technologies frequently provide relative
+position information. They might, however, be disturbed. In contrast,
+vision-based navigation devices offer the relative distance and speed
+between the probe and the drogue during the refueling phase. The system
+can work fully autonomously, but the observation distance and the
+field of vision are somewhat at odds with one another, which is a
+crucial restriction for the system. On the other hand, short focal
+lenses have a broad field of vision but a close observation distance.
+On the other hand, telephoto lenses have a narrow field of vision
+but a long observation distance. As a result, adaptive vision navigation
+technology is anticipated to achieve both a broad field of view and
+a long observation distance. The rendezvous, joining, and refueling
+phases can all use the adaptive vision navigation system. Installing
+a zoom lens or numerous lenses with various focal lengths as compound
+eyes is one option. The related algorithms with these new lenses are
+rife with difficulty to obtain accurate and robust relative poses
+in all-weather flight. 
+
+\subsubsection{Possible Future Work for high-precision requirement }
+
+For the high-precision requirement, online learning of complex disturbances
+and image-based visual servo control need more attention. 
+
+\textbf{(1) Online learning of complex disturbances }
+
+The refueling phase is characterized by complicated disturbances.
+The full consideration of disturbances is important for high-precision
+control. To deal with disturbances, PDR primarily uses two types of
+control designs. The first is to model disturbances, followed by adding
+the disturbance model to the aircraft model. The ultimate control-oriented
+model is then created using the combined model. The second method
+involves combining all disturbances and unmodeled dynamics into a
+single disturbance that is estimated by a disturbance observer. Next,
+the estimated disturbance is compensated for in the control design.
+The former approach frequently uses offline modeling based on historical
+data, and the established model may not match the actual system. The
+online estimation technique, however, can capture actual disturbances.
+But a lot of factors can have an impact on the estimation inaccuracy.
+As machine learning technology advances, online learning of complicated
+disturbances offers a way to handle the disturbance problem. A significant
+advancement in flight control has been achieved by the control based
+on disturbance learning\cite{o2022neural}. Better anti-disturbance
+performance can be anticipated if machine learning based online learning
+of complicated disturbances could be implemented in the PDR. 
+
+\textbf{(2) Image-based visual servo control }
+
+Because of their high precision in close vicinity, machine vision
+technologies are frequently used in the navigation system during the
+refueling phase to determine the relative distance between the probe
+and the drogue. If a vision-based navigation system is used, image-based
+visual servo control is favored. Position-Based Visual Servo (PBVS)
+and Image-Based Visual Servo (IBVS) are two categories for the current
+visual servo control methods. The features in PBVS are a collection
+of 3D parameters that must be estimated from image data. Once the
+pose estimation is complete, the servo control can be executed. A
+collection of 2D features that are instantly accessible in the image
+data makes up the features in IBVS. AAR and robotic systems have benefited
+from the widespread use of the visual servo control technique in recent
+years. These works primarily pay attention to PBVS. Due to issues
+with camera calibration, installation, and 3D object modeling errors,
+a precise 2D picture observation does not necessarily indicate a precise
+3D pose estimation. In order to obtain more accurate docking control,
+it is therefore preferable to learn IBVS. Ref.99 examined the IBVS
+control design for PDR. The use of an inner and outer loop controller
+structure was made to achieve zero image error with the outer loop
+visual servo controller and intended camera motion with the inner
+loop stabilization controller. 
+
+\subsubsection{Possible Future Work for high-efficiency requirement }
+
+Compound control, simultaneous refueling of multiple UAVs, and global
+refueling scheduling may be feasible future work for the high-efficiency
+requirement. 
+
+\textbf{(1) Compound control} 
+
+High efficiency and precision are crucial for AAR. In general, feedforward
+control can accomplish high efficiency, while feedback control can
+ensure high precision. In order to achieve high precision while maintaining
+excellent efficiency, compound control (feedforward control + feedback
+control) is advised. \textquotedbl ILC (learning feedforward) + feedback
+control\textquotedbl{} is one potential method. ILC is first designed
+to mitigate the effects of repetitive uncertainties during the refueling
+phase, and then feedback control can be further developed to mitigate
+the effects of nonrepetitive uncertainties. For the \textquotedbl ILC
+(learning feedforward) + feedback control\textquotedbl{} system, it
+is necessary to study their respective control authorities. Furthermore,
+the final contact velocity is crucial for AAR, but most study has
+focused primarily on tracking trajectory rather than controlling velocity.
+If both velocity control and trajectory control are taken into account,
+the control issue will become an underactuated control problem, necessitating
+the use of some unique control methods.
+
+\textbf{(2) Multi-UAVs simultaneous refueling }
+
+The demand for multiple aircraft refueling is quickly expanding due
+to the development of swarm UAV systems. There are two possibilities
+for refueling multiple aircraft. The first situation involves concurrently
+refueling multiple receivers, while the second involves sequentially
+refueling multiple receivers. With multiple refueling pods mounted
+on a single tanker, PDR has the benefit of allowing up to three receivers
+to be refueled concurrently. The majority of prior studies, however,
+only considered one receiver instance and gave little thought to multiple
+aircraft refueling. Multiple aircraft refueling requires fewer tankers
+than the AAR of a single receiver. However, as a tanker and several
+receivers are coupled aerodynamically, the technology involved becomes
+much more complex. Future research should focus on the AAR for multi-UAVs
+simultaneous refueling, which also involves cooperative control and
+decision-making, management of flight paths, modeling for aerodynamic
+impact from other receivers, and formation mechanism. 
+
+\textbf{(3) Global refueling scheduling }
+
+When refueling multiple receivers sequentially, global scheduling
+is essential. AAR is required when several fighters work together
+to complete a task over an extended period of time. Additional classifications
+include \textquotedbl multiple receivers and a single tanker\textquotedbl{}
+and \textquotedbl multiple receivers and multiple tankers\textquotedbl .
+The problem of global scheduling gets more challenging when there
+are more aircraft. The refueling sequence and path should be decided
+to increase refueling efficiency under the precondition of assuring
+mission requirements, which can be formulated as an optimization problem,
+such as the least fuel consumption problem or shortest refueling time
+problem. The best optimization techniques are then chosen to provide
+a solution for the constrained optimization problem. Ref.\cite{hao2021autonomous}
+looked at rendezvous scheduling for multiple aircraft' aerial refueling
+technology. An integer linear programming method was developed to
+accomplish the fastest refueling. 
+
+\section{The Objective and Structure of the Book}
+
+The book aims at solving modeling, control and decision-making problems
+in the probe-and-drogue AAR. Chapter 1 introduces the significance
+of AAR through discussing the following questions: why the probe-and-drogue
+AAR is very important, what are the typical characteristics of such
+a problem, what is the state-of-the-art technology, and what are the
+difficulties faced. The remainder of this book has five parts,
+sixteen chapters, as shown in Figure.\ref{Fig_1.12}. 
+
+\begin{figure}
+\begin{centering}
+\includegraphics[width=1\textwidth]{Figures/Figs_Ch1/Fig_1\lyxdot 12}
+\par\end{centering}
+\caption{Structure of this book}
+
+\centering{}\label{Fig_1.12}
+\end{figure}
+
+(i) Part I. Modeling Part 
+
+Through this part, readers can have a deeper understanding of the
+dynamic model of the probe-and-drogue AAR, which will be further used
+for control in the following. This part contains four chapters, including
+notation and systems of axes, airflow models, dynamics models of aircraft
+and drogue and a simulation platform for probe-and-drogue AAR which
+has connected all the models together for the following control and
+decision-making design. These correspond to Chaps. 2\textendash 5,
+respectively. 
+\begin{itemize}
+\item Chapter 2. Coordinate Systems 
+\item Chapter 3 Aerodynamic Disturbances  
+\item Chapter 4 Aircraft with Hose and Drogue
+\item Chapter 5 AARSim: An Integrated High-fidelity Simulation Platform for Autonomous Aerial Refueling 
+\end{itemize}
+This part is mainly based on our work \cite{wei2016drogue},\cite{dai2016modeling},\cite{dai2019hose}.
+The paper \cite{wei2016drogue} proposed a lower-order dynamic model
+to describe drogue dynamics under the bow wave effect. The model consists
+of two components: one is a second-order transfer function matrix
+to describe the drogue dynamics, and the other is a nonlinear function
+vector to describe the bow wave effect model. To make the modeling
+easier, the paper \cite{dai2016modeling} analyzed the bow wave effect
+and presented a simpler stream function based method to model it.
+With the obtained aerodynamic coefficients, the induced aerodynamic
+force on the drogue was calculated. We found that the drogue dynamics
+model with the bow wave was not accurate enough, especially on the
+vertical position. This is because the HDU is not involved. Since
+the docking process is an accurate task, and a sub-meter level error
+may results in a failed docking, in \cite{dai2019hose}, an improved integrated
+model is proposed by considering the effect of HDU.
+
+(ii) Part II. Navigation Part
+
+Through this part, readers can have a deeper understanding of the relative position estimation in probe-and-drogue AAR by using vision technology. This corresponds to Chap. 6.
+\begin{itemize}
+	\item Chapter 6. Vision-Based Relative Position Estimation
+\end{itemize}
+This part is mainly based on our work \cite{2018Vision}.
+
+{*}{*}Introduction to the paper above{*}{*}
+
+(iii) Part III. Control Part 
+
+Through this part, readers can have a deeper understanding of the
+low-level control of the probe-and-drogue AAR, where the station-keeping
+control and the docking control are proposed. Moreover, relative visual
+navigation between the receiver and the drogue is proposed especially
+for docking as it requires higher accuracy than the normal flight.
+With them in hand, probe-and-drogue AAR can be guided by the decision-making
+module which will be introduced in Part IV. These correspond to Chaps.
+7\textendash 11 in the following. 
+\begin{itemize}
+\item Chapter 7 Additive-State-Decomposition-Based
+Station-Keeping Control 
+\item Chapter 8 Hose-Drum-Unit  Control 
+\item Chapter 9 Terminal Iterative Learning Docking Control
+\item Chapter 10 Improved Terminal Iterative Learning Docking Control  
+\item Chapter 11 Image-Based Visual Servo Docking Control 
+\end{itemize}
+This part is mainly based on our work \cite{dai2018terminal},\cite{dai2018iterative},\cite{ren2019reliable}. 
+
+{*}{*}Introduction to the papers above{*}{*}
+
+(iv) Part IV. Safety Part 
+
+Through this part, readers can have a deeper understanding about the
+high-level decision-making of probe-and-drogue AAR, where a method
+to determine the optimal trim state for aerial docking, a docking
+success rate prediction method and a failsafe mechanism design based
+on supervisory control theory are proposed. These correspond to Chaps.
+12\textendash 14, respectively. 
+\begin{itemize}
+\item Chapter 12 Reachability Analysis on Optimal Trim State for Aerial Docking
+\item Chapter 13 Docking Success Probability Prediction based on Stochastic Approximation
+\item Chapter 14 Failsafe Mechanism Design using State Tree Structures
+\end{itemize}
+This part is mainly based on our work \cite{liu2021reachability},\cite{2021A},\cite{dong2019failsafe}. Aerial Refueling is an important method to increase
+the endurance and flight range of aircraft, but it often suffers from
+a low success rate. The altitude and speed of the tanker aircraft
+in the docking phase have a great influence on the docking success
+rate. According to this, the optimal trim state, namely the optimal
+speed and altitude of the tanker aircraft, is investigated through
+the reachability analysis method in \cite{liu2021reachability}. At the docking phase,
+the docking risk is high as the receiver aircraft is approaching the
+tanker aircraft. In order to guarantee the safety of the AAR process,
+it is important to predict the docking success rate. Motivated by
+this, a stochastic approximation method is adopted to evaluate the
+docking success rate of the receiver aircraft by taking random disturbances
+into account \cite{2021A}. Dangerous flight maneuvers may be executed when
+unexpected failures or command conflicts happen. In order to solve
+this problem, a decision-making logic with the failsafe mechanism
+based on State Tree Structure (STS) is proposed to make the whole
+flight safer in \cite{dong2019failsafe}.
+
+(v) Part V. Planning Part 
+
+Through this part, readers can have a deeper understanding of the scheduling and path planning of probe-and-drogue AAR. This corresponds to Chaps. 15-16.
+\begin{itemize}
+	\item Chapter 15 Autonomous Aerial Refueling of Multiple receivers:
+	An Efficient Rendezvous Scheduling Approach
+	\item Chapter 16 Aerial refueling scheduling of multi-receiver and multi-tanker under spatial-temporal constraints
+\end{itemize} 
+This part is mainly based on our work \cite{hao2021autonomous},\cite{huang2024aerial}.
+
+

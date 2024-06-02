@@ -1,0 +1,391 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Symbols}
+
+\begin{tabular}{@{}lcl}
+	${\Delta\mathbf{F}_{0}}$  & =  & Bow wave disturbance force \tabularnewline
+	$\Delta{\mathbf{p}}_{\text{dr}}^{\text{e}}$  & =  & Drogue position offsets from equilibrium position \tabularnewline
+	$\Delta{\mathbf{p}}_{\text{dr/pr}}$  & =  & Position error between drogue and probe \tabularnewline
+	$\Delta{\mathbf{p}}_{\text{dr/pr}}\left(T\right)$  & =  & Terminal position error \tabularnewline
+	$\Delta R_{\text{dr/pr}}$  & =  & Radial error between hose and drogue \tabularnewline
+	$F_{\text{T}}$  & =  & Tanker joint frame \tabularnewline
+	{$\mathbf{F}$}$_{\text{r}}$, {$\mathbf{F}$}$_{\text{hd}}$  & =  & Disturbance forces on receiver and hose-drogue \tabularnewline
+	{$\mathbf{F}$}$_{\text{bow}}$  & =  & Disturbance force from bow wave effect \tabularnewline
+	${\mathbf{p}}_{\text{dr}}\left(t\right)$, ${\mathbf{p}}_{\text{pr}}\left(t\right)$  & =  & Current positions of drogue and probe \tabularnewline
+	${\mathbf{p}}_{\text{dr}}\left(T\right)$, ${\mathbf{p}}_{\text{pr}}\left(T\right)$  & =  & Terminal positions of drogue and probe \tabularnewline
+	${\mathbf{p}}_{\text{dr}}^{\text{e0}}$  & =  & Drogue initial equilibrium position \tabularnewline
+	$%TCIMACRO{\U{211d}}%
+	%BeginExpansion
+	\mathbb{R}%EndExpansion
+	$, $%TCIMACRO{\U{211d}}%
+	%BeginExpansion
+	\mathbb{R}%EndExpansion
+	_{+}$  & =  & Real number set and positive real number set \tabularnewline
+	$R_{\text{C}}$  & =  & Threshold radius for a successful docking attempt \tabularnewline
+	$T$  & =  & Terminal time of a docking attempt \tabularnewline
+	$\mathbf{\hat{u}}_{\text{pr}}$  & =  & Reference trajectory for autopilot \tabularnewline
+\end{tabular}
+
+\begin{longtable}{|c|c|l|}
+	\caption{\textbf{Nomenclature}} \label{table5} \\
+	\hline
+	\textbf{Symbol} & \textbf{Type} & \textbf{Denotation } \\
+	\hline
+	\endfirsthead
+	\multicolumn{3}{c}{{\tablename\ \thetable{} -- Continued from previous page}} \\
+	\hline
+	\textbf{Symbol} & \textbf{Type} & \textbf{Denotation } \\
+	\hline
+	\endhead
+	\hline \multicolumn{3}{r}{{Continued on next page}} \\
+	\endfoot
+	\hline
+	\endlastfoot
+	$ c_h $ &scalar &  latitudinal correlation coefficient \\\hline
+	$ c_v $ & scalar & longitudinal correlation coefficient \\	\hline
+	$ k $ & scalar & recursive step  \\\hline
+	$ N $ & scalar & the number of the chosen grid points  \\\hline
+	$ p_q^k\left( q \right) $ & scalar & the transition probability from the grid point $ q  $to itself in the $ k $-th step  \\\hline	
+	$ p_{q'}^k\left( q \right) $ & scalar & the probability of transition from the grid point $ q $ to the grid point $ q' $ in the $ k $-th step  \\\hline
+	${P^{\left( k \right)}}\left( q \right) $ & scalar & the probability transited to the grid point $ q $ in the $ k $-th step  \\\hline
+	$ {P_j} $ & scalar & the probabilities of docking success which are obtained by stochastic approximation method  \\\hline
+	$ {P_{MC,j}} $ & scalar & the probabilities of docking success which are obtained by Monte Carlo method  \\\hline
+	$ q $ & scalar & a specific grid point  \\\hline
+	$ r $ & scalar & \makecell [l]{the correlation coefficient of the probabilities of docking success obtained by stochastic \\ approximation  method and Monte Carlo method}  \\\hline
+	$ {t_f} $ & scalar & the end time of the docking phase  \\\hline
+	$ \Delta t $ & scalar & time step  \\\hline
+	$ {V_\text{t}} $ & scalar & tanker speed  \\\hline
+	$ {V_\text{r}} $ & scalar & receiver speed  \\\hline
+	$ \Delta x $ & scalar & the longitudinal distance between receiver and tanker  \\\hline
+	$ \Delta y $ & scalar & the lateral distance between receiver and tanker  \\\hline
+	$ \Delta h $ & scalar & the vertical distance between receiver and tanker  \\\hline
+	${\gamma_\text{r}} $ & scalar & the flight path angle of receiver \\\hline
+	${\varphi_\text{r}} $ & scalar &the azimuth angle of receiver  \\\hline
+	$ \Delta \gamma $ & scalar &the flight path angle of receiver relative to tanker\\\hline
+	$ \Delta \varphi $ & scalar &  the azimuth angle of receiver relative to tanker  \\\hline
+	${\sigma _i}$ & scalar & the element of diagonal matrix 
+	$ \bf{\Gamma }$
+	\\\hline
+	${\bar \sigma} $ & scalar & the max value among  $ {\sigma _i}(i = 1,2,3)$  \\\hline	
+	${\sigma _h}$ & scalar & the variation of lateral stochastic perturbation \\\hline
+	${\sigma _v}$ & scalar & the variation of longitudinal stochastic perturbation\\\hline
+	$ \delta $ & scalar & grid size  \\\hline
+	$\lambda $ & scalar & positive constant related to time step  \\\hline
+	$\eta _i $ & scalar & relative parameter, where $i = 1,2,3$  \\\hline
+	$\cal D $ & set & target set  \\\hline
+	$\cal X $ & set & state constraint set  \\\hline
+	$\cal L $ & set & state space  \\\hline
+	$ Q     $ & set & set of grids \\\hline
+	$ Q_0     $ & set & interior grids of the state space \\\hline
+	$ \partial {Q_{\cal L}}     $ & set & boundary grids of the state space \\\hline
+	$ \partial {Q_{\cal X}}     $ & set & boundary grids of the state constraint set \\\hline
+	$ \partial {Q_{\cal D}}     $ & set & boundary grids of the target set \\\hline
+	$ {{\cal N}_q}     $ & set & adjacent grids of the specific grid point $ q $\\\hline
+	$ {\tilde {\mathbf x}_\text{r/t}}    $ & vector & the position of receiver relative to tanker \\\hline
+	$ \mathbf x_1     $ & vector & the position of the tip of probe \\\hline
+	$ \mathbf y_1    $ & vector & the position of the center of drogue \\\hline
+	$ \alpha \left( {{\mathbf {\tilde x}_\text{r/t}},t} \right)    $ & function & the drift term of the stochastic differential equation \\\hline
+	$ \beta \left( {{\mathbf{\tilde x}_\text{r/t}}} \right)     $ & function & the diffusion term of the stochastic differential equation \\\hline
+	$ {\mathbf a_1}\left( t \right)     $ & function & kinematic equation of the probe \\\hline
+	$ {\mathbf a_2}\left( t \right)     $ & function & kinematic equation of the drogue \\\hline
+	$ {\bf{f}}\left( {{\bf{x}},t} \right)     $ & function & affine transformation in 
+	$ \mathbf x $
+	\\\hline
+	$ \mathbf u\left( t \right)     $ & function & the kinematic states of the tip of the probe with respect to the center of the drogue \\\hline
+	$ \mathbf z\left( t \right)     $ & function & Gaussian process \\\hline
+	$ \rho \left( \mathbf x \right)     $ & function & the spatial correlation function \\\hline
+	$ \mathbf B\left( {{\mathbf x_0},t} \right)     $ & function & standard Brownian motion for a specific position 
+	$ \mathbf x_0 $ \\\hline
+	$ \mathbf B\left( {{\mathbf x},t} \right)     $ & function & stochastic perturbation of current state $ \mathbf x $ \\\hline  
+	$ \mathbf W\left( t \right)      $ & function & a standard 3D Brownian motion \\\hline  
+	$ {\mathbf I_3}     $ & matrix & the 3-by-3identity matrix \\\hline     
+	$ \bf{\Gamma  }   $ & matrix & variance of the random perturbation \\\hline     	
+\end{longtable}
+
+
+\begin{table} [H]
+	\begin{tabular}{ll}
+		$\mathbb{R}^{n}$ & \textit{n}-dimensional Euclidean space.\\
+		$\mathbb{R}$ & set of real numbers.\\
+		$\mathbb{R}_{+}$ & set of positive real numbers.\\
+		$\mathbb{N}$ & set of nonnegative integers.\\
+		$\mathbf{x}_{1}\oplus\mathbf{x}_{2}$ & direct sum of $\mathbf{x}_{1}$ and $\mathbf{x}_{2}$.\\
+		$\omega_{\text{cg}}$ & gain crossover frequency.\\
+		$\omega_{\text{cp}}$  & phase crossover frequency.\\
+		$\gamma_{\max}$ & $\mathcal{L}_{2}$ gain margin of a closed-loop system.\\
+		$\tau_{\max}$ & $\mathcal{L}_{2}$ time-delay margin of a closed-loop system.\\
+		$\mathcal{\mathcal{L}}$ and $\mathcal{\mathcal{L}}^{-1}$ & Laplace transform and the inverse Laplace transform.\\
+		$\mathcal{Z}$ and $\mathcal{Z}^{-1}$  & Z-transform and
+		the inverse Z-transform.\\
+		$\mathcal{L}_{\infty}\left[  a,b\right]  $ & $\  \mathcal{L}_{\infty}\left[
+		a,b\right]  \triangleq \left \{  \left.  \mathbf{f}\right \vert \sup_{t\in \left[
+			a,b\right]  }\left \Vert \mathbf{f}\left(  t\right)  \right \Vert <\infty
+		\right \}.  $\\
+		$\mathcal{L}_{1}\left[  a,b\right]  $ & $\  \mathcal{L}_{1}\left[
+		a,b\right]  \triangleq \left \{  \left.  \mathbf{f}\right \vert \sup_{t\in \left[
+			a,b\right]  }\left(\int_{a}^{b}\left \Vert \mathbf{f}\left(  t\right)  \right \Vert\text{d}t \right) <\infty\right \}.  $\\
+		$\left\Vert \mathbf{u}\right\Vert _{\mathcal{L}_{2}}$ & norm of a piecewise continuous, square-integrable function\\
+		& 	$\mathbf{u}\left(t\right)\in\mathbb{R}^{n}$, and 
+		$\left\Vert \mathbf{u}\right\Vert _{\mathcal{L}_{2}}\triangleq\sqrt{\int_{0}^{\infty}\mathbf{u}^{\text{T}}\left(t\right)\mathbf{u}\left(t\right)\text{d}t}<\infty$.\\
+		$\mathcal{L}_{2}^{n}$ & $\mathcal{L}_{2}^{n}\triangleq\left\{ \mathbf{u}|\left\Vert \mathbf{u}\right\Vert _{\mathcal{L}_{2}}<\infty\right\}$, $\mathbf{u}$ is a piecewise continuous, square-\\
+		& integrable function
+		$\mathbf{u}\left(t\right)\in\mathbb{R}^{n}$.\\
+		$\mathbf{u}_{\sigma}$ &   a truncation of $\mathbf{u}$ defined by $\mathbf{u}_{\sigma}\left(t\right)\triangleq$ $\begin{cases}
+		\mathbf{u}\left(t\right) & 0\leqslant t\leqslant\sigma\\
+		0 & \text{otherwise}.
+		\end{cases}$\\
+		$\mathcal{L}_{2e}^{n}$  & $\mathcal{L}_{2e}^{n}\triangleq\left\{ \mathbf{u}|\mathbf{u}_{\sigma}\in\mathcal{L}_{2}^{n},\forall\sigma<\infty\right\}$. \\
+		${\underline{\sigma}\left(\mathbf{C}\right)}$, ${\overline{\sigma}\left(\mathbf{C}\right)}$ & maximum singular value and the minimum singular of matrix \\
+		&  $\mathbf{C}\in%
+		%TCIMACRO{\U{2102} }%
+		%BeginExpansion
+		\mathbb{C}
+		%EndExpansion
+		^{n\times n}.$ \\
+		$\lambda \left(  \mathcal{A}\right)  ,\lambda_{\max}\left(  \mathcal{A}\right)
+		,\lambda_{\min}\left(  \mathcal{A}\right)  $ & eigenvalue, maximum
+		eigenvalue and the minimum eigenvalue \\
+		& of the operator $\mathcal{A}.$ \\
+		$\rho \left(  \mathcal{A}\right)  $ & spectral radius of\ the operator
+		$\mathcal{A}.$ In particular, for matrices, \\
+		& \ $\rho \left(  \mathbf{A}\right)
+		=\max \left \{  \left \vert \lambda \left(  \mathbf{A}\right)  \right \vert
+		\right \}  ,$ $\mathbf{A}\in%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{n\times n}.$ \\
+		$\left\Vert \mathbf{H}\right\Vert _{\infty}$ & $\mathcal{H}_{\infty}$ norm of a transfer function matrix $\mathbf{H}$, \\
+		& $\left\Vert \mathbf{H}\right\Vert _{\infty}\triangleq\underset{\omega}{\sup}\bar{\sigma}\left(\mathbf{H}\left(j\omega\right)\right).$ \\
+		$\left \vert s\right \vert $ & modulus of a complex number $s$ is defined as
+		$\left \vert s\right \vert \triangleq \sqrt{a^{2}+b^{2}},$ \\
+		& where $s=a+ib,$
+		$a,b\in%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}.
+		%EndExpansion
+		$\\
+		$\mathbf{A}\geq \mathbf{0},\mathbf{A>0}$  & $\mathbf{A}\in%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{n\times n}$ is a positive semidefinite or positive definite matrix.\\
+		$\textrm{adj}(\mathbf{A})$ &  adjoint matrix of matrix $\mathbf{A}.$
+	\end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[H]
+	\begin{tabular}{ll}
+		$\bar{s}$ & conjugate of the complex number $s=a+ib$ is $\bar{s}\triangleq
+		a-ib.$\\
+		$\mathbf{C}^{\ast}\  \ $ & conjugate transpose is formally defined by $\left(
+		\mathbf{C}^{\ast}\right)  _{ij}\triangleq \left(  \mathbf{\bar{C}}\right)
+		_{ji},$ $\mathbf{C}\in%
+		%TCIMACRO{\U{2102} }%
+		%BeginExpansion
+		\mathbb{C}
+		%EndExpansion
+		^{n\times m}.$\\
+		$\mathcal{C}\left(  \left[  a,b\right]  ,%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{n}\right)  $ & space of continuous $n$-dimension function vector
+		on $\left[  a,b\right]  \mathbf{.}$\\
+		$\mathcal{C}_{PT}^{m}\left(  \left[  0,\infty \right)  ,%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{n}\right)  $ & space of $m$th-order continuously differentiable
+		functions \\
+		& $\mathbf{f}:\left[  0,\infty \right)  \rightarrow%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{n}$ which are $T$-periodic, i.e. $\mathbf{f}\left(  t+T\right)
+		=\mathbf{f}\left(  t\right)  .$\\
+		$\left \Vert \mathbf{x}_{t}\right \Vert _{\left[  a,b\right]  }$ & $\left \Vert
+		\mathbf{x}_{t}\right \Vert _{\left[  a,b\right]  }\triangleq \underset{\theta
+			\in \left[  a,b\right]  }{\sup}\left \Vert \mathbf{x}\left(  t+\theta \right)
+		\right \Vert ,$ where $\mathbf{x}_{t}\triangleq \mathbf{x}_{t}\left(
+		\theta \right)  =\mathbf{x}\left(  t+\theta \right)  ,$ $\theta \in \left[
+		a,b\right]  .$\\
+		$\mathcal{B}\left(\delta\right)$ & $\mathcal{B}\left(\delta\right)$ $\triangleq\left\{ \xi\in%TCIMACRO{\U{211d}}%
+		%BeginExpansion
+		\mathbb{R}%EndExpansion
+		\left\vert \left\Vert \xi\right\Vert \leq\delta\right.\right\} ,$ $\delta>0;$ $\emph{\rm{the notation} $x\left(t\right)\rightarrow\mathcal{B}\left(\delta\right)$}$  means \\
+		&	$\underset{y\in\mathcal{B}\left(\delta\right)}{\min}$ $\left\vert x\left(t\right)-y\right\vert \rightarrow0.$\\
+		$\mathcal{K}$ & a continuous function $\alpha:\left[  0,a\right)  \rightarrow
+		\left[  0,\infty \right)  $ is said to belong to class $\mathcal{K}\ $ if\\
+		& it is strictly  increasing and $\alpha \left(  0\right)  =0.$\\
+		$\mathcal{K}_{\infty}$ &  a continuous function $\alpha$ is said to belong to class $\mathcal{K}_{\infty}\ $ if $a=\infty$ and \\
+		& $\alpha \left(  r\right)
+		\rightarrow \infty$ as $r\rightarrow \infty.$\\
+		$\mathcal{KL}$ & a continuous function $\beta:\left[  0,a\right)  \times \left[
+		0,\infty \right)  \rightarrow \left[  0,\infty \right)  $ is said to belong to  \\
+		& class $\mathcal{KL}$ if, for each fixed $s,$ the mapping $\beta \left(
+		r,s\right)  $ belongs to $\mathcal{K}$ with \\
+		&  respect to $r$ and, for each fixed
+		$r$, the  mapping $\beta \left(  r,s\right)  $ is decreasing with \\
+		& respect with $s$ and $\beta \left(  r,s\right)  \rightarrow0$ as $s\rightarrow \infty$.\\
+		$\left \Vert \mathbf{f}\right \Vert _{a}$ &    $\left \Vert \mathbf{f}\right \Vert
+		_{a}\triangleq$ $\underset{t\rightarrow \infty}{\lim} \sup \left \Vert
+		\mathbf{f}\left(  t\right)  \right \Vert ,$ where $\mathbf{f\in}\mathcal{L}%
+		_{\infty}\left[  0,\infty \right)  .$\\
+		$\left \vert \cdot \right \vert $ & modulus of a complex number.\\
+		$O\left(  \mathbf{x}\right)  ^{n}$ & a function $\boldsymbol{\delta}\left(
+		\mathbf{x}\right)  $ is said to be $O\left(  \mathbf{x}\right)  ^{n}$ if
+		$\underset{\left \Vert \mathbf{x}\right \Vert \rightarrow0}{\lim}\frac
+		{\left \Vert \boldsymbol{\delta}\left(  \mathbf{x}\right)  \right \Vert
+		}{\left \Vert \mathbf{x}\right \Vert ^{n}}$ exists and is nonzero. \\
+		& In particular, a function $\boldsymbol{\delta}\left(  \mathbf{x}\right)  $, said
+		to be $O\left(  \mathbf{x}\right)  ^{0}$ or $O\left(  1\right)  $, implies\\
+		& $\underset{\left \Vert \mathbf{x}\right \Vert \rightarrow0}{\lim}\left \Vert
+		\boldsymbol{\delta}\left(  \mathbf{x}\right)  \right \Vert $ exists and is
+		nonzero.\\
+		$\circ$ & function composition,$\  \mathbf{f}_{1}\circ \mathbf{f}_{2}:%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{n}\rightarrow%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{m}$ implies that  \\ 
+		&  $\left(  \mathbf{f}_{1}\circ \mathbf{f}_{2}\right)  \left(
+		\mathbf{x}\right)  =\mathbf{f}_{1}\left(  \mathbf{f}_{2}\left(  \mathbf{x}%
+		\right)  \right)  ,$ $\forall \mathbf{x\in}%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{n},$ where $\mathbf{f}_{1}:%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{p}\rightarrow%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{m},$ $\mathbf{f}_{2}:%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{n}\rightarrow%
+		%TCIMACRO{\U{211d} }%
+		%BeginExpansion
+		\mathbb{R}
+		%EndExpansion
+		^{p}.$\\
+		$\mathcal{G}$ &  a linear operator$:%
+		%TCIMACRO{\tciLaplace}%
+		%BeginExpansion
+		\mathcal{L}%
+		%EndExpansion
+		_{2}\left[  0,T\right]  \mapsto%
+		%TCIMACRO{\tciLaplace}%
+		%BeginExpansion
+		\mathcal{L}%
+		%EndExpansion
+		_{2}\left[  0,T\right]  $, defined as\\
+		&  $\mathcal{G}u=\int_{0}^{t}\mathbf{c}^\text{T}\mathrm{e}^{\mathbf{A}\left(
+			t-\tau\right)  }\mathbf{b}u\left(  \tau\right)  \text{d}\tau
+		\text{.}$\\
+		$\mathcal{H}$ & a linear operator$:%
+		%TCIMACRO{\tciLaplace}%
+		%BeginExpansion
+		\mathcal{L}%
+		%EndExpansion
+		_{2}\left[  0,T\right]  \mapsto%
+		%TCIMACRO{\tciLaplace}%
+		%BeginExpansion
+		\mathcal{L}%
+		%EndExpansion
+		_{2}\left[  0,T\right].$\\
+		$\mathcal{G}^{\ast}$ &  an adjoint operator$:%
+		%TCIMACRO{\tciLaplace}%
+		%BeginExpansion
+		\mathcal{L}%
+		%EndExpansion
+		_{2}\left[  0,T\right]  \mapsto%
+		%TCIMACRO{\tciLaplace}%
+		%BeginExpansion
+		\mathcal{L}%
+		%EndExpansion
+		_{2}\left[  0,T\right],  $ calculated as \\
+		& $\mathcal{G}_{l}^{\ast}{u}=\int_{t}^{T}\mathbf{b}^\text{T}\mathrm{e}%
+		^{-\mathbf{A}_{l}^\text{T}\left(  t-\tau\right)  }\mathbf{c}
+		{u}\left(  \tau\right)  \text{d}\tau\text{,}$ defined by
+		$\left\langle \mathbf{y},\mathcal{G}\mathbf{u}\right\rangle =\left\langle \mathcal{G}^{\ast
+		}\mathbf{y}, \mathbf{u}\right\rangle.$\\
+		$\left\Vert
+		\bm{\alpha}\right\Vert _{\left[  t_{1},t_{2}\right]  }$ & $\left\Vert
+		\bm{\alpha}\right\Vert _{\left[  t_{1},t_{2}\right]  }=\underset
+		{t\in\left[  t_{1},t_{2}\right]  }{\sup}\left\Vert \bm{\alpha}\left(
+		t\right)  \right\Vert _{2}$, where $\bm{\alpha}$ is a function vector
+		defined on \\
+		& $\left[  t_{1},t_{2}\right]  $. \\
+		$\left\Vert \bm{\alpha
+		}\right\Vert _{%
+			%TCIMACRO{\tciLaplace}%
+			%BeginExpansion
+			\mathcal{L}%
+			%EndExpansion
+			_{2}}$  & $\left\Vert \bm{\alpha
+		}\right\Vert _{%
+			%TCIMACRO{\tciLaplace}%
+			%BeginExpansion
+			\mathcal{L}%
+			%EndExpansion
+			_{2}}=\sqrt{\int_{0}^{T}\bm{\alpha}^{\text{T}}\left(  t\right)
+			\bm{\alpha}\left(  t\right)  \text{d}t}$, where $\bm{\alpha}$ is a
+		function vector defined on \\
+		& $\left[  0,T\right]  $.\\
+		$\left\langle
+		\bm{\alpha}_{1},\bm{\alpha}_{2}\right\rangle _{%
+			%TCIMACRO{\tciLaplace}%
+			%BeginExpansion
+			\mathcal{L}%
+			%EndExpansion
+			_{2}}$ & $\left\langle
+		\bm{\alpha}_{1},\bm{\alpha}_{2}\right\rangle _{%
+			%TCIMACRO{\tciLaplace}%
+			%BeginExpansion
+			\mathcal{L}%
+			%EndExpansion
+			_{2}}=\int_{0}^{T}\bm{\alpha}_{1}^{\text{T}}\left(  t\right)
+		\bm{\alpha}_{2}\left(  t\right)  \text{d}t$, where $\bm{\alpha}%
+		_{1},\bm{\alpha}_{2}$ are function vectors\\
+		&  defined on $\left[
+		0,T\right]  $.\\
+		$\left\Vert \bm{\alpha}\right\Vert _{2}$ & $\left\Vert \bm{\alpha}\right\Vert _{2}=\sqrt
+		{\bm{\alpha}^{\text{T}}\bm{\alpha}}$, where $\bm{\alpha}$ is
+		a vector. \\
+		$\left\Vert \mathcal{G}\right\Vert$ & $\left\Vert \mathcal{G}\right\Vert =\underset{\left\Vert
+			x\right\Vert _{%
+				%TCIMACRO{\tciLaplace}%
+				%BeginExpansion
+				\mathcal{L}%
+				%EndExpansion
+				_{2}}\leq1}{\sup}\left\Vert \mathcal{G}x\right\Vert _{%
+			%TCIMACRO{\tciLaplace}%
+			%BeginExpansion
+			\mathcal{L}%
+			%EndExpansion
+			_{2}}$, where $x$ is a function defined on $\left[  0,T\right]  $.
+	\end{tabular}
+\end{table}

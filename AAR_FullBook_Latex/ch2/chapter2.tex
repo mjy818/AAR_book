@@ -1,0 +1,1321 @@
+
+\chapter{Coordinate Systems}
+\label{chap2}
+In order to describe the attitude and position of aircraft and refueling
+equipment in aerial refueling systems, it is necessary to establish
+appropriate coordinate frames. Especially in the modeling process,
+several frames need to be introduced to describe the relative and
+absolute states of objects in the system, such as the absolute position
+and attitude of aircraft, the relative motion among aircraft and refueling
+equipment, and the forces and moments acting on the aircraft. These
+frames will also be beneficial to the simplification of analysis and
+controller design for aerial refueling systems. Besides, choosing
+an appropriate coordinate system can effectively simplify the establishment
+and solution of the dynamics and kinematics equations of the aircraft,
+as well as conveniently describe the relative motion between the probe
+and the drogue during the aerial refueling process, especially in
+the docking phase. This chapter mainly introduces several frames commonly
+used in aerial refueling, along with the mutual conversion relationship
+among them.
+
+\section{Definitions and Notation}
+
+\subsection{Right-Hand Rule}
+
+In the beginning, the \textbf{right-hand rule} needs to be introduced
+for the definitions of different coordinate frames. A typical coordinate
+definition in line with the right-hand rule is presented in Fig. \ref{Fig_2.1}(a),
+where the right thumb points to the positive direction of the \textit{ox}
+axis, the first finger points to the positive direction of the \textit{oy}
+axis, and the middle finger points to the positive direction of the
+\textit{oz} axis. Furthermore, the right-hand rule is also widely
+used in determining the positive direction of a rotation transformation
+as shown in Fig. \ref{Fig_2.1}(b), where the thumb of the right-hand
+points the positive direction of the rotation axis and the direction
+of the bent fingers is the positive direction of the rotation. All
+the frames and rotation transformations used in this book are defined
+by the right-hand rule. 
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.8\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 1}
+		\par\end{centering}
+	\caption{Definitions of coordinate axes and positive rotation transformation
+		with the right-hand rule}
+	
+	\centering{}\label{Fig_2.1}
+\end{figure}
+
+
+\subsection{Variable Notation}
+
+In this paper, scalar variables are represented by normal italic letters,
+such as the air density $\rho\in\mathbb{R}$; vector variables are
+represented by bold lowercase letters, such as the velocity vector
+$\mathbf{v}\in{{\mathbb{R}}^{3}}$ ; matrix variables are represented
+by bold capital letters, such as the rotation matrix $\mathbf{R}\in{{\mathbb{R}}^{3\times3}}$.
+The superscript or subscript of a variable indicates the concrete
+meaning of the variable. For example, ${{\mathbf{p}}_{\text{d}}}$
+denotes the position vector of the drogue, where \textquotedblleft d\textquotedblright{}
+is the abbreviation of the word \textquotedblleft drogue\textquotedblright .
+The abbreviation symbols commonly-used in this book are shown in Table
+\ref{Tab_2.1}.
+
+\begin{table}
+	\caption{Implication of abbreviation symbols of superscripts and subscripts}
+	
+	\begin{centering}
+		\begin{tabular}{|c|c|}
+			\hline 
+			Abbreviation symbols & Implication\tabularnewline
+			\hline 
+			d & drogue\tabularnewline
+			\hline 
+			e & equilibrium position of drogue\tabularnewline
+			\hline 
+			f & origin of CFD frame\tabularnewline
+			\hline 
+			g & ground\tabularnewline
+			\hline 
+			h & hose\tabularnewline
+			\hline 
+			n & nose of aircraft head\tabularnewline
+			\hline 
+			p & probe\tabularnewline
+			\hline 
+			r & receiver\tabularnewline
+			\hline 
+			t & tanker\tabularnewline
+			\hline 
+			w & wind\tabularnewline
+			\hline 
+		\end{tabular}
+		\par\end{centering}
+	\centering{}\label{Tab_2.1}
+\end{table}
+
+Based on the literature \cite{AirContrl}, the following notation
+is used to describe the motion of objects in aerial refueling systems:
+
+(1) A right superscript on a vector specifies a frame. It denotes
+a vector and its components are defined in the specified frame. For
+example, ${{\mathbf{p}}^{\text{g}}}=[\begin{array}{ccc}
+{{x}^{\text{g}}} & {{y}^{\text{g}}} & {{z}^{\text{g}}}\end{array}]{}^{\text{T}}$ denotes the position vector in the ground frame (abbreviated as ``g''
+).
+
+(2) Right subscripts are used to designate the meaning of a variable.
+For example, ${{\mathbf{p}}_{\text{t}}}$ denotes the position vector
+(expressed by bold lowercase letter ``$\mathbf{p}$'') of the tanker
+aircraft (abbreviated as ``t''). Besides, a \textquotedblleft /\textquotedblright{}
+in a subscript means \textquotedblleft with respect to\textquotedblright ,
+which represents the relative relationship between two objects. For
+example, ${{\mathbf{p}}_{\text{p/r}}}$ denotes the position vector
+of the probe position (abbreviated as ``p'') with respect to the
+mass center point of the receiver aircraft (abbreviated as ``r'').
+
+(3) When a variable is an angle (or rotation matrix), the right subscript
+\textquotedblleft A/B\textquotedblright{} indicates the angular relationship
+of the frame A relative to frame B. For example, ${{\mathbf{R}}_{\text{r/t}}}$
+denotes the rotation matrix to describe the angular relationship of
+the receiver frame ``r'' relative to the tanker frame ``t'', which
+is also used to describe the transformation of a vector from the tanker
+frame ``t'' to the receiver frame ``r''. 
+
+(4) The components of a vector on the three axes are expressed by
+a $3\times1$ array with the subscript inherited from that vector.
+For example, ${{\mathbf{v}}_{\text{t}}}={{[\begin{array}{ccc}
+		{{v}_{\text{t},x}} & {{v}_{\text{t},y}} & {{v}_{\text{t},z}}\end{array}]}^{\text{T}}}$ represents the three components of the tanker velocity. In order
+to simplify the derivation process, an exception is made for the most
+frequently-used variables -- the position vectors, whose components
+are simply expressed as ${{\mathbf{p}}_{\text{t}}}={{[\begin{array}{ccc}
+		{{x}_{\text{t}}} & {{y}_{\text{t}}} & {{z}_{\text{t}}}\end{array}]}^{\text{T}}}$.
+
+(5) When the reference frame is the tanker frame (see the detailed
+definition in the next section), the superscript ``t'' and subscript
+``/t'' of a variable can be omitted for simplicity.
+This is because, during the docking modeling process, the reference
+frame for most variables is the tanker frame. For example, $\mathbf{p}_{\text{d/r}}^{\text{t}}={{[\begin{array}{ccc}
+		x_{\text{d/r}}^{\text{t}} & y_{\text{d/r}}^{\text{t}} & z_{\text{d/r}}^{\text{t}}\end{array}]}^{\text{T}}}$ represents the relative position between the drogue (``d'') and
+the receiver aircraft ``r'', and the relative position vector is
+projected in the tanker frame (``t''), then it can be abbreviated
+as ${{\mathbf{p}}_{\text{d/r}}}={{[\begin{array}{ccc}
+		{{x}_{\text{d/r}}} & {{y}_{\text{d/r}}} & {{z}_{\text{d/r}}}\end{array}]}^{\text{T}}}$ for simplicity. In addition, ${{\Theta}_{\text{r}/\text{t}}}$ represents
+the angular relationship between the receiver frame ``r'' and the
+tanker frame ``t'', then it can be abbreviated as ${{\Theta}_{\text{r}}}$.
+
+\section{Coordinate Frames}
+
+There are five coordinate frames commonly used in kinematics and dynamics
+modeling of aircraft: the ground frame, the body frame, the wind frame
+and the stability frame. Meanwhile, the CFD frame and the drogue equilibrium
+position frame (referred to as the drogue frame) will also be introduced
+for presenting the relative relationship among the drogue, the probe
+and the receiver aircraft. The frames used in the docking process
+are shown in Fig. \ref{Fig_2.2}. These frames are detailed below
+and the function of each coordinate system and the relationship among
+them are explained.
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.8\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 2}
+		\par\end{centering}
+	\caption{Coordinate frames used in the docking process}
+	
+	\centering{}\label{Fig_2.2}
+\end{figure}
+
+
+\subsection{The Ground Frame}
+
+The ground frame ${{o}_{\text{g}}}-{{x}_{\text{g}}}{{y}_{\text{g}}}{{z}_{\text{g}}}$
+(also called the flat-earth frame) is defined by ignoring the earth\textquoteright s
+curvature on the ground (the earth\textquoteright s surface is assumed
+to be flat in a small region), so the ground frame can be treated
+as an inertial system. The above assumption is also referred to as
+the flat earth assumption in many references. This assumption is reasonable
+for this book because the aerial refueling process is operated in
+a limited region. As shown in Fig. \ref{Fig_2.3}, the coordinate
+origin ${{o}_{\text{g}}}$ of the ground frame is one fixed point
+on the ground which is usually selected as the take-off position of
+an aircraft; the axis ${{o}_{\text{g}}}{{x}_{\text{g}}}$ usually
+points to the north or points to the horizontal direction of the aircraft
+motion for convenience; the axis ${{o}_{\text{g}}}{{z}_{\text{g}}}$
+points vertically downwards to the ground; the axis ${{o}_{\text{g}}}{{y}_{\text{g}}}$
+is determined according to the right-hand rule.
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 3}
+		\par\end{centering}
+	\caption{Definition of the ground frame}
+	
+	\centering{}\label{Fig_2.3}
+\end{figure}
+
+
+\subsection{The Body Frames}
+
+A coordinate frame fixed to the aircraft body can be called the body
+frame. The traditional body frame ${{o}_{\text{b}}}-{{x}_{\text{b}}}{{y}_{\text{b}}}{{z}_{\text{b}}}$
+usually selects the mass center of an aircraft as the origin ${{o}_{\text{b}}}$,
+and its axis directions are defined as: the axis ${{o}_{\text{b}}}{{x}_{\text{b}}}$
+points to the nose direction in the symmetric plane of the aircraft;
+the axis ${{o}_{\text{b}}}{{y}_{\text{b}}}$ is perpendicular to the
+symmetric plane and points to the right side; the axis ${{o}_{\text{g}}}{{z}_{\text{g}}}$
+is vertical to the axis ${{o}_{\text{b}}}{{x}_{\text{b}}}$ in the
+symmetric plane and points to below, which satisfies the right-hand
+rule. The moment of inertia of an aircraft is usually defined in the
+above body frame to describe its rotational motion produced by the
+forces and moments (also described in the body frame) acting on the
+aircraft. Since there are a tanker aircraft and several receiver aircraft
+in an aerial refueling system, their body frames are distinguished
+by the tanker body frame and the receiver body frame, respectively.
+
+\subsubsection{The Tanker Body Frame}
+
+The tanker body frame ${{o}_{\text{t}}}-{{x}_{\text{t}}}{{y}_{\text{t}}}{{z}_{\text{t}}}$
+is also simplified as the taker frame for short. During the aerial
+refueling process, the tanker aircraft is commanded to fly straight
+and level with a constant speed in most situations, so the tanker
+frame can be assumed to be a moving inertial coordinate frame. For
+the convenience of describing the movement of the hose, the drogue,
+and the receivers at the same time, the origin of the tanker body
+frame is selected as the connection point between the hose and the
+tanker fuselage as shown in Fig. \ref{Fig_2.4}, which is different
+from the definition of traditional body frame whose origin is on the
+mass center. Then, the axis directions of the tanker frame are defined
+as follows: the axis ${{o}_{\text{t}}}{{x}_{\text{t}}}$ points to
+the horizontal direction of the tanker ground velocity $\mathbf{v}_{\text{t}}^{\text{g}}$;
+the axis ${{o}_{\text{t}}}{{z}_{\text{t}}}$ points vertically downwards
+to the ground; the ${{o}_{\text{t}}}{{y}_{\text{t}}}$ axis is determined
+according to the right-hand rule.
+
+The relative position and attitude between the drogue and the receiver
+are mainly concerned in the docking phase, where the tanker frame
+(moving inertial frame) is more convenient for modeling and analysis
+than the ground frame (fixed inertial frame). In order to further
+simplify the coordinate transformation among different frames, the
+direction of the axis ${{o}_{\text{g}}}{{x}_{\text{g}}}$ of the ground
+frame is also selected the same as the horizontal moving direction
+of the tanker, so the tanker frame and the ground frame have the same
+direction definitions and the rotation transformation between them
+can be avoided. 
+
+Since both the ground frame and the tanker frame are inertial frames,
+we can use the tanker frame to describe all the relative motion among
+objects in the aerial refueling system, and use the ground frame to
+describe their absolute motion relative to the ground. 
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.6\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 4}
+		\par\end{centering}
+	\caption{The tanker body frame}
+	
+	\centering{}\label{Fig_2.4}
+\end{figure}
+
+
+\subsubsection{The Receiver Body Frame}
+
+The receiver body frame ${{o}_{\text{r}}}-{{x}_{\text{r}}}{{y}_{\text{r}}}{{z}_{\text{r}}}$
+(or simply \textquotedblleft the receiver frame\textquotedblright )
+is used to describe the physical quantities associated with the attitude
+angle of the receiver. As shown in Fig. \ref{Fig_2.5}, the origin
+${{o}_{\text{r}}}$ of the receiver frame is fixed to the mass center
+of the receiver ${{\mathbf{p}}_{\text{r}}}$, and the direction of
+the coordinate axis is consistent with the traditional body frame,
+where the ${{o}_{\text{r}}}{{x}_{\text{r}}}$ axis points to the nose
+direction in the symmetric plane of the aircraft; the ${{o}_{\text{r}}}{{y}_{\text{r}}}$
+axis is perpendicular to the symmetric plane and points to the right
+side; the ${{o}_{\text{r}}}{{z}_{\text{r}}}$ axis is vertical to
+the ${{o}_{\text{r}}}{{x}_{\text{r}}}$ axis in the symmetric plane
+and points to below, which satisfies the right-hand rule.
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.45\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 5}
+		\par\end{centering}
+	\caption{The relationship between the receiver body frame and the stability frame}
+	
+	\centering{}\label{Fig_2.5}
+\end{figure}
+
+
+\subsection{The Stability Frame}
+
+The stability frame ${{o}_{\text{s}}}-{{x}_{\text{s}}}{{y}_{\text{s}}}{{z}_{\text{s}}}$
+is also widely used in the study of the motion characteristics of
+the aircraft after a small disturbance during steady flight. The stability
+frame is defined according to the airspeed vector of an aircraft which
+is defined as the relative velocity of the aircraft to the surrounding
+air. The tanker's airspeed vector is represented by ${{\mathbf{v}}_{\text{t}}}$,
+and the receiver's airspeed vector is expressed as ${{\mathbf{v}}_{\text{r}}}$.
+
+As shown in Fig. \ref{Fig_2.5}, taking the receiver as an example,
+the origin ${{o}_{\text{s}}}$ of the receiver stability frame is
+fixed to the mass center of the receiver; the axis ${{o}_{\text{s}}}{{x}_{\text{s}}}$
+coincides with the projection within the symmetric plane of the trimmed
+airspeed vector $\mathbf{v}_{\text{r}}^{*}$ (the trim methods will
+be introduced in Chapter 4) based on ${{\mathbf{v}}_{\text{r}}}$;
+the axis ${{o}_{\text{s}}}{{z}_{\text{s}}}$ is perpendicular to the
+axis ${{o}_{\text{s}}}{{x}_{\text{s}}}$ in the symmetric plane of
+the aircraft and points vertically downwards to the ground; ${{o}_{\text{s}}}{{y}_{\text{s}}}$
+points to the right and satisfies the right-hand rule.
+
+\subsection{The Wind Frame}
+
+The wind frame ${{o}_{\text{w}}}-{{x}_{\text{w}}}{{y}_{\text{w}}}{{z}_{\text{w}}}$
+is very important in aerodynamic modeling of aircraft. The origin
+${{o}_{\text{w}}}$ of the wind frame is fixed to the mass center
+of the aircraft; the axis ${{o}_{\text{w}}}{{x}_{\text{w}}}$ coincides
+with the trimmed airspeed vector $\mathbf{v}_{\text{a}}^{*}$; the
+axis ${{o}_{\text{w}}}{{z}_{\text{w}}}$ is perpendicular to the axis
+${{o}_{\text{w}}}{{x}_{\text{w}}}$ in the symmetric plane of the
+aircraft and points vertically downwards to the ground; the axis ${{o}_{\text{w}}}{{y}_{\text{w}}}$
+points to the right side and satisfies the right-hand rule.
+
+The aerodynamic angle is determined by the relationship between the
+wind frame and the body frame. As shown in Fig. \ref{Fig_2.6}, the
+aerodynamic angles are defined as follows.
+
+(1) \textbf{Angle of attack} $\alpha$: the angle between the projection
+of the axis ${{o}_{\text{w}}}{{x}_{\text{w}}}$ of the wind frame
+and the axis ${{o}_{\text{b}}}{{x}_{\text{b}}}$ of the body frame
+on the symmetric plane of the aircraft, which is equal to the angle
+between ${{o}_{\text{b}}}{{x}_{\text{b}}}$ and ${{o}_{\text{s}}}{{x}_{\text{s}}}$.
+Note that the angle is positive when the projection of ${{o}_{\text{w}}}{{x}_{\text{w}}}$
+is below ${{o}_{\text{b}}}{{x}_{\text{b}}}$.
+
+(2) \textbf{Sideslip Angle} $\beta$: the angle between the ${{o}_{\text{w}}}{{x}_{\text{w}}}$
+axis of the wind frame and the symmetric plane of the aircraft, which
+is equal to the angle between ${{o}_{\text{w}}}{{x}_{\text{w}}}$
+and ${{o}_{\text{s}}}{{x}_{\text{s}}}$. Note that the angle is positive
+when the projection of ${{o}_{\text{w}}}{{x}_{\text{w}}}$ is on the
+right of the symmetric plane of the aircraft.
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 6}
+		\par\end{centering}
+	\caption{The aerodynamic angles}
+	
+	\centering{}\label{Fig_2.6}
+\end{figure}
+
+The flight path angle and the course angle are determined by the relationship
+between the wind frame and the ground frame. As shown in Fig. \ref{Fig_2.7},
+taking the receiver as an example, the flight path angle and the course angle are defined
+as follows.
+
+(1) \textbf{Flight Path Angle} $\gamma$: The angle between the flight
+ground velocity ${{\mathbf{v}}_{\text{b/g}}}$ (the velocity of the
+aircraft relative to the ground) and the horizontal plane, which is
+positive when the aircraft is flying upwards.
+
+(2) \textbf{Course Angle} $\chi$: The angle between the projection
+of the flight velocity vector ${{\mathbf{v}}_{\text{{b}/{g}}}}$ on
+the horizontal plane and the axis ${{o}_{\text{g}}}{{x}_{\text{g}}}$
+of the ground frame, which is positive when the projection is on the
+right side of ${{o}_{\text{g}}}{{x}_{\text{g}}}$.
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 7}
+		\par\end{centering}
+	\caption{The flight path angle and the course angle}
+	
+	\centering{}\label{Fig_2.7}
+\end{figure}
+
+
+\subsection{The CFD Frame}
+
+The CFD frame ${{o}_{\text{f}}}-{{x}_{\text{f}}}{{y}_{\text{f}}}{{z}_{\text{f}}}$
+is defined for the convenience of studying the aerodynamic interference
+(also called the bow wave effect) between the receiver forebody and
+the drogue. As shown in Fig. \ref{Fig_2.8}, the direction of the
+CFD frame is the same as the receiver frame while the origin is different.
+The origin of the CFD frame is a point ${{\mathbf{p}}_{\text{f}}}$
+in the plane ${{x}_{\text{r}}}{{o}_{\text{r}}}{{z}_{\text{r}}}$,
+and its height is the same as the mounting position of the probe.
+The reasons for taking ${{\mathbf{p}}_{\text{f}}}$ as the coordinate
+origin are as follows. 
+
+(1) The height of the axis ${{o}_{\text{f}}}{{z}_{\text{f}}}$ is
+consistent with the height of the drogue, because the probe is aligned
+with the drogue during the docking process, that is, the docking process
+is completed near this height. 
+
+(2) The coordinate origin is selected at the rear of the probe because
+the pilot's view is roughly at this position, and this position is
+also convenient for CFD computation.
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.8\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 8}
+		\par\end{centering}
+	\caption{Three views of the CFD frame}
+	
+	\centering{}\label{Fig_2.8}
+\end{figure}
+
+
+\subsection{The Drogue Equilibrium Position Frame}
+
+The drogue equilibrium position frame ${{o}_{\text{e}}}-{{x}_{\text{e}}}{{y}_{\text{e}}}{{z}_{\text{e}}}$
+(or simply \textquotedblleft the drogue frame\textquotedblright )
+is defined for better evaluating the disturbed motion and docking
+error of the probe and the drogue during the docking phase. Since
+the tanker is assumed to fly at a uniform speed in a straight line,
+the hose-drogue system will finally reach an equilibrium state relative
+to the tanker body. Then, the drogue position (the center of the drogue
+canopy) will also reach an equilibrium position or slightly fluctuate
+around an equilibrium position under disturbances. This equilibrium
+position (marked with ${{\mathbf{p}}_{\text{e}}}$) is selected as
+the origin of the drogue frame, which is fixed to the tanker frame
+and will not move as the drogue moves. As shown in Fig. \ref{Fig_2.9},
+the axis directions of the drogue frame are consistent with the tanker
+frame. Noteworthy, under different flight altitudes and speeds, the
+drogue equilibrium position ${{\mathbf{p}}_{\text{e}}}$ may be different,
+but it can be estimated before the docking phase starts.
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 9}
+		\par\end{centering}
+	\caption{The drogue equilibrium position frame}
+	
+	\centering{}\label{Fig_2.9}
+\end{figure}
+
+
+\section{Frame Transformation}
+
+There are several ways to realize the frame transformation, or to
+project a vector from one frame to another. Common methods used in
+aerial refueling systems are: Euler angle method and Direction Cosine
+Matrix (DCM) method. The two methods will be described separately
+below.
+
+\subsection{Euler Angle Method}
+
+\subsubsection{Euler Angle Definitions}
+
+Based on Euler\textquoteright s theorem, the rotation of a rigid body
+around one fixed point can be regarded as the composition of several
+finite rotations around that fixed point. The orientation of a body
+frame can be achieved by three elemental rotations from the ground
+frame around one fixed point (usually the mass center). During these
+elemental rotations, each rotation axis is one of the coordinate axes
+of the rotated frame, and each rotation angle is defined by one Euler
+angle. It should be noted that the order of rotation is important,
+and different rotation orders will result in different frames. For
+an aircraft, the sequence of rotation axes \textit{z-y-x} is often
+used to define its Euler angles.
+
+The attitude of an aircraft, which is often described by the Euler
+angles, is determined by the relationship between the body frame and
+the ground frame. As shown in Fig. \ref{Fig_2.10}, ${{o}_{\text{g}}}-{{x}_{\text{g}}}{{y}_{\text{g}}}{{z}_{\text{g}}}$
+represents the ground frame and ${{o}_{\text{b}}}-{{x}_{\text{b}}}{{y}_{\text{b}}}{{z}_{\text{b}}}$
+represents the body frame. Euler angles are defined as follows.
+
+(1) \textbf{Yaw angle} $\psi$: it is the angle between the axis ${{o}_{\text{g}}}{{x}_{\text{g}}}$
+and the projection line from the axis ${{o}_{\text{b}}}{{x}_{\text{b}}}$
+to the plane ${{o}_{\text{g}}}{{x}_{\text{g}}}{{y}_{\text{g}}}$.
+The yaw angle is positive when the aircraft turns to the right, and
+its value range is $\left[-\pi,\pi\right]$. 
+
+(2) \textbf{Pitch angle} $\theta$: it is the angle between the axis ${{o}_{\text{b}}}{{x}_{\text{b}}}$
+and the plane ${{o}_{\text{g}}}{{x}_{\text{g}}}{{y}_{\text{g}}}$. The
+pitch angle is positive when the aircraft nose pitches up, and its
+value range is $\left[-{\pi}/2,{{\pi}/{2}}\right]$. 
+
+(3) \textbf{Roll angle} $\phi$: it is the angle between the axis ${{o}_{\text{b}}}{{z}_{\text{b}}}$
+and the plane ${{o}_{\text{b}}}{{x}_{\text{b}}}{{{x}^{\prime}}_{\text{b}}}$.
+The roll angle is positive when the aircraft rolls to the right, and
+its value range is $\left[-{\pi}/2,{{\pi}/{2}}\right]$. 
+
+\subsubsection{Vector Conversion}
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.5\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 10}
+		\par\end{centering}
+	\caption{The relationship between the body frame and the ground frame}
+	
+	\centering{}\label{Fig_2.10}
+\end{figure}
+
+This section introduces the conversion relationship of vectors among
+different frames. First of all, vector conversions from the ground
+frame to the body frame will be presented. As shown in Fig. \ref{Fig_2.11},
+the rotation is composed of three elemental rotations around axes
+$o{{z}_\text{g}}$, $o{{k}_{2}}$, and $o{{n}_{1}}$ by angles $\psi,\theta,\phi$,
+respectively. More specifically, we first move the origin ${{o}_{\text{b}}}$
+of the body frame and the origin ${{o}_{\text{g}}}$ of the ground
+frame to the same point $o$, so the body frame and ground frame are
+presented by $o-{{x}_{\text{b}}}{{y}_{\text{b}}}{{z}_{\text{b}}}$
+and $o-{{x}_{\text{g}}}{{y}_{\text{g}}}{{z}_{\text{g}}}$ respectively,
+and then perform the following operations.
+
+(1) As shown in Fig. \ref{Fig_2.11}(a), rotate the ground frame $o-{{x}_{\text{g}}}{{y}_{\text{g}}}{{z}_{\text{g}}}$
+around the axis $o{{z}_{\text{g}}}$ by the yaw angle $\psi$ to obtain
+a new coordinate frame $o-{{k}_{1}}{{k}_{2}}{{k}_{3}}$, so that $o{{x}_{\text{g}}}$
+turns to $o{{k}_{1}}$ and $o{{y}_{\text{g}}}$ turns to $o{{k}_{2}}$.
+Thus, the axis $o{{k}_{1}}$ is located in the plane $o{{x}_{\text{b}}}{{z}_{\text{b}}}$
+of the body frame, $o{{k}_{2}}$ is located in the plane $o{{y}_{\text{b}}}{{z}_{\text{b}}}$. 
+
+(2) As shown in Fig. \ref{Fig_2.11}(b), rotate the frame $o-{{k}_{1}}{{k}_{2}}{{k}_{3}}$
+around the axis $o{{k}_{2}}$ by the pitch angle $\theta$ to obtain
+a new coordinate frame $o-{{n}_{1}}{{n}_{2}}{{n}_{3}}$. Thus, $o{{n}_{1}}$
+corresponds to the axis $o{{x}_{\text{b}}}$ of the body frame, $o{{n}_{3}}$
+is located in the plane $o{{y}_{\text{b}}}{{z}_{\text{b}}}$.
+
+(3) As shown in Fig. \ref{Fig_2.11}(c), rotate the frame $o-{{n}_{1}}{{n}_{2}}{{n}_{3}}$
+around the axis $o{{n}_{1}}$ by the roll angle $\phi$ to obtain
+body frame $o-{{x}_{\text{b}}}{{y}_{\text{b}}}{{z}_{\text{b}}}$,
+so that $o{{n}_{2}}$ turns to the axis $o{{y}_{\text{b}}}$ of the
+body frame, $o{{n}_{3}}$ turns to $o{{z}_{\text{b}}}$ of the body
+frame. 
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.8\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 11}
+		\par\end{centering}
+	\caption{Euler angles and frame transformation}
+	
+	\centering{}\label{Fig_2.11}
+\end{figure}
+
+The detailed mathematical derivations of the above procedures are
+presented as follows.
+
+(1) After rotating the yaw angle $\psi$ around $o{{z}_{\text{g}}}$
+as shown in Fig. \ref{Fig_2.11}(a), the following equations can be
+obtained 
+\begin{equation}
+\left\{ \begin{array}{l}
+{\mathbf{k}_{1}}={{\mathbf{i}}^{\text{g}}}\cos\psi+{{\mathbf{j}}^{\text{g}}}\sin\psi\\
+{{\mathbf{k}}_{2}}=-{{\mathbf{i}}^{\text{g}}}\sin\psi+{{\mathbf{j}}^{\text{g}}}\cos\psi\\
+{{\mathbf{k}}_{3}}={{\mathbf{k}}^{\text{\ensuremath{\text{g}}}}}
+\end{array}\right.\label{eq:2.1}
+\end{equation}
+where ${{\mathbf{i}}^{\text{g}}}$ is the unit vector along $o{{x}_{\text{g}}}$,
+${{\mathbf{j}}^{\text{g}}}$ is the unit vector along $o{{y}_{\text{g}}}$,
+and ${{\mathbf{k}}^{\text{g}}}$ is the unit vector along $o{{z}_{\text{g}}}$.
+Note that, the bold symbols $\mathbf{k}_{1},\mathbf{k}_{2},\mathbf{k}_{3}$
+represent the axial unit vectors of the new frame $o-{{k}_{1}}{{k}_{2}}{{k}_{3}}$.
+Thus, the transformation relationship between $o-{{k}_{1}}{{k}_{2}}{{k}_{3}}$
+and $o-{{x}_{\text{g}}}{{y}_{\text{g}}}{{z}_{\text{g}}}$ is 
+\begin{equation}
+\left[\begin{array}{l}
+{k_{1}}\\
+{k_{2}}\\
+{k_{3}}
+\end{array}\right]=\left[{\begin{array}{ccc}
+	{\cos\psi} & {\sin\psi} & 0\\
+	{-\sin\psi} & {\cos\psi} & 0\\
+	0 & 0 & 1
+	\end{array}}\right]\left[{\begin{array}{c}
+	{x_{\text{g}}}\\
+	{y_{\text{g}}}\\
+	{z_{\text{g}}}
+	\end{array}}\right].\label{eq:2.2}
+\end{equation}
+where $[\begin{array}{ccc}
+x_{\text{g}} & y_{\text{g}} & z_{\text{g}}\end{array}]^{\text{T}}$ denotes the coordinate values of a vector projected (presented, described
+or observed) in the frame $o-{{x}_{\text{g}}}{{y}_{\text{g}}}{{z}_{\text{g}}}$,
+and $[\begin{array}{ccc}
+k_{1} & k_{2} & k_{3}\end{array}]^{\text{T}}$ denotes the new coordinate values of that vector projected in the
+frame $o-{{k}_{1}}{{k}_{2}}{{k}_{3}}$.
+
+By letting
+\begin{equation}
+{{\mathbf{R}}_{\text{z}}}\left(\psi\right)\triangleq\left[\begin{array}{ccc}
+\cos\psi & \sin\psi & 0\\
+-\sin\psi & \cos\psi & 0\\
+0 & 0 & 1
+\end{array}\right]\label{eq:2.3}
+\end{equation}
+then Eq. (\ref{eq:2.2}) is rewritten as 
+\begin{equation}
+\left[\begin{array}{l}
+{k_{1}}\\
+{k_{2}}\\
+{k_{3}}
+\end{array}\right]={\mathbf{R}_{z}}\left(\psi\right)\left[{\begin{array}{c}
+	{x_{\text{g}}}\\
+	{y_{\text{g}}}\\
+	{z_{\text{g}}}
+	\end{array}}\right].\label{eq:2.4}
+\end{equation}
+
+(2) After rotating the pitch angle $\theta$ around $o{{k}_{2}}$
+as shown in Fig. \ref{Fig_2.11}(b), the following equations can be
+obtained
+\begin{equation}
+\left\{ \begin{array}{l}
+{{\mathbf{n}}_{1}}={{\mathbf{k}}_{1}}\cos\theta-{{\mathbf{k}}_{3}}\sin\theta\\
+{{\mathbf{n}}_{2}}={{\mathbf{k}}_{2}}\\
+{{\mathbf{n}}_{3}}={{\mathbf{k}}_{1}}\sin\theta+{{\mathbf{k}}_{3}}\cos\theta
+\end{array}\right.\label{eq:2.5}
+\end{equation}
+where the bold symbols $\mathbf{n}_{1},\mathbf{n}_{2},\mathbf{n}_{3}$
+represent the axial unit vectors of the new frame $o-{{n}_{1}}{{n}_{2}}{{n}_{3}}$.
+Thus, the transformation relationship between $o-{{n}_{1}}{{n}_{2}}{{n}_{3}}$
+and $o-{{k}_{1}}{{k}_{2}}{{k}_{3}}$ is given by
+\begin{equation}
+\left[{\begin{array}{c}
+	{n_{1}}\\
+	{n_{2}}\\
+	{n_{3}}
+	\end{array}}\right]=\left[{\begin{array}{ccc}
+	{\cos\theta} & 0 & {-\sin\theta}\\
+	0 & 1 & 0\\
+	{\sin\theta} & 0 & {\cos\theta}
+	\end{array}}\right]\left[\begin{array}{l}
+{k_{1}}\\
+{k_{2}}\\
+{k_{3}}
+\end{array}\right].\label{eq:2.6}
+\end{equation}
+By letting 
+\begin{equation}
+{{\mathbf{R}}_{y}}\left(\theta\right)\triangleq\left[\begin{array}{ccc}
+\cos\theta & 0 & -\sin\theta\\
+0 & 1 & 0\\
+\sin\theta & 0 & \cos\theta
+\end{array}\right]\label{eq:2.7}
+\end{equation}
+one has
+\begin{equation}
+\left[{\begin{array}{c}
+	{n_{1}}\\
+	{n_{2}}\\
+	{n_{3}}
+	\end{array}}\right]={\mathbf{R}_{y}}\left(\theta\right)\left[\begin{array}{l}
+{k_{1}}\\
+{k_{2}}\\
+{k_{3}}
+\end{array}\right]={\mathbf{R}_{y}}\left(\theta\right){\mathbf{R}_{z}}\left(\psi\right)\left[{\begin{array}{c}
+	{x_{\text{g}}}\\
+	{y_{\text{g}}}\\
+	{z_{\text{g}}}
+	\end{array}}\right]\label{2.8}
+\end{equation}
+
+(3) After rotating the roll angle $\phi$ around $o{{n}_{1}}$ as
+shown in Fig. \ref{Fig_2.11}(c), the following equation can be obtained
+\begin{equation}
+\left\{ \begin{array}{l}
+{{\mathbf{x}}_{\text{b}}}={{\mathbf{n}}_{1}}\\
+{{\mathbf{y}}_{\text{b}}}={{\mathbf{n}}_{2}}\cos\phi+{{\mathbf{n}}_{3}}\sin\phi\\
+{{\mathbf{z}}_{\text{b}}}=-{{\mathbf{n}}_{2}}\sin\phi+{{\mathbf{n}}_{3}}\cos\phi
+\end{array}\right.\label{eq:2.9}
+\end{equation}
+where ${\mathbf{x}}_{\text{b}},{\mathbf{y}}_{\text{b}},{\mathbf{z}}_{\text{b}}$
+represent the axial unit vectors of the finally obtained aircraft
+body frame $o-{{x}_{\text{b}}}{{y}_{\text{b}}}{{z}_{\text{b}}}$.
+Thus, the transformation relationship between $o-{{x}_{\text{b}}}{{y}_{\text{b}}}{{z}_{\text{b}}}$
+and $o-{{n}_{1}}{{n}_{2}}{{n}_{3}}$ is
+\begin{equation}
+\left[\begin{array}{l}
+{x_{\text{b}}}\\
+{y_{\text{b}}}\\
+{z_{\text{b}}}
+\end{array}\right]=\left[{\begin{array}{ccc}
+	1 & 0 & 0\\
+	0 & {\cos\phi} & {\sin\phi}\\
+	0 & {-\sin\phi} & {\cos\phi}
+	\end{array}}\right]\left[{\begin{array}{c}
+	{n_{1}}\\
+	{n_{2}}\\
+	{n_{3}}
+	\end{array}}\right]\label{eq:2.10}
+\end{equation}
+By letting
+\begin{equation}
+{{\mathbf{R}}_{x}}\left(\phi\right)\triangleq\left[\begin{array}{ccc}
+1 & 0 & 0\\
+0 & \cos\phi & \sin\phi\\
+0 & -\sin\phi & \cos\phi
+\end{array}\right]\label{eq:2.11}
+\end{equation}
+one has
+\begin{equation}
+\left[\begin{array}{l}
+{x_{\text{b}}}\\
+{y_{\text{b}}}\\
+{z_{\text{b}}}
+\end{array}\right]={\mathbf{R}_{x}}\left(\phi\right)\left[{\begin{array}{c}
+	{n_{1}}\\
+	{n_{2}}\\
+	{n_{3}}
+	\end{array}}\right]={\mathbf{R}_{x}}\left(\phi\right){\mathbf{R}_{y}}\left(\theta\right)\left[\begin{array}{l}
+{k_{1}}\\
+{k_{2}}\\
+{k_{3}}
+\end{array}\right]={\mathbf{R}_{x}}\left(\phi\right){\mathbf{R}_{y}}\left(\theta\right){\mathbf{R}_{z}}\left(\psi\right)\left[{\begin{array}{c}
+	{x_{\text{g}}}\\
+	{y_{\text{g}}}\\
+	{z_{\text{g}}}
+	\end{array}}\right].\label{eq:2.12}
+\end{equation}
+Therefore, the rotation matrix ${{\mathbf{R}}_{\text{{b}/{g}}}}$,
+which represents the rotation from the ground frame to the body frame,
+can be expressed as
+\begin{equation}
+%\begin{aligned}{l}
+\begin{aligned}
+{{\mathbf{R}}_{\text{{b}/{g}}}}&={{\mathbf{R}}_{x}}\left(\phi\right){{\mathbf{R}}_{y}}\left(\theta\right){{\mathbf{R}}_{z}}\left(\psi\right)\\
+&=\left[\begin{array}{ccc}
+1 & 0 & 0\\
+0 & \cos\phi & \sin\phi\\
+0 & -\sin\phi & \cos\phi
+\end{array}\right]\left[\begin{array}{ccc}
+\cos\theta & 0 & -\sin\theta\\
+0 & 1 & 0\\
+\sin\theta & 0 & \cos\theta
+\end{array}\right]\left[\begin{array}{ccc}
+\cos\psi & \sin\psi & 0\\
+-\sin\psi & \cos\psi & 0\\
+0 & 0 & 1
+\end{array}\right]\\
+&=\left[\begin{array}{ccc}
+\cos\theta\cos\psi & \cos\theta\sin\psi & -\sin\theta\\
+\sin\theta\sin\phi\cos\psi-\sin\psi\cos\phi & \sin\psi\sin\theta\sin\phi+\cos\psi\cos\phi & \sin\phi\cos\theta\\
+\sin\theta\cos\phi\cos\psi+\sin\psi\sin\phi & \sin\psi\sin\theta\cos\phi-\cos\psi\sin\phi & \cos\phi\cos\theta
+\end{array}\right]
+\end{aligned}\label{2.13}
+\end{equation}
+The rotation from the ground frame to the body frame is composed of
+three elemental steps, which can be represented as
+\begin{equation}
+\left[{\begin{array}{c}
+	{x_{\text{g}}}\\
+	{y_{\text{g}}}\\
+	{z_{\text{g}}}
+	\end{array}}\right]\begin{array}{c}
+\\
+\\
+\underrightarrow{{\mathbf{R}_{z}}\left(\psi\right)}
+\end{array}\left[\begin{array}{c}
+{k_{1}}\\
+{k_{2}}\\
+{k_{3}}={\text{z}_{\text{g}}}
+\end{array}\right]\begin{array}{c}
+\\
+\underrightarrow{{\mathbf{R}_{y}}\left(\theta\right)}\\
+\\
+\end{array}\left[{\begin{array}{c}
+	{n_{1}}\\
+	{{n_{2}}={k_{2}}}\\
+	{n_{3}}
+	\end{array}}\right]\begin{array}{c}
+\underrightarrow{{\mathbf{R}_{x}}\left(\phi\right)}\\
+\\
+\\
+\end{array}\left[\begin{array}{c}
+{x_{\text{b}}}={n_{1}}\\
+{y_{\text{b}}}\\
+{z_{\text{b}}}
+\end{array}\right].\label{eq:asd}
+\end{equation}
+
+In the docking process, the movement of the receiver needs to be converted
+to the tanker frame for calculating, so it is necessary to know the
+conversion relationship between the tanker frame and the receiver
+frame. Since we have previously stated that the tanker frame is equivalent
+to an inertial system whose direction is consistent with the ground
+frame, we can directly describe the relationship between the two frames
+by the attitude angle of the receiver. Here, the attitude of the receiver
+is defined as ${{\mathbf{\Theta}}_{\text{r}}}={{\mathbf{\Theta}}_{\text{r/g}}}={{\mathbf{\Theta}}_{\text{r/t}}}=\left[\begin{array}{ccc}
+{\theta}_{\text{r}} & {\phi}_{\text{r}} & {\psi}_{\text{r}}\end{array}\right]^{\text{T}}$, where ${{\theta}_{\text{r}}},{{\phi}_{\text{r}}},{{\psi}_{\text{r}}}$
+represent the pitch angle, the roll angle and the yaw angle, respectively.
+Then the rotation matrix can be expressed as
+\begin{equation}
+{{\mathbf{R}}_{\text{r/t}}}\left({{\mathbf{\Theta}}_{\text{r}}}\right)\text{=}\left[\begin{array}{ccc}
+\cos{{\theta}_{\text{r}}}\cos{{\psi}_{\text{r}}} & \cos{{\theta}_{\text{r}}}\sin{{\psi}_{\text{r}}} & -\sin{{\theta}_{\text{r}}}\\
+\sin{{\theta}_{\text{r}}}\cos{{\psi}_{\text{r}}}\sin{{\phi}_{\text{r}}}-\sin{{\psi}_{\text{r}}}cos{{\phi}_{\text{r}}} & \sin{{\theta}_{\text{r}}}\sin{{\psi}_{\text{r}}}\sin{{\phi}_{\text{r}}}+\cos{{\psi}_{\text{r}}}\cos{{\phi}_{\text{r}}} & \cos{{\theta}_{\text{r}}}\sin{{\phi}_{\text{r}}}\\
+\sin{{\theta}_{\text{r}}}\cos{{\psi}_{\text{r}}}\cos{{\phi}_{\text{r}}}+\sin{{\psi}_{\text{r}}}\sin{{\phi}_{\text{r}}} & \sin{{\theta}_{\text{r}}}\cos{{\psi}_{\text{r}}}\cos{{\phi}_{\text{r}}}-\cos{{\psi}_{\text{r}}}\sin{{\phi}_{\text{r}}} & \cos{{\theta}_{\text{r}}}\cos{{\phi}_{\text{r}}}
+\end{array}\right].\label{eq:2.14}
+\end{equation}
+The corresponding coordinates satisfy the following conversion relationship
+\begin{equation}
+{{\mathbf{p}}^{\text{r}}}={{\mathbf{R}}_{\text{r/t}}}\left({{\mathbf{\Theta}}_{\text{r}}}\right){{\mathbf{p}}^{\text{t}}}+\mathbf{p}_{\text{t/r}}^{\text{r}}\label{eq:2.15}
+\end{equation}
+or
+\begin{equation}
+{{\mathbf{p}}^{\text{t}}}=\mathbf{R}_{\text{r/t}}^{\text{T}}\left({{\mathbf{\Theta}}_{\text{r}}}\right){{\mathbf{p}}^{\text{r}}}+\mathbf{p}_{\text{r/t}}^{\text{t}}\label{eq:2.16}
+\end{equation}
+where $\mathbf{p}_{\text{t/r}}^{\text{r}}$ and $\mathbf{p}_{\text{r/t}}^{\text{t}}$
+represent the relative position vector of the tanker and the receiver,
+respectively.
+
+The rotation from the wind frame to the body frame of an aircraft
+is presented as follows. It takes two steps to transform vectors from
+the wind frame ${{o}_{\text{w}}}-{{x}_{\text{w}}}{{y}_{\text{w}}}{{z}_{\text{w}}}$
+to the body frame ${{o}_{\text{b}}}-{{x}_{\text{b}}}{{y}_{\text{b}}}{{z}_{\text{b}}}$. 
+
+In the first step, we rotate the wind frame ${{o}_{\text{w}}}-{{x}_{\text{w}}}{{y}_{\text{w}}}{{z}_{\text{w}}}$
+around the axis ${{o}_{\text{w}}}{{z}_{\text{w}}}$ by the side slip
+angle $\beta$, which yields the stability frame ${{o}_{\text{s}}}-{{x}_{\text{s}}}{{y}_{\text{s}}}{{z}_{\text{s}}}$
+as
+\begin{equation}
+\left[\begin{array}{l}
+{x_{\text{s}}}\\
+{y_{\text{s}}}\\
+{z_{\text{s}}}
+\end{array}\right]=\left[{\begin{array}{ccc}
+	{\cos\beta} & {-\sin\beta} & 0\\
+	{\sin\beta} & {\cos\beta} & 0\\
+	0 & 0 & 1
+	\end{array}}\right]\left[{\begin{array}{c}
+	{x_{\text{w}}}\\
+	{y_{\text{w}}}\\
+	{z_{\text{w}}}
+	\end{array}}\right].\label{eq:2.17}
+\end{equation}
+The rotation matrix from the wind frame to the stability frame is expressed as
+\begin{equation}
+{{\mathbf{R}}_{\text{{s}/{w}}}}\left(\beta\right)=\left[\begin{array}{ccc}
+\cos\beta & -\sin\beta & 0\\
+\sin\beta & \cos\beta & 0\\
+0 & 0 & 1
+\end{array}\right].\label{eq:2.18}
+\end{equation}
+The corresponding coordinates satisfy the following conversion relationship
+\begin{equation}
+{{\mathbf{p}}^{\text{s}}}={{\mathbf{R}}_{\text{s/w}}}\left(\beta\right){{\mathbf{p}}^{\text{w}}}\label{eq:2.19}
+\end{equation}
+or
+\begin{equation}
+{{\mathbf{p}}^{\text{w}}}=\mathbf{R}_{\text{s/w}}^{\text{T}}\left(\beta\right){{\mathbf{p}}^{\text{s}}}.\label{eq:2.20}
+\end{equation}
+
+In the second step, we rotate the obtained stability frame ${{o}_{\text{s}}}-{{x}_{\text{s}}}{{y}_{\text{s}}}{{z}_{\text{s}}}$
+around the axis ${{o}_{\text{s}}}{{y}_{\text{s}}}$ by the angle of
+attack $\alpha$, which yields the body frame ${{o}_{\text{b}}}-{{x}_{\text{b}}}{{y}_{\text{b}}}{{z}_{\text{b}}}$,
+namely 
+\begin{equation}
+\left[\begin{array}{l}
+{x_{\text{b}}}\\
+{y_{\text{b}}}\\
+{z_{\text{b}}}
+\end{array}\right]=\left[{\begin{array}{ccc}
+	{\cos\alpha} & 0 & {-\sin\alpha}\\
+	0 & 1 & 0\\
+	{\sin\alpha} & 0 & {\cos\alpha}
+	\end{array}}\right]\left[\begin{array}{l}
+{x_{\text{s}}}\\
+{y_{\text{s}}}\\
+{z_{\text{s}}}
+\end{array}\right].\label{eq:2.21}
+\end{equation}
+The rotation matrix is expressed as
+\begin{equation}
+{{\mathbf{R}}_{\text{{b}/{s}}}}\left(\alpha\right)=\left[\begin{array}{ccc}
+{\cos\alpha} & 0 & {-\sin\alpha}\\
+0 & 1 & 0\\
+{\sin\alpha} & 0 & {\cos\alpha}
+\end{array}\right].\label{eq:2.22}
+\end{equation}
+The corresponding coordinates satisfy the following conversion relationship
+\begin{equation}
+{{\mathbf{p}}^{\text{b}}}={{\mathbf{R}}_{\text{b/s}}}\left(\alpha\right){{\mathbf{p}}^{\text{s}}}\label{eq:2.23}
+\end{equation}
+or
+\begin{equation}
+{{\mathbf{p}}^{\text{s}}}=\mathbf{R}_{\text{b/s}}^{\text{T}}\left(\alpha\right){{\mathbf{p}}^{\text{b}}}.\label{eq:2.24}
+\end{equation}
+According to Eq. (\ref{eq:2.17}) and Eq. (\ref{eq:2.21}), the following
+equation can be obtained
+\begin{equation}
+\left[\begin{array}{l}
+{x_{\text{b}}}\\
+{y_{\text{b}}}\\
+{z_{\text{b}}}
+\end{array}\right]={{\bf {R}}_{{\rm {b/s}}}}\left(\alpha\right)\left[\begin{array}{l}
+{x_{\text{s}}}\\
+{y_{\text{s}}}\\
+{z_{\text{s}}}
+\end{array}\right]={{\bf {R}}_{{\rm {b/s}}}}\left(\alpha\right){{\bf {R}}_{{\rm {s/w}}}}\left(\beta\right)\left[{\begin{array}{c}
+	{x_{\text{w}}}\\
+	{y_{\text{w}}}\\
+	{z_{\text{w}}}
+	\end{array}}\right].\label{eq:2.25}
+\end{equation}
+
+In summary, the rotation matrix which represents the rotation from
+the wind frame to the body frame, is expressed as
+\begin{equation}
+\begin{aligned}
+%\begin{aligned}{lll}
+{{\bf {R}}_{{\rm {b/w}}}}\left({\alpha,\beta}\right)&={{\bf {R}}_{{\rm {b/s}}}}\left(\alpha\right){{\bf {R}}_{{\rm {s/w}}}}\left(\beta\right)\\
+&=\left[{\begin{array}{ccc}
+	{\cos\alpha} & 0 & {-\sin\alpha}\\
+	0 & 1 & 0\\
+	{\sin\alpha} & 0 & {\cos\alpha}
+	\end{array}}\right]\left[{\begin{array}{ccc}
+	{\cos\beta} & {-\sin\beta} & 0\\
+	{\sin\beta} & {\cos\beta} & 0\\
+	0 & 0 & 1
+	\end{array}}\right]\\
+&=\left[{\begin{array}{ccc}
+	{\cos\alpha\cos\beta} & {-\cos\alpha\sin\beta} & {-\sin\alpha}\\
+	{\sin\beta} & {\cos\beta} & 0\\
+	{\sin\alpha\cos\beta} & {-\sin\alpha\sin\beta} & {\cos\alpha}
+	\end{array}}\right].
+\end{aligned}\label{eq:2.26}
+\end{equation}
+The corresponding coordinates satisfy the following conversion relationship
+\begin{equation}
+{{\mathbf{p}}^{\text{b}}}={{\mathbf{R}}_{\text{b/w}}}\left(\alpha,\beta\right){{\mathbf{p}}^{\text{w}}}\label{eq:2.27}
+\end{equation}
+or
+\begin{equation}
+{{\mathbf{p}}^{\text{w}}}=\mathbf{R}_{\text{b/w}}^{\text{T}}\left(\alpha,\beta\right){{\mathbf{p}}^{\text{b}}}.\label{eq:2.28}
+\end{equation}
+
+
+\subsubsection{Air Velocity, Wind Velocity and Ground Velocity}
+
+The aerodynamic forces and moments acting on an aircraft depend on
+the airflow velocity (or simply \textquotedblleft air velocity\textquotedblright )
+of the fuselage relative to the surrounding air (the wind velocity
+should be considered) instead of the ground velocity. The ground velocity
+and the air velocity are the same when there is no wind. However,
+there are always many wind disturbances in the flight environment,
+and we must carefully distinguish between air velocity $\mathbf{v}_{\text{{b}/{w}}}^{\text{g}}$
+(the relative velocity with respect to the surrounding air) and the
+ground velocity $\mathbf{v}_{\text{{b}/{g}}}^{\text{g}}$ (the relative
+velocity with respect to the ground frame). Their relationship is
+described as
+\begin{equation}
+\mathbf{v}_{\text{{b}/{w}}}^{\text{g}}=\mathbf{v}_{\text{{b}/{g}}}^{\text{g}}-\mathbf{v}_{\text{{w}/{g}}}^{\text{g}}\label{eq:2.29}
+\end{equation}
+where $\mathbf{v}_{\text{{w}/{g}}}^{\text{g}}$ represents the velocity
+of the wind relative to the ground frame, namely the wind velocity.
+Eq. (\ref{eq:2.29}) is described in the ground frame, which should
+be converted into the body frame for convenience. First, by projecting
+the ground velocity vector $\mathbf{v}_{\text{{b}/{g}}}^{\text{g}}$
+into the body frame, we obtain vector $\mathbf{v}_{\text{{b}/{g}}}^{\text{b}}$
+whose component form is expressed as
+\begin{equation}
+\mathbf{v}_{\text{{b}/{g}}}^{\text{b}}=\left[\begin{array}{c}
+u\\
+v\\
+w
+\end{array}\right].\label{eq:2.30}
+\end{equation}
+Secondly, by projecting the wind velocity vector $\mathbf{v}_{\text{{w}/{g}}}^{\text{g}}$
+in Eq. (\ref{eq:2.29}) into the body frame, we obtain vector $\mathbf{v}_{\text{{w}/{g}}}^{\text{b}}$
+whose component form is expressed as
+\begin{equation}
+\mathbf{v}_{\text{{w}/{g}}}^{\text{b}}=\left[\begin{array}{c}
+{u}_{\text{w}}\\
+{v}_{\text{w}}\\
+{w}_{\text{w}}
+\end{array}\right].\label{eq:3.31}
+\end{equation}
+Finally, projecting the air velocity vector $\mathbf{v}_{\text{{b}/{w}}}^{\text{g}}$
+into the body frame yields $\mathbf{v}_{\text{{b}/{w}}}^{\text{b}}=\left[\begin{array}{ccc}
+{u}_{\text{a}} & {v}_{\text{a}} & {w}_{\text{a}}\end{array}\right]^{\text{T}}$, whose relationship with $\mathbf{v}_{\text{{b}/{g}}}^{\text{b}}$
+and $\mathbf{v}_{\text{{w}/{g}}}^{\text{b}}$ can be derived from
+Eq. (\ref{eq:2.29}) as 
+\begin{equation}
+\mathbf{v}_{\text{{b}/{w}}}^{\text{b}}=\mathbf{v}_{\text{{b}/{g}}}^{\text{b}}-\mathbf{v}_{\text{{w}/{g}}}^{\text{b}}\label{eq:2.32}
+\end{equation}
+or written with the component form 
+\begin{equation}
+\left[{\begin{array}{c}
+	{u_{\text{a}}}\\
+	{v_{\text{a}}}\\
+	{w_{\text{a}}}
+	\end{array}}\right]=\left[\begin{array}{c}
+u\\
+v\\
+w
+\end{array}\right]-\left[{\begin{array}{c}
+	{u_{\text{w}}}\\
+	{v_{\text{w}}}\\
+	{w_{\text{w}}}
+	\end{array}}\right]=\left[{\begin{array}{c}
+	{u-{u_{\text{w}}}}\\
+	{v-{v_{\text{w}}}}\\
+	{w-{w_{\text{w}}}}
+	\end{array}}\right].\label{eq:2.33}
+\end{equation}
+
+Note that, the components ${{u}_{\text{a}}}$, ${{v}_{\text{a}}}$
+and ${{w}_{\text{a}}}$ of $\mathbf{v}_{\text{{b}/{w}}}^{\text{b}}$
+are often used to calculate the aerodynamic forces and moments when
+building an aircraft dynamics model; The components $u$, $v$ and
+$w$ of $\mathbf{v}_{\text{{b}/{g}}}^{\text{b}}$ are state variables
+in the aircraft dynamics equations; the components ${{u}_{\text{w}}}$,
+${{v}_{\text{w}}}$ and ${{w}_{\text{w}}}$ of $\mathbf{v}_{\text{{w}/{g}}}^{\text{b}}$
+can be estimated from the flight data, which are usually generated
+from the wind model in simulations. According to the conversion relationship
+between the wind frame and the body frame in Eq. (\ref{eq:2.27}),
+the following equation can be obtained 
+\begin{equation}
+\mathbf{v}_{\text{{b}/{w}}}^{\text{b}}={{\mathbf{R}}_{\text{b/w}}}\left(\alpha,\beta\right)\mathbf{v}_{\text{{b}/{w}}}^{\text{w}}\label{eq:2.34}
+\end{equation}
+where 
+\[
+\begin{array}{c}
+\mathbf{v}_{\text{{b}/{w}}}^\text{w}=\left[\begin{array}{ccc}
+{V}_{\text{a}} & 0 & 0\end{array}\right]^{\text{T}}\\
+{{V}_{\text{a}}}=\left\Vert \mathbf{v}_{\text{{b}/{w}}}^{\text{b}}\right\Vert 
+\end{array}
+\]
+in which ${{V}_{\text{a}}}$ is usually called the airspeed and can
+be measured with an airspeed tube. Then Eq. (\ref{eq:2.34}) can be
+written as
+\begin{equation}
+\left[{\begin{array}{c}
+	{u_{\text{a}}}\\
+	{v_{\text{a}}}\\
+	{w_{\text{a}}}
+	\end{array}}\right]=\left[{\begin{array}{ccc}
+	{\cos\alpha\cos\beta} & {-\cos\alpha\sin\beta} & {-\sin\alpha}\\
+	{\sin\beta} & {\cos\beta} & 0\\
+	{\sin\alpha\cos\beta} & {-\sin\alpha\sin\beta} & {\cos\alpha}
+	\end{array}}\right]\left[{\begin{array}{c}
+	{V_{\text{a}}}\\
+	0\\
+	0
+	\end{array}}\right]\label{eq:2.35}
+\end{equation}
+or 
+\begin{equation}
+\left[{\begin{array}{c}
+	{u_{\text{a}}}\\
+	{v_{\text{a}}}\\
+	{w_{\text{a}}}
+	\end{array}}\right]={V_{\text{a}}}\left[{\begin{array}{c}
+	{\cos\alpha\cos\beta}\\
+	{\sin\beta}\\
+	{\sin\alpha\cos\beta}
+	\end{array}}\right].\label{eq:2.36}
+\end{equation}
+Thus
+
+\begin{equation}
+{V_{\text{a}}}=\left\Vert {\mathbf{v}_{\text{b/w}}^{\text{b}}}\right\Vert =\sqrt{u_{\text{a}}^{2}+v_{\text{a}}^{2}+w_{\text{a}}^{2}}\label{eq:2.37}
+\end{equation}
+
+\begin{equation}
+\alpha={\tan^{-1}}\left({\frac{{w_{\text{a}}}}{{u_{\text{a}}}}}\right)\label{eq:2.38}
+\end{equation}
+
+\begin{equation}
+\beta={\sin^{-1}}\left({\frac{{v_{\text{a}}}}{{V_{\text{a}}}}}\right).\label{eq:2.39}
+\end{equation}
+
+Since the aerodynamic forces and moments of the aircraft are usually
+determined by ${{V}_{\text{a}}}$, $\alpha$ and $\beta$, the above
+expressions are essential for deriving the equations of motion of
+the aircraft.
+
+\subsubsection{Angular Velocity}
+
+The rates of the change of roll, pitch and yaw angles with time are
+represented by $\dot{\phi}$, $\dot{\theta}$ and $\dot{\psi}$ respectively,
+which are critical for computing the Euler angles $\phi$, $\theta$,
+$\psi$ in the flight dynamics simulations, but they are difficult
+to measure directly in practice. The angle changing rate is usually
+different from the angular velocity of an aircraft relative to the
+ground frame, which can be measured by a rate gyro. 
+
+As shown in Fig. \ref{Fig_2.10}, assuming that the angular velocity
+of the aircraft is ${{\boldsymbol{\omega}}^{\text{b}}}={{\left[p\text{ }q\text{ }r\right]}^{\text{T}}}$,
+then the relationship between angular velocity ${\boldsymbol{\omega}^{\text{b}}}$
+and the changing rates $\dot{\phi}$, $\dot{\theta}$, $\dot{\psi}$
+of Euler angles can be expressed as \cite{ducard2009fault}
+\begin{equation}
+{{\boldsymbol{\omega}}^{\text{b}}}=\dot{\psi}\cdot\mathbf{k}_{3}^{\text{b}}+\dot{\theta}\cdot\mathbf{n}_{2}^{\text{b}}+\dot{\phi}\cdot\mathbf{x}_{b}^{\text{b}}.\label{eq:2.40}
+\end{equation}
+Since 
+\begin{equation}
+\mathbf{n}_{2}^{\text{b}}={{\mathbf{R}}_{\text{{b}/{n}}}}\cdot\mathbf{n}_{2}^{\text{g}}={{\mathbf{R}}_{\text{{b}/{n}}}}\cdot{{\mathbf{y}}_{\text{g}}}\label{eq:2.41}
+\end{equation}
+\begin{equation}
+\mathbf{k}_{3}^{\text{b}}={{\mathbf{R}}_{\text{{b}/{k}}}}\cdot\mathbf{k}_{3}^{\text{g}}={\mathbf{R}_{\text{{b}/{k}}}}\cdot{{\mathbf{z}}_{\text{g}}}\label{eq:2.42}
+\end{equation}
+\begin{equation}
+\mathbf{x}_{\text{b}}^{\text{b}}=\left[\begin{array}{ccc}
+1 & 0 & 0\end{array}\right]^{\text{T}}\label{eq:2.43}
+\end{equation}
+one has 
+\begin{equation}
+\mathbf{n}_{2}^{\text{b}}={{\mathbf{R}}_{\text{{b}/{n}}}}\cdot{{\mathbf{y}}_{\text{g}}}={{\left[\begin{array}{ccc}
+		0 & \cos\phi & -\sin\phi\end{array}\right]}^{\text{T}}}\label{eq:2.44}
+\end{equation}
+\begin{equation}
+\mathbf{k}_{3}^{\text{b}}={{\mathbf{R}}_{\text{{b}/{k}}}}\cdot{{\mathbf{z}}_{\text{g}}}={{\left[\begin{array}{ccc}
+		-\sin\theta & \cos\theta\sin\phi & \cos\theta\cos\phi\end{array}\right]}^{\text{T}}}\label{2.45}
+\end{equation}
+where ${{\mathbf{R}}_{\text{{b}/{n}}}}={{\mathbf{R}}_{x}}\left(\phi\right)$,
+${{\mathbf{R}}_{\text{{b}/{k}}}}={{\mathbf{R}}_{x}}\left(\phi\right){{\mathbf{R}}_{y}}\left(\theta\right)$.
+The specific forms of ${{\mathbf{R}}_{y}}\left(\theta\right)$ and
+${{\mathbf{R}}_{x}}\left(\phi\right)$ are given by (\ref{eq:2.7})
+and (\ref{eq:2.11}). Combining (\ref{eq:2.40})-(\ref{2.45}) yields
+\begin{equation}
+\left[\begin{array}{c}
+p\\
+q\\
+r
+\end{array}\right]=\left[\begin{array}{ccc}
+1 & 0 & -\sin\theta\\
+0 & \cos\phi & \cos\theta\sin\phi\\
+0 & -\sin\phi & \cos\theta\cos\phi
+\end{array}\right]\left[\begin{array}{c}
+\dot{\phi}\\
+{\dot{\theta}}\\
+{\dot{\psi}}
+\end{array}\right]\label{eq:2.46}
+\end{equation}
+and then
+\begin{equation}
+\left[\begin{array}{c}
+\dot{\phi}\\
+{\dot{\theta}}\\
+{\dot{\psi}}
+\end{array}\right]=\left[\begin{array}{ccc}
+1 & \tan\theta\sin\phi & \tan\theta\cos\phi\\
+0 & \cos\phi & -\sin\phi\\
+0 & {\sin\phi}/{\cos\theta} & {\cos\phi}/{\cos\theta}
+\end{array}\right]\left[\begin{array}{c}
+p\\
+q\\
+r
+\end{array}\right].\label{eq:2.47}
+\end{equation}
+It can be observed from Eq. (\ref{eq:2.47}) that $\cos\theta$ appears
+in the denominator, so the value of the fraction no longer has meaning
+when $\cos\theta=0$ or $\theta=\pm\frac{\pi}{2}$, which is called
+the singularity problem. Therefore, Eq. (\ref{eq:2.47}) can only
+be used for aircraft modeling and control when the pitch angle $\theta$
+is small.
+
+\subsection{Direction Cosine Matrix method}
+
+\subsubsection{Direction Cosine Matrix }
+
+Direction cosine matrix, namely rotation matrix, is widely used in
+frame transformation. According to the three-step rotation process
+from the ground frame to the body frame presented in Eq. (\ref{eq:asd}),
+the rotation matrix ${{\mathbf{R}}_{{\text{g}}/{\text{b}}}}$ can
+be described by Euler angles $\phi$, $\theta$, $\psi$ as 
+\begin{equation}
+\begin{aligned}
+%\begin{array}{l}
+{{\mathbf{R}}_{{\text{{g}/{b}}}}}&=\mathbf{R}_{{\text{{g}/{b}}}}^{-1}\\
+&=\mathbf{R}_{z}^{-1}\left(\psi\right)\mathbf{R}_{y}^{-1}\left(\theta\right)\mathbf{R}_{x}^{-1}\left(\phi\right)\\
+&=\mathbf{R}_{z}^{\text{T}}\left(\psi\right)\mathbf{R}_{y}^{\text{T}}\left(\theta\right)\mathbf{R}_{x}^{\text{T}}\left(\phi\right)\\
+&=\left[\begin{array}{ccc}
+\cos\theta\cos\psi & \sin\theta\sin\phi\cos\psi-\sin\psi\cos\phi & \sin\theta\cos\phi\cos\psi+\sin\psi\sin\phi\\
+\cos\theta\sin\psi & \sin\psi\sin\theta\sin\phi+\cos\psi\cos\phi & \sin\psi\sin\theta\cos\phi-\cos\psi\sin\phi\\
+-\sin\theta & \sin\phi\cos\theta & \cos\phi\cos\theta
+\end{array}\right].
+\end{aligned}\label{eq:2.48}
+\end{equation}
+Conversely, Euler angles $\phi$, $\theta$, $\psi$ can be solved
+with knowing the rotation matrix ${{\mathbf{R}}_{\text{{g}/{b}}}}$.
+By letting the rotation matrix be
+\begin{equation}
+{{\mathbf{R}}_{\text{{g}/{b}}}}\triangleq\left[\begin{array}{ccc}
+r_{11} & {{r}_{12}} & {{r}_{13}}\\
+{{r}_{21}} & {{r}_{22}} & {{r}_{23}}\\
+{{r}_{31}} & {{r}_{32}} & {{r}_{33}}
+\end{array}\right]\label{eq:2.49}
+\end{equation}
+according to Eq.(\ref{eq:2.48}), one has
+\begin{equation}
+\left\{ \begin{array}{l}
+\tan\psi=\frac{{{r}_{21}}}{{{r}_{11}}}\\
+\sin\theta=-{{r}_{31}}\\
+\tan\phi=\frac{{{r}_{32}}}{{{r}_{33}}}
+\end{array}\right..\label{eq:2.50}
+\end{equation}
+Since the ranges of Euler angles are $\psi\in\left[-\pi,\pi\right]$,
+$\theta\in\left[{-\pi}/{2},{\pi}/{2}\right],$ $\phi\in\left[{-\pi}/{2},{\pi}/{2}\right]$,
+the solutions to Eq.(\ref{eq:2.50}) are
+\begin{equation}
+\left\{ \begin{array}{l}
+\psi=\arctan\frac{{{r}_{21}}}{{{r}_{11}}}\\
+\theta=\arcsin\left(-{{r}_{31}}\right)\\
+\phi=\arctan\frac{{{r}_{32}}}{{{r}_{33}}}
+\end{array}\right.\label{eq:2.51}
+\end{equation}
+where the value ranges of $\arctan\left(\cdot\right)$ and $\arcsin\left(\cdot\right)$
+are $\left[{-\pi}/{2},{\pi}/{2}\right]$. 
+
+\subsubsection{Relationship Between the Derivative of the Rotation Matrix and the
+	Angular Velocity}
+
+If only the rigid body\textquoteright s rotation (without translation)
+is considered, then the derivative of a vector ${{\mathbf{r}}^{\text{g}}}\in{\mathbb{R}^{3}}$
+with time satisfies 
+\begin{equation}
+\frac{\text{d}{{\mathbf{r}}^{\text{g}}}}{\text{d}t}={{\boldsymbol{\omega}}^{\text{g}}}\times{{\mathbf{r}}^{\text{g}}}\label{eq:2.52}
+\end{equation}
+where the symbol $\times$ represents the cross product of two vectors.
+The physical significance of Eq. (\ref{eq:2.52}) can be vividly illustrated
+by the circular motion in Fig. \ref{Fig_2.12}. 
+
+The cross product of two vectors $\mathbf{a}\triangleq[\begin{array}{ccc}
+a_{x} & {{a}_{y}} & {{a}_{z}}\end{array}]^{\text{T}}$ and $\mathbf{b}\triangleq[\begin{array}{ccc}
+b_{x} & {{b}_{y}} & {{b}_{z}}\end{array}]^{\text{T}}$ is defined as \cite{murray2017mathematical}
+\begin{equation}
+\mathbf{a}\times\mathbf{b}\mathsf{=}{{\left[\mathbf{a}\right]}_{\times}}\mathbf{b}\label{eq:2.53}
+\end{equation}
+where 
+\begin{equation}
+{{\left[\mathbf{a}\right]}_{\times}}=\left[\begin{array}{ccc}
+0 & -{{a}_{z}} & {{a}_{y}}\\
+{{a}_{z}} & 0 & -{{a}_{x}}\\
+-{{a}_{y}} & {{a}_{x}} & 0
+\end{array}\right]\label{eq:2.54}
+\end{equation}
+is a skew-symmetric matrix. 
+
+\begin{figure}
+	\begin{centering}
+		\includegraphics[width=0.4\textwidth]{Figures/Figs_Ch2/Fig_2\lyxdot 12}
+		\par\end{centering}
+	\caption{The derivative of a vector presented by a circular motion}
+	
+	\centering{}\label{Fig_2.12}
+\end{figure}
+
+Let $\mathbf{x}_{\text{b}}^{\text{b}},\mathbf{y}_{\text{b}}^{\text{b}},\mathbf{z}_{\text{b}}^{\text{b}}$
+present the axial unit vectors of the body frame as
+\begin{equation}
+\begin{array}{c}
+\mathbf{x}_{\text{b}}^{\text{b}}\triangleq\left[\begin{array}{ccc}
+1 & 0 & 0\end{array}\right]^{\text{T}}\\
+\mathbf{y}_{\text{b}}^{\text{b}}\triangleq\left[\begin{array}{ccc}
+0 & 1 & 0\end{array}\right]^{\text{T}}\\
+\mathbf{z}_{\text{b}}^{\text{b}}\triangleq\left[\begin{array}{ccc}
+0 & 0 & 1\end{array}\right]^{\text{T}}
+\end{array}
+\end{equation}
+then 
+\[
+\left[\begin{array}{ccc}
+\mathbf{x}_{\text{b}}^{\text{b}} & \mathbf{y}_{\text{b}}^{\text{b}} & \mathbf{z}_{\text{b}}^{\text{b}}\end{array}\right]=\left[\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1
+\end{array}\right]=\mathbf{I}_{3\times3}
+\]
+composes an identity matrix. Projecting vectors $\mathbf{x}_{\text{b}}^{\text{b}},\mathbf{y}_{\text{b}}^{\text{b}},\mathbf{z}_{\text{b}}^{\text{b}}$
+from the body frame to the ground frame, one has
+\begin{equation}
+\begin{array}{c}
+\mathbf{x}_{\text{b}}^{\text{g}}={\mathbf{R}}_{\text{{g}/{b}}}\cdot\mathbf{x}_{\text{b}}^{\text{b}}\\
+\mathbf{y}_{\text{b}}^{\text{g}}={\mathbf{R}}_{\text{{g}/{b}}}\cdot\mathbf{y}_{\text{b}}^{\text{b}}\\
+\mathbf{z}_{\text{b}}^{\text{g}}={\mathbf{R}}_{\text{{g}/{b}}}\cdot\mathbf{z}_{\text{b}}^{\text{b}}
+\end{array}
+\end{equation}
+which yields
+\begin{equation}
+\begin{array}{ll}
+\left[\begin{array}{ccc}
+\mathbf{x}_{\text{b}}^{\text{g}} & \mathbf{y}_{\text{b}}^{\text{g}} & \mathbf{z}_{\text{b}}^{\text{g}}\end{array}\right] & ={\mathbf{R}}_{\text{{g}/{b}}}\cdot\left[\begin{array}{ccc}
+\mathbf{x}_{\text{b}}^{\text{b}} & \mathbf{y}_{\text{b}}^{\text{b}} & \mathbf{z}_{\text{b}}^{\text{b}}\end{array}\right]\\
+& ={\mathbf{R}}_{\text{{g}/{b}}}\cdot\mathbf{I}_{3\times3}\\
+& ={\mathbf{R}}_{\text{{g}/{b}}}
+\end{array}.
+\end{equation}
+According to Eq. (\ref{eq:2.52}), one has 
+\begin{equation}
+\begin{array}{ll}
+\frac{\text{d}{{\mathbf{R}}_{\text{{g}/{b}}}}}{\text{d}t} & =\frac{\text{d}\left[\begin{array}{ccc}
+	\mathbf{x}_{\text{b}}^{\text{g}} & \mathbf{y}_{\text{b}}^{\text{g}} & \mathbf{z}_{\text{b}}^{\text{g}}\end{array}\right]}{\text{d}t}=\left[\begin{array}{clc}
+\frac{\text{d}\mathbf{x}_{\text{b}}^{\text{g}}}{\text{d}t} & \frac{\text{d}\mathbf{y}_{\text{b}}^{\text{g}}}{\text{d}t} & \frac{\text{d}\mathbf{z}_{\text{b}}^{\text{g}}}{\text{d}t}\end{array}\right]\\
+& =\left[\begin{array}{ccc}
+{\boldsymbol{\omega}}^{\text{g}}\times\mathbf{x}_{\text{b}}^{\text{g}} & {\boldsymbol{\omega}}^{\text{g}}\times\mathbf{y}_{\text{b}}^{\text{g}} & {\boldsymbol{\omega}}^{\text{g}}\times\mathbf{z}_{\text{b}}^{\text{g}}\end{array}\right]
+\end{array}\label{eq:2.55}
+\end{equation}
+Since ${{\boldsymbol{\omega}}^{\text{g}}}={{\mathbf{R}}_{\text{{g}/{b}}}}\cdot{{\boldsymbol{\omega}}^{\text{b}}}$,
+by using the properties of the cross product, one has
+\begin{equation}
+\begin{array}{ll}
+{\boldsymbol{\omega}}^{\text{g}}\times\mathbf{x}_{\text{b}}^{\text{g}} & =\left({{\mathbf{R}}_{\text{{g}/{b}}}}\cdot{{\boldsymbol{\omega}}^{\text{b}}}\right)\times\left({{\mathbf{R}}_{\text{{g}/{b}}}}\cdot\mathbf{x}_{\text{b}}^{\text{b}}\right)\\
+& ={{\mathbf{R}}_{\text{{g}/{b}}}}\cdot\left({\boldsymbol{\omega}}^{\text{b}}\times\mathbf{x}_{\text{b}}^{\text{b}}\right)\\
+& ={{\mathbf{R}}_{\text{{g}/{b}}}}\cdot{\left[{{\boldsymbol{\omega}}^{\text{b}}}\right]}_{\times}\cdot\mathbf{x}_{\text{b}}^{\text{b}}
+\end{array}.\label{eq:ss}
+\end{equation}
+where ${{\left[{{\boldsymbol{\omega}}^{\text{b}}}\right]}_{\times}}$
+is the skew-symmetric form of ${{\boldsymbol{\omega}}^{\text{b}}}$.
+Finally, by applying Eq. (\ref{eq:ss}) for ${\boldsymbol{\omega}}^{\text{g}}\times\mathbf{y}_{\text{b}}^{\text{g}}$
+and $\mathbf{{\boldsymbol{\omega}}^{\text{g}}\times z}_{\text{b}}^{\text{g}},$
+Eq. (\ref{eq:2.55}) is rewritten as 
+\begin{equation}
+\begin{array}{ll}
+\frac{\text{d}{{\mathbf{R}}_{\text{{g}/{b}}}}}{\text{d}t} & =\left[\begin{array}{ccc}
+{\boldsymbol{\omega}}^{\text{g}}\times\mathbf{x}_{\text{b}}^{\text{g}} & {\boldsymbol{\omega}}^{\text{g}}\times\mathbf{y}_{\text{b}}^{\text{g}} & {\boldsymbol{\omega}}^{\text{g}}\times\mathbf{z}_{\text{b}}^{\text{g}}\end{array}\right]\\
+& ={{\mathbf{R}}_{\text{{g}/{b}}}}\cdot{\left[{{\boldsymbol{\omega}}^{\text{b}}}\right]}_{\times}\cdot\left[\begin{array}{ccc}
+\mathbf{x}_{\text{b}}^{\text{b}} & \mathbf{y}_{\text{b}}^{\text{b}} & \mathbf{z}_{\text{b}}^{\text{b}}\end{array}\right]\\
+& ={{\mathbf{R}}_{\text{{g}/{b}}}}\cdot{{\left[{{\boldsymbol{\omega}}^{\text{b}}}\right]}_{\times}}
+\end{array}\label{2.56}
+\end{equation}
+
+The use of the rotation matrix can avoid the singularity problem.
+However, since ${{\mathbf{R}}_{\text{{g}/{b}}}}$ has nine unknown
+variables, the calculating quantity of solving Eq. (\ref{2.56}) is
+large. 
+
+\section{Chapter Summary}
+
+This chapter mainly introduces several common frames in the aerial
+refueling process, including the ground frame, the body frame, the
+wind frame, the stability frame, the CFD system and the drogue equilibrium
+position frame. Moreover, two methods for frame conversion are introduced,
+that is, the Euler angle method and the direction cosine matrix method.
+This chapter provides all the necessary knowledge for subsequent aerial
+fueling modeling.

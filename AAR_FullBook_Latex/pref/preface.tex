@@ -1,0 +1,133 @@
+
+\chapter*{Preface}
+
+Multicopter development began to flourish in the year 2013 because
+of the high demand for aerial photography and the emergence of low-cost
+multicopter products. New ideas, technologies, products, applications,
+and investments associated with multicopters emerged one after another.
+During the years 2016 and 2017, owing to an increase in market bubbles
+and frequent incidents wherein civil aviation flights were threatened
+by Unmanned Aerial Vehicles (UAVs), UAVs related industries suffered
+a small decline. Meanwhile, many countries began to establish laws,
+regulations, and standards for micro-small UAVs, open test bases,
+organize the study of air traffic control systems for UAVs, and start
+the processes of education and training. It can be said that the micro-small
+UAV industries represented by multicopters have entered a new, orderly
+phase with more opportunities for development. With the rise of 5G,
+micro-small UAVs may become big data collection platforms at low altitudes,
+which is expected to bring seven to ten times more business opportunities
+for industry\footnote{Connected drones - a new perspective on the digital economy. Available
+on https://cdn.microdrones.com/fileadmin/web/\_downloads/papers/Huawei\_whitepaper.pdf}.
+
+The rapid development of multicopters is inseparable from the support
+of open-source flight control systems. Whether based on open-source
+flight control systems or fully independent development, developers
+need to have a comprehensive grasp of multicopter design, modeling,
+perception, control, and decision-making to produce multicopters that
+deliver outstanding performance. However, much micro-small multicopter
+research and development started with micro-small enterprises. Unlike
+traditional aviation institutes, micro-small enterprises have disadvantages
+such as fewer engineers, less experience, and fewer resources; thus,
+chief and full-stack engineers are urgently needed. An important reason
+for the shortage of such engineers is that textbooks and curriculum
+have failed to keep up with the rapid development of multicopters.
+Motivated by this, Beihang Reliable Flight Control Group (\url{http://rfly.buaa.edu.cn})
+published a book in 2017 titled \textit{Introduction to Multicopter
+Design and Control} in Springer Singapore.
+
+Although we recognize that \textit{Introduction to Multicopter Design
+and Control} can explain some theory problems for readers, the lack
+of practical exercises means that it cannot help readers in deepening
+their practical understanding. There is a certain gap that still exists
+between the requirements of the industry and current engineering education,
+which has motivated us to develop new tools and tutorials based on
+multicopters for allowing the readers to apply the theory to practice.
+
+Based on these considerations, the experiment of this book adopts
+the following
+\begin{enumerate}[(1) ]
+\item the most widely used flight platform, multicopters, as a flight platform;
+\item the most widely used open-source autopilot systems of aerial vehicles,
+Pixhawk/PX4, as a control platform;
+\item one of the most widely used programming languages in the field of
+control engineering, MATLAB/Simulink, as a programming language.
+\end{enumerate}
+Based on the current advanced development of the \textit{Model-Based
+Design} (MBD) process, the above three are closely linked. In addition
+to the advancement of software, hardware, and development concepts,
+the experiments consider coverage and differentiation. The book covers
+eight tasks that include multicopter propulsion system design, dynamic
+modeling, sensor calibration, state estimation and filter design,
+attitude controller design, set-point controller design, semi-autonomous
+control mode design, and failsafe logic design. These tasks cover
+a comprehensive level of knowledge, and they can be completed by following
+a progressive route. Each task consists of three step-by-step experiments
+from shallow to deep, namely a basic experiment, an analysis experiment,
+and a design experiment so that readers with different backgrounds
+can benefit from them. Each experiment must be implemented in MATLAB/Simulink,
+and simulation tests are carried out in the released software-in-the-loop
+simulation platform. Furthermore, the readers can upload the control
+algorithms to the Pixhawk autopilot through the automatic code generation
+technology and form a closed-loop control system with a given real-time
+simulator for Hardware-In-the-Loop (HIL) simulation tests. Throughout
+the above process, readers can familiarize themselves with the basic
+process of MBD, including the composition, mathematical model, and
+control of a multicopter. Furthermore, readers can master a variety
+of modern tools such as MATLAB/Simulink and FlightGear in the development
+and computer simulation, a  HIL simulator, Pixhawk autopilot, and
+a remote control transmitter in the HIL simulation test. The design
+task also includes outdoor flight experiments to allow the readers
+to experience the full development of a multicopter. Based on this,
+the platform designed in this book won the gold award of National
+Experimental Equipment Design Contest for College Automation Education
+in China. Advanced development tools and processes allow micro-small
+enterprises to realize new ideas rapidly, thereby overcoming the disadvantages
+they face, which include fewer people, less experience, and fewer
+resources. Furthermore, by lowering the learning threshold, more people
+with other related backgrounds have opportunities to enter the aviation
+field. 
+
+This book can be considered a sister of \textit{Introduction to Multicopter
+Design and Control}. To make this book self-contained, we have included
+some theoretical parts of \textit{Introduction to Multicopter Design
+and Control} that are required for the experiments in this book. The
+process of preparing this book, which commenced in 2018, spanned nearly
+two years. During this time, we first designed and implemented all
+the experiments and then continually revised the book to present our
+ideas as clearly as possible. Quan Quan designed the structure, experimental
+process, and experiments of the entire book; Dai Xunhua designed the
+experimental platform and development process; Wang Shuai conducted
+all the experiments according to the experimental process. The successful
+completion of this book is inseparable from the enthusiastic support
+and help of the students of Beihang Reliable Flight Control Group.
+First of all, we thank Yang Lanjiang, Liu Hao, and Ning Junqing for
+participating in the experiments and assisting in the revision of
+this book carefully and repeatedly. Secondly, we appreciate Liu Fanning
+for the basic development of the experimental process and some experiments
+that she conducted during her graduation project with our group. This
+book was used for undergraduate students' curriculum design (B3I034140)
+and graduate students' course (031574) partly, as well as in the courses
+opened by a company, Tang Dynasty Robot (\url{https://www.chinarobot.com}).
+We thank all the students who participated in the courses for their
+helpful feedback.
+
+The development of the experiments and tools in this book has been
+expensive; therefore, we reserve the copyright for them. Experimental
+codes and tools that we developed are available at \url{https://flyeval.com/course}
+for personal use. No company or individual is allowed to sell the
+codes and tools included in this book as educational products without
+the authorization of Beihang Reliable Flight Control Group. Otherwise,
+a legal response shall be pursued. For questions and licenses related
+to this book, please contact us via \url{https://flyeval.com/course}.
+
+\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}Quan
+Quan
+
+\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}Beihang
+University  
+
+\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}Beijing,
+China 
+
+\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}July
+2019

@@ -1,0 +1,114 @@
+
+\chapter{How Teachers Use This Book}
+
+This book provides eight experiments, each of which includes basic
+experiments, analysis experiments, and design experiments. The code
+for the basic and analysis experiments will be open on the designated
+website while the code for design experiments will only be open to
+the teachers who open the course. Students can first understand experimental
+principles and basic code through basic experiments and analysis experiments,
+based on which they can then carry out design experiments. To ensure
+that different students have different design and experiment goals,
+there are two solutions given as follows: modifying the goals in the
+propulsion system design and modeling experiments for different students,
+or opening new experiments. A detailed introduction is in the following.
+
+\section{Modify the goals in the propulsion system design and modeling experiments
+for different students}
+
+To ensure that the design goals of different students are different,
+a solution is given below.
+
+\subsection{Modify the design experiment of the multicopter propulsion system}
+\begin{enumerate}[(1) ]
+\item Things to prepare\\
+\url{https://flyeval.com/paper/}.
+\item Objectives\\
+1) Design a multicopter. The altitude is 0m, the local temperature
+is 25~$^{\circ}$C, the weight of the airframe, autopilot, and accessories
+is 1~kg totally, circumferential circle radius is smaller than 59.23\,in,
+the total weight is lighter than (7+\textit{Y})~kg$\times$$\,$9.8$\,\textrm{m/s}^{2}$,
+hover endurance is longer than 15~min, the hover throttle is less
+than 65\% of the full-throttle. \\
+2) List flight parameters and basic flight performance parameters
+of the multicopters and compare the calculated results with that generated
+by \url{https://flyeval.com/paper/}.
+\end{enumerate}
+Here, for students who select this course, we can modify the goals.
+For example, dividing the last digit of a student ID by 4 obtains
+the remainder \textit{X} = \{0: hexacopter, 1: coaxial hexacopter,
+2: octocopter, 3: coaxial octocopter\} corresponding to different
+types of multicopters. What is more, dividing the second-last digit
+of the student ID by 4 obtains the remainder\textit{ Y}, which corresponds
+to modifying the overall weight.
+
+\subsection{Modify the design experiment for the multicopter modeling experiment}
+\begin{enumerate}[(1) ]
+\item Things to prepare\\
+The well-designed multicopter configuration by ``Multicopter propulsion
+system design experiment'' - ``Design Experiment'' and model parameters
+provided by \url{https://flyeval.com/paper/}.
+\item Objectives\\
+Establish multicopter mathematical models, and build a complete multicopter
+model on MATLAB/Simulink, and add a 3D multicopter model to FlightGear.
+In terms of the attitude model, the quaternion model, the rotation
+matrix model, or the Euler angle model can be used for students who
+select this course. Dividing the third-last digit of their student
+ID obtains the remainder \textit{Z }= \{0: quaternion model, 1: rotation
+matrix model, 2: Euler angle model\}.
+\end{enumerate}
+With the two modified experiments above, it is difficult for two students
+to have the same task. Based on the results from the two modified
+experiments, the following multicopter attitude control design experiment
+and multicopter position control design experiment are different correspondingly.
+With the number of students increased, a new type of multicopters
+can be added, such as a quadcopter, pentacopter, heptcopter, and so
+on. If there are a large number of students, it is recommended that
+they perform HIL simulation and indoor flight experiments, while outdoor
+flight tests can be done only by teachers to show the process.
+
+\section{Opening new experiments}
+
+(1) Opening new experiments on filter design\textbf{ }
+
+At present, this book only provides complementary filter and Kalman
+filter experiments, and only for attitude estimation. As for the estimation
+method, there are many new methods, such as unscented Kalman filter,
+particle filter, and so on. In the aspect of the model and measurement
+available, position estimation with GPS can be adopted as a new experiment,
+for example. 
+
+(2) Opening new experiments on multicopter attitude control design
+and multicopter position control design
+
+At present, this book only provides control experiments for general
+readers with the ``principle of automatic control'' background.
+For advanced and practical control methods, such as Active Disturbance
+Rejection Control (ADRC) \cite{huang2014active} and model predictive
+control \cite{grune2017nonlinear}, students can try in experiments,
+especially in postgraduate related experimental courses.
+
+(3) Other open experiments
+
+In addition to the existing experiments, teachers can also open other
+courses:
+\begin{enumerate}[1) ]
+\item Multicopter tracking controller design. The simplest task is to design
+a given 4D trajectory (including time and position) tracking controller,
+such as a circle (the head needs to point to the center of the circle)
+or a number ``8''. 
+\item Multicopter path following controller design. The simplest task is
+to design path-following controllers for straight lines, circles,
+and the number ``8''. Unlike tracking, the multicopter does not
+need to fly to a given point on a path at a given time, as long as
+its entire path follows the given path.
+\item Multicopter obstacle avoidance controller design. Control a multicopter
+to avoid a stationary spherical or stationary cylindrical obstacle,
+or several obstacles. Besides, teachers can also design an experiment
+which requires students to design a controller to avoid a geofence.
+\item Multicopter area coverage decision-making design. Refer to the tasks
+in Section\,13.1.12 of book\cite{quan2017introduction}. Consider
+recharging, design an experiment which asks students for designing
+a controller with its flight routes covering a whole rectangular farmland.
+\end{enumerate}
+

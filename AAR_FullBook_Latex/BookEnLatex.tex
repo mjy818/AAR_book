@@ -1,0 +1,160 @@
+%% LyX 2.3.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[fancy,blue,11pt]{elegantbook}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsfonts}
+\usepackage{chngpage}
+\usepackage{pdflscape}
+\usepackage{longtable}
+%\usepackage[latin9]{inputenc}
+\usepackage{units}
+\usepackage{rotating}
+\usepackage{makecell}
+\usepackage{booktabs,makecell, multirow, tabularx}
+\usepackage{ragged2e} 
+
+\usepackage{diagbox}
+\usepackage{cite}
+\usepackage{picinpar}
+\usepackage{flushend}
+%\usepackage[latin1]{inputenc}
+\usepackage{colortbl}
+\usepackage{soul}
+\usepackage{pifont}
+\usepackage{color}
+\usepackage{alltt}
+%\usepackage[hidelinks]{hyperref}
+\usepackage{enumerate}
+\usepackage{siunitx}
+\usepackage{breakurl}
+\usepackage{epstopdf}
+\usepackage{pbox}
+\usepackage[comma,numbers,square,sort&compress]{natbib}
+\usepackage{float}
+\usepackage{caption}
+
+\usepackage{adjustbox}
+
+\usepackage{subfig}
+\usepackage{threeparttable}
+
+
+
+%\usepackage{amsbsy}
+%\usepackage{lineno}
+%\usepackage{footmisc}
+%\usepackage{mathptmx}
+%\usepackage{longtable}
+%\usepackage{setspace}
+%\usepackage{float}
+%\usepackage{import}
+
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\DeclareTextSymbolDefault{\textquotedbl}{T1}
+%% Special footnote code from the package 'stblftnt.sty'
+%% Author: Robin Fairbairns -- Last revised Dec 13 1996
+\let\SF@@footnote\footnote
+\def\footnote{\ifx\protect\@typeset@protect
+    \expandafter\SF@@footnote
+  \else
+    \expandafter\SF@gobble@opt
+  \fi
+}
+\expandafter\def\csname SF@gobble@opt \endcsname{\@ifnextchar[%]
+  \SF@gobble@twobracket
+  \@gobble
+}
+\edef\SF@gobble@opt{\noexpand\protect
+  \expandafter\noexpand\csname SF@gobble@opt \endcsname}
+\def\SF@gobble@twobracket[#1]#2{}
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+%% A simple dot to overcome graphicx limitations
+\newcommand{\lyxdot}{.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\newlength{\lyxlabelwidth}      % auxiliary length 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+% !Mode:: "TeX:UTF-8"
+\renewcommand {\thetable} {\thechapter{}.\arabic{table}}
+
+\renewcommand {\thefigure} {\thechapter{}.\arabic{figure}}
+
+\makeatother
+
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Listing}
+
+\begin{document}
+\include{title/title}
+
+%\include{foreword/Foreword}\include{pref/preface}\tableofcontents{}
+
+\include{symbols/symbols}
+
+\include{acronyms/acronyms}
+
+\mainmatter
+
+\include{ch1/chapter1}
+
+\include{ch2/chapter2}
+
+\include{ch3/chapter3}
+
+\include{ch4/chapter4}
+
+\include{ch5/chapter5}
+
+\include{ch6/chapter6}
+
+\include{ch7/chapter7}
+
+\include{ch8/chapter8}
+
+\include{ch9/chapter9}
+
+\include{ch10/chapter10}
+
+\include{ch11/chapter11}
+
+\include{ch12/chapter12}
+
+\include{ch13/chapter13}
+
+\include{ch14/chapter14}
+
+\include{ch15/chapter15}
+
+\include{ch16/chapter16}
+
+
+\include{ref/reference}
+
+\appendix
+\renewcommand{\appendixname}{Appendix}
+\include{app1/appendix1}
+
+%
+%\include{app2/appendix2}
+
+\backmatter
+\end{document}
